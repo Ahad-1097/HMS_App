@@ -1,0 +1,47 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+<!--**********************************
+       Content body start
+   ***********************************-->
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Patient Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="basic-form">
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">DAIGNOSIS :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.PatientModel.Daignosis)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">SIDE :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.PatientModel.Side)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">CO-MORBITY :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.PatientModel.CoMorbity)
+                    </div>
+                </div>
+                
+               
+                
+
+                <a target="_blank" href="@Url.Action("Patientdata", "Patient",  new { PatientID = @Model.PatientModel.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
+               
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--**********************************
+    Content body end
+***********************************-->
+

@@ -1,0 +1,690 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Investigation Details</h4>
+        </div>
+        <div class="card-body">
+            @* CBC *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">CBC</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">HB:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.HB </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">TLC :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.TLC </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PLT:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.HB </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* RFT *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">RFT</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">S.Geat:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.SGeat </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">BUN :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.BUN </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* BLOOD SUGAR *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">BLOOD SUGAR</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Fasting:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Fasting </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PP :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.PP </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Random :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Random </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            @* LFT *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">LFT</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Total bil:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.TotalBil </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Direct bil :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.DirectBil </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Alk Phosphate:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.AlkPhosphate </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">SGDT :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.SGDT </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">SGPT :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.SGPT </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* TFT *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">TFT</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">T3:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.T3 </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">T4:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.T4 </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">TSH:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.TSH </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">FT3 :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.FT3 </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">FT4 :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.FT4 </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* SERUM ELECTROLYTES *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">SERUM ELECTROLYTES</h3>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sodium:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Sodium </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Potassium :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Potassium </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Calcium :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Calcium </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* PT-INR IMG *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">PT-INR IMG</h3>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PT:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.PT </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">INR :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.INR </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* LIPID PROFILE *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">LIPID PROFILE</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Cholesterol:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Cholesterol </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Triglyceride :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Triglyceride </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">HDL:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.HDL </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> LDL :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.LDL </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* URINE RM IMG *@
+            <div class="row">
+                <div class="col-sm-12 mb-12">
+                    <h3 class="my-3">URINE RM IMG</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Blood:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Blood </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Pus Cell :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.PusCell </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Epithelial cell:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.EpithelialCell </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Crystals :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Crystals </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sugar:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Sugar </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Color :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Color </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Appearance:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Appearance </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> Albumin :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.Albumin </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">ABG:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.ABG </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">USG :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.USG </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">SONOMMOGRAPHY :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.SONOMMOGRAPHY</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">CECT :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.CECT </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> MRI :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.MRI </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">FNAC :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.FNAC </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">TRUCUT BIOPSY :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.TrucutBiopsy </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">RECEPTOR STATUS:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.ReceptorStatus </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">MRCP :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.MRCP </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">ERCP:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.ERCP </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> ENDOSCOPY - UPPER GI:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.EndoscopyUpperGI </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">ENDOSCOPY - LOWER GI :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.EndoscopyLowerGI </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> PET-CT :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.PETCT </label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">TUMOR MARKERS:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.TumorMarkers </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">IVP:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.IVP</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">MCU :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.MCU</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">RGU:</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.RGU</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Others :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.OtherO</label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <a href="@Url.Action("AddInvestigation", "Patient",  new { PatientID = @ViewBag.PId,ViewName="Print" })" class="btn btn-primary" target="_blank">Print Data</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+

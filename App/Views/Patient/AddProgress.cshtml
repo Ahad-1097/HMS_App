@@ -1,0 +1,70 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+<!--**********************************
+           Content body start
+       ***********************************-->
+
+
+<div class="row">
+
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" id="AddProgressForm">
+                        <div class="row">
+                            <div class="col-sm-3 mb-2">
+                                <h4>Date </h4>
+                                <input class="form-control" asp-for="Progress.PatientID" type="hidden">
+                                <input class="form-control" asp-for="Progress.Id" type="hidden">
+                            </div>
+                            <div class="col-md-4 col-12 col-sm-4 mb-2">
+                                <div class="form-group">
+                                    <input class="form-control" asp-for="Progress.Date" placeholder="Enter date">
+                                    <span asp-validation-for="Progress.Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3 mb-2">
+                                <h4>COMPLAINT </h4>
+                            </div>
+                            <div class="col-md-4 col-12 col-sm-4 mb-2">
+                                <div class="form-group">
+                                    <input class="form-control" asp-for="Progress.Cc" placeholder="Enter COMPLAINT..">
+                                    <span asp-validation-for="Progress.Cc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 mb-2">
+                                <h4>General condition </h4>
+                            </div>
+                            <div class="col-md-4 col-12 col-sm-4 mb-2">
+                                <div class="form-group">
+                                    <textarea class="form-control" asp-for="Progress.GeneralCondition" placeholder="Enter condition" rows="4"></textarea>
+                                    <span asp-validation-for="Progress.GeneralCondition" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert" id="ProgressSuccessMessage" style="display: none;"></div>
+                            <div class="alert alert-warning" role="alert" id="ProgressErrorMessage" style="display: none;"></div>
+                            <input type="button" id="ProgressBtn" onclick="getProgressFromModel()" value="Save" class="btn btn-primary" />
+                            <input type="hidden" name="ProgressModelsJson" id="ProgressModelsJson" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--**********************************
+    Content body end
+***********************************-->

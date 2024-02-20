@@ -1,0 +1,97 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Discharge Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="basic-form">
+
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">DOA:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.DOA)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">DOD:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.DOD)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Diagnosis:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.Diagnosis)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Case Summary:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.CaseSummary)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Investigations:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.Investigations)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Treatment Given:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.TreatmentGiven)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
+                    <label class="col-sm-3 col-form-label">Advice On discharge:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Discharge.AdviceOndischarge)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Junior Resident:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Patient.JuniorResident)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Senior Resident:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Patient.SeniorResident)
+                    </div>
+                </div>
+                @if (@Model.Discharge != null)
+                {
+                    @if (@Model.Discharge.PatientID > 0)
+                    {
+                        <a target="_blank" href="@Url.Action("Discharge", "Patient",  new { PatientID = @Model.Discharge.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

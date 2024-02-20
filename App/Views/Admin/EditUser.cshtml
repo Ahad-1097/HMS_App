@@ -1,0 +1,103 @@
+﻿@model App.Models.ViewModel.UserWithRoleViewModel
+
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <style>
+        .new-form {
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 40%;
+            padding: 16px;
+            color: rgba(0, 0, 0, 0.870588);
+            background: #fff;
+            box-shadow: 0 1px 8px 0 rgba(0 60 84), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+           /* z-index:-1;*/
+        }
+@@media only screen and (max-width: 600px) {
+    .new-form {
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 92%;
+        padding: 16px;
+        color: rgba(0, 0, 0, 0.870588);
+        background: #fff;
+        box-shadow: 0 1px 8px 0 rgba(0 60 84), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+        border-radius: 12px;
+        z-index: -1;
+    }
+    }
+        </style>
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="new-form mt-2">
+            <div>
+                <form asp-action="UpdateUser">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" class="form-control" />
+                    <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="UserPhone" class="control-label">Phone No:</label>
+                        <input asp-for="UserPhone" class="form-control" />
+                        <span asp-validation-for="UserPhone" class="text-danger"></span>
+                    </div>
+                    </div>
+                        <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="UserEmail" class="control-label">Email Id</label>
+                        <input asp-for="UserEmail" class="form-control" />
+                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                    </div>
+                        <div class="form-group col-md-6">
+                            <label class="mb-1 text-white"><strong>Role</strong></label>
+                            @Html.DropDownList("Roles", ViewBag.RoleList as SelectList, "-- Select Role --", new { @class = "form-control" })
+                        </div>     
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 mt-2">
+                            <label asp-for="IsApproved" class="control-label">Approval Status</label>
+                            @Html.CheckBoxFor(model => model.IsApproved)
+                        </div>
+                    
+                   
+                    <div class="form-group col-md-6 mt-4 text-right">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+        </div>
+        </div>
+
+
+
+

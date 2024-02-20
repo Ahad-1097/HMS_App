@@ -1,0 +1,117 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+
+<!--**********************************
+       Content body start
+   ***********************************-->
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Vitals Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="class=" basic-form"">
+                
+                
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.PR)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.PR)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.BP)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.BP)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.RR)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.RR)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.SpO2)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.SpO2)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Temp)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Temp)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.GeneralExamination)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.GeneralExamination)
+                    </div>
+                </div>
+               
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.CNS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.CNS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.CVS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.CVS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.RS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.RS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.PA)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.PA)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.LocalExamination)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.LocalExamination)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Drains)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Drains)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Urine)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Urine)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Advice)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Advice)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Remark)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Remark)
+                    </div>
+                </div>
+                <a target="_blank" href="@Url.Action("Vitals", "Patient",  new { PatientID = @Model.Progress.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--**********************************
+    Content body end
+***********************************-->

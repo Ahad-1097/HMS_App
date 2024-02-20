@@ -1,0 +1,116 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+
+
+<form  id="AddPatientForm" >
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PatientModel.PatientID" class="form-control" />
+        <input type="hidden" asp-for="PatientModel.Address_ID" class="form-control" />
+
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.Dr_Name">Consultants  </label>
+            @Html.DropDownList("PatientModel.Dr_ID", ViewBag.DoctorList as SelectList, "-- Select Doctor --", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.CADSNumber" class="control-label">CADS Number</label>
+            <input asp-for="PatientModel.CADSNumber" class="form-control" placeholder="Enter CADS Number" />
+            <span asp-validation-for="PatientModel.CADSNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.OPDNumber" class="control-label">OPD Number</label>
+            <input asp-for="PatientModel.OPDNumber" class="form-control" placeholder="Enter OPD No" />
+            <span asp-validation-for="PatientModel.OPDNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.Name" class="control-label"></label>
+            <input asp-for="PatientModel.Name" class="form-control" placeholder="Enter Name" />
+            <span asp-validation-for="PatientModel.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="PatientModel.DOA" class="control-label"></label>
+            <input asp-for="PatientModel.DOA" class="form-control" placeholder="Enter DOA" />
+            <span asp-validation-for="PatientModel.DOA" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.Age" class="control-label"></label>
+            <input asp-for="PatientModel.Age" class="form-control" placeholder="Enter Age" />
+            <span asp-validation-for="PatientModel.Age" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.Gender" class="control-label"></label>
+            <select asp-for="PatientModel.Gender" name="PatientModel.Gender" class="form-control">
+                <option selected value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <span asp-validation-for="PatientModel.Gender" class="text-danger"></span>
+            <span asp-validation-for="PatientModel.Gender" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="PatientModel.Street" class="control-label"></label>
+                    <input asp-for="PatientModel.Street" class="form-control" placeholder="Enter Address" />
+                    <span asp-validation-for="PatientModel.Street" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="PatientModel.City" class="control-label"></label>
+                    <input asp-for="PatientModel.City" class="form-control" placeholder="Enter City" />
+                    <span asp-validation-for="PatientModel.City" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="PatientModel.State" class="control-label"></label>
+                    <input asp-for="PatientModel.State" class="form-control" placeholder="Enter State" />
+                    <span asp-validation-for="PatientModel.State" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="PatientModel.ZipCode" class="control-label">Pin Code</label>
+                    <input asp-for="PatientModel.ZipCode" class="form-control" placeholder="Enter Pin Code" />
+                    <span asp-validation-for="PatientModel.ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.PhoneNumber" class="control-label">Phone Number</label>
+            <input asp-for="PatientModel.PhoneNumber" class="form-control" placeholder="Enter Phone Number" />
+            <span asp-validation-for="PatientModel.PhoneNumber" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.AlternateNumber" class="control-label">Alternate Number</label>
+            <input asp-for="PatientModel.AlternateNumber" class="form-control" placeholder="Alternate Number" />
+            <span asp-validation-for="PatientModel.AlternateNumber" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.JuniorResident" class="control-label">Resident Junior</label>
+            <input asp-for="PatientModel.JuniorResident" class="form-control" placeholder="Enter  Name" />
+            
+           @* @Html.DropDownList("PatientModel.JuniorResident", ViewBag.JRlist as SelectList, "-- Select Junior --", new { @class = "form-control" })
+           *@
+            <span asp-validation-for="PatientModel.JuniorResident" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PatientModel.SeniorResident" class="control-label">Resident Senior</label>
+            <input asp-for="PatientModel.SeniorResident" class="form-control" placeholder="Enter  Name" />
+
+            @* @Html.DropDownList("PatientModel.SeniorResident", ViewBag.SRlist as SelectList, "-- Select Senior --", new { @class = "form-control" })
+*@
+            <span asp-validation-for="PatientModel.SeniorResident" class="text-danger"></span>
+        </div>
+       
+        <input type="hidden" name="ModelsJson" id="ModelsJson" />
+    </div>
+    <div class="form-group">
+        <div class="alert alert-primary" role="alert" id="PatientsuccessMessage" style="display: none;"></div>
+        <div class="alert alert-warning" role="alert" id="PatienterrorMessage" style="display: none;"></div>
+        <input type="button" id="PatientBtn" onclick="getPatientFormModels()" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+@* <script src="~/customJs/AddPatientModel.js"></script> *@
+
+
+

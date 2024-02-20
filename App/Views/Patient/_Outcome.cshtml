@@ -1,0 +1,47 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+@{
+    ViewData["Title"] = "OutcomeSheet";
+}
+
+<!-- Content body start -->
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="basic-form">
+                    <form id="AddOutcomeForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                @* <input type="hidden" asp-for="InvestigationModel.Id" class="form-control" /> *@
+                                <h4>Day</h4>
+                                <input type="date" asp-for="Outcome.Date" class="form-control" />
+                                <span asp-validation-for="Outcome.Date" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="outcome">Select Outcome</label>
+                                <select  asp-for="Outcome.outcomeType" class="form-control" name="Outcome.Outcome">
+                                    <option value="Discharged">Discharged</option>
+                                    <option value="LAMA">LAMA</option>
+                                    <option value="Absconded">Absconded</option>
+                                    <option value="Transferred">Transferred</option>
+                                    <option value="Death">Death</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="alert alert-primary" role="alert" id="OutcomeSuccessMessage" style="display: none;"></div>
+                        <div class="alert alert-warning" role="alert" id="OutcomeErrorMessage" style="display: none;"></div>
+@*                      
+                        <input type="button" onclick="getOutComeFormModels()" id="OutcomeBtn1" class="btn btn-primary" value="Save" />*@
+                        <input type="button" onclick="getOutcomeFormModel()" id="OutcomeBtn1" class="btn btn-primary" value="Save" />
+                   
+                        <input type="hidden" name="OutcomeModelsJson" id="OutcomeModelsJson" />
+                        <input type="hidden" value="@ViewBag.PatientID" asp-for="Outcome.PatientID" class="form-control" />
+                        <input type="hidden" asp-for="Outcome.Id" class="form-control" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content body end -->
+

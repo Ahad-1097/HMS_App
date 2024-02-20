@@ -1,0 +1,369 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Patient";
+}
+
+<!--**********************************
+           Content body start
+       ***********************************-->
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <h4>Patient Details</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Patient Details</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Patient Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#AddPatient" data-toggle="tab">Add Patient</a></li>
+                            <li><a href="#AddInvestigation" data-toggle="tab" onclick="AddInvestigation()">Add Investigation</a></li>
+                            <li><a href="#AddPicture" data-toggle="tab" onclick="AddPicture()">Add Picture</a></li>
+                            <li><a href="#Progress" data-toggle="tab" onclick="Progress()">Progress</a></li>
+                            <li><a href="#Vitals" data-toggle="tab" onclick="Vitals()">Vitals</a></li>
+                            <li><a href="#Diagnosis" data-toggle="tab" onclick="Diagnosis()">Diagnosis</a></li>
+                            <li><a href="#CaseSheet" data-toggle="tab" onclick=" CaseSheet()">CaseSheet</a></li>
+                            <li><a href="#Operation" data-toggle="tab" onclick="Operation()">Operation</a></li>
+                            <li><a href="#Outcome" data-toggle="tab" onclick="Outcome()">Outcome</a></li>
+                            <li><a href="#Discharge" data-toggle="tab" onclick="LoadDischargePartial()">Discharge</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="AddPatient" class="tab-pane active">
+                                @{
+                                    Html.RenderPartial("AddPatient");
+                                }
+
+                            </div>
+                            <div id="AddInvestigation" class="tab-pane">
+                                @{
+                                    Html.RenderPartial("_AddInvestigation");
+                                }
+
+                            </div>
+                            <div id="AddPicture" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("_AddPicture");
+                                }
+                            </div>
+                            <div id="Progress" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("AddProgress");
+                                }
+                            </div> 
+                            <div id="Vitals" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("AddVitals");
+                                }
+                            </div>
+
+                            <div id="Diagnosis" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("_Diagnosis");
+                                }
+
+                            </div>
+
+                            <div id="CaseSheet" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("CaseSheet");
+                                }
+                            </div>
+                            <div id="Operation" class="tab-pane">
+                                @{
+
+                                    Html.RenderPartial("OperationSheet");
+                                }
+                            </div>
+                            <div id="Outcome" class="tab-pane">
+                                @{
+                                    Html.RenderPartial("_Outcome");
+                                }
+                            </div>
+
+                            <div id="Discharge" class="tab-pane">
+                                <div id="Dischargepartial">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @*<button id="prevBtn" class="btn btn-secondary">Previous</button>
+                        <button id="nextBtn" class="btn btn-primary">Next</button>*@
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--**********************************
+    Content body end
+***********************************-->
+
+<style>
+    .tab-container {
+        margin-top: 20px;
+    }
+
+    .nav-pills {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .nav-pills li {
+            display: inline-block;
+        }
+
+            .nav-pills li a {
+                display: block;
+                padding: 10px 18px;
+                background-color: #f2f2f2;
+                color: #333;
+                text-decoration: none;
+            }
+
+            .nav-pills li.active a {
+                background-color: #ccc;
+            }
+
+    .tab-content {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .button-container {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+        .button-container button {
+            margin-left: 10px;
+        }
+</style>
+@section scripts{
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script src="~/customJs/AddPatient.js"></script>
+    <script src="~/customJs/Investigation.js"></script>
+    <script src="~/customJs/Progress.js"></script>
+    <script src="~/customJs/Diagnosis.js"></script>
+    <script src="~/customJs/CaseSheet.js"></script>
+    <script src="~/customJs/Operation.js"></script>
+    <script src="~/customJs/Discharge.js"></script>
+    <script src="~/customJs/ImageLoad.js"></script>
+    <script src="~/customjs/Outcome.js"></script>
+    <script>
+        $(document).ready(function () {
+           // AddPicture();
+
+
+            $('.select2').select2({
+                ajax: {
+                    url: '@Url.Action("GetSubCategoryList", "Patient")', // The URL of your search action method
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            query: params.term // The search term entered by the user
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data // The search results returned by your action method
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+
+
+        });
+
+        function AddInvestigation() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#AddInvestigation").val("Patient shoub be added").prop("disabled", true);
+            } else {
+                $("#AddInvestigation").val("Add Investigation").prop("disabled", false);
+            }
+
+
+        }
+        function AddPicture() {
+            var btn = $("#PatientBtn").val();
+            var btn2 = $("#AddInvestigation").val();
+            if (btn != "Successfull" && btn2 != "Add more") {
+                $("#Imagebtn").val("Patient and AddInvestigation form should be completed").prop("disabled", true);
+            } else {
+                $("#Imagebtn").val("Save").prop("disabled", false);
+            }
+
+        }
+
+        function Progress() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#ProgressBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#ProgressBtn").val("Save").prop("disabled", false);
+            }
+        }
+        function Vitals() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#ProgressBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#ProgressBtn").val("Save").prop("disabled", false);
+            }
+        }
+        function Diagnosis() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#DiagnosisBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#DiagnosisBtn").val("Save").prop("disabled", false);
+            }
+        }
+        function CaseSheet() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#CaseSheetBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#CaseSheetBtn").val("Save").prop("disabled", false);
+            }
+        }
+        function Operation() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#OperationBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#OperationBtn").val("Save").prop("disabled", false);
+            }
+        }
+
+        function Outcome() {
+            debugger
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#OperationBtn").val("Patient form should be completed").prop("disabled", true);
+            } else {
+                $("#OperationBtn").val("Save").prop("disabled", false);
+            }
+        }
+
+        function LoadDischargePartial() {
+
+
+            $.ajax({
+                url: '/Patient/Discharge', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: 0, ViewName: "Create" },
+                success: function (result) {
+                    $('#Dischargepartial').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#DischargeBtn").val("Previous form should be completed").prop("disabled", true);
+            } else {
+                $("#DischargeBtn").val("Save").prop("disabled", false);
+            }
+        }
+
+
+
+        $(function () {
+            let selectedCata = 0;
+            $('#Category').change(function () {
+                var selectedValue = $(this).val();
+                this.selectedCata = selectedValue;
+                $.ajax({
+                    url: '@Url.Action("GetSubCategoryList", "Patient")',
+                    type: 'GET',
+                    data: { CategoryId: selectedValue },
+                    success: function (data) {
+                        var childDropdown = $('#subCategory');
+                        childDropdown.empty();
+                        childDropdown.append($('<option>').val('').text('-- Select --'));
+                        $.each(data, function (index, option) {
+                            childDropdown.append($('<option>').val(option.CategoryId).text(option.subCategoryTitle));
+                        });
+                    }
+                });
+            });
+        });
+
+
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+
+
+        @* $("#targetElement").load("/Controller/Action?activeTab=" + encodeURIComponent(activeTab));*@
+
+                $('.nav-pills li').click(function () {
+                    // Remove active class from all li items
+                    $('.nav-pills li').removeClass('active');
+
+                    // Add active class to the clicked li item
+                    $(this).addClass('active');
+
+                    // Get the corresponding tab ID
+                    var tabId = $(this).find('a').attr('href');
+
+                    // Hide all tab panes
+                    $('.tab-content .tab-pane').removeClass('active');
+
+                    // Show the corresponding tab pane
+                    $(tabId).addClass('active');
+                });
+
+            $('#prevBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.prev('li').length === 1) {
+                    activeTab.removeClass('active').prev('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').prev('.tab-pane').addClass('active');
+                }
+            });
+
+            $('#nextBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.next('li').length === 1) {
+                    activeTab.removeClass('active').next('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').next('.tab-pane').addClass('active');
+                }
+            });
+        });
+
+    </script>
+
+}

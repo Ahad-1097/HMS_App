@@ -1,0 +1,766 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+@{
+    var investigationImages = Model.InvestigationImages;
+    int imgct = 0;
+
+    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif" };
+}
+
+<form method="post" id="AddImageForm" enctype="multipart/form-data">
+    <div>
+
+        @if (Model.InvestigationImagesList != null)
+        {
+            <div class="row">
+                @foreach (var item in Model.InvestigationImagesList)
+                {
+                    imgct++;
+                    @if (@item.Id > 0)
+                    {
+                        <div class="col-2">
+                            <label for="option">Image_@imgct</label>
+                            <input type="radio" onclick="AddPicture('@item.PatientId', '@item.Id')" checked='@(item.Id == Model.InvestigationImages.Id)' placeholder="id" id="@item.Id" value="@item.Id" name="imgId" />
+                        </div>
+                    }
+                }
+                @if (imgct<5)
+                {
+                    <label for="option">New Image</label>
+                    <input type="radio" onclick="AddPicture('@Model.InvestigationImages.PatientId', '-1')" checked='@(Model.InvestigationImages.Id == 0)' placeholder="id" id="newImg" value="newImg" name="imgId" />
+                    @* <input type="button" class="btn btn-primary" onclick="AddPicture('@Model.InvestigationImages.PatientId', '-1')" for="option" value="Add New Image"> *@
+                }
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @*  asp-for="InvestigationImages.PatientId"*@
+                    <input type="hidden" asp-for="PatientModel.PatientID" class="form-control" />
+                    <input type="hidden" asp-for="InvestigationImages.PatientId" class="form-control" />
+                    <input type="hidden" asp-for="InvestigationImages.Id" class="form-control" />
+                    <input type="hidden" asp-for="InvestigationImages.InvestigationID" class="form-control" />
+
+                    @if (!string.IsNullOrEmpty(investigationImages.BloodSugar_img))
+                    {
+                        var extension = investigationImages.BloodSugar_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.BloodSugar_img" title="@investigationImages.BloodSugar_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h4>Blood sugar img</h4>
+                    <input asp-for="InvestigationImagesModel.BloodSugar_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.BloodSugar_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>TFT img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.TFT_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.TFT_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @* @foreach (var item in Model.InvestigationImagesList)
+                    {
+                    @if (!string.IsNullOrEmpty(item.TFT_img))
+                    {
+
+                    <input type="radio" asp-for="@item.TFT_img" value="@item.TFT_img" class="form-control imgbloodrdo" />
+                    var extension = item.TFT_img.Split('.').LastOrDefault();
+
+                    if (imageExtensions.Contains(extension))
+                    {
+                    <div class="editimg">
+                    <img src="~/Images_Data/@item.TFT_img">
+                    </div>
+                    }
+                    else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                    {
+                    <a href="~/Images_Data/@item.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                    }
+
+
+                    }
+                    } *@
+                    @if (!string.IsNullOrEmpty(investigationImages.TFT_img))
+                    {
+                        var extension = investigationImages.TFT_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.TFT_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.USG_img))
+                    {
+                        var extension = investigationImages.USG_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.USG_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h4>USG img</h4>
+                    <input asp-for="InvestigationImagesModel.USG_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.USG_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>SONOMMOGRAPHY img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.SONOMMOGRAPHY_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.SONOMMOGRAPHY_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.SONOMMOGRAPHY_img))
+                    {
+                        var extension = investigationImages.SONOMMOGRAPHY_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.CECT_img))
+                    {
+                        var extension = investigationImages.CECT_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.CECT_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h4>CECT img </h4>
+                    <input asp-for="InvestigationImagesModel.CECT_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.CECT_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>
+                    MRI img
+                </h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.MRI_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.MRI_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.MRI_img))
+                    {
+                        var extension = investigationImages.MRI_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.MRI_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.FNAC_img))
+                    {
+                        var extension = investigationImages.FNAC_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.FNAC_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>FNAC img</h4>
+
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.FNAC_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.FNAC_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>TRUCUT BIOPSY img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.TrucutBiopsy_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.TrucutBiopsy_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.TrucutBiopsy_img))
+                    {
+                        var extension = investigationImages.TrucutBiopsy_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.TrucutBiopsy_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.ReceptorStatus_img))
+                    {
+                        var extension = investigationImages.ReceptorStatus_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.ReceptorStatus_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>Receptor status img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.ReceptorStatus_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.ReceptorStatus_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>MRCP img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.MRCP_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.MRCP_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.MRCP_img))
+                    {
+                        var extension = investigationImages.MRCP_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.MRCP_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.ERCP_img))
+                    {
+                        var extension = investigationImages.ERCP_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.ERCP_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>ERCP img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.ERCP_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.ERCP_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>Endoscopy - uper GI img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.EndoscopyUpperGI_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.EndoscopyUpperGI_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.EndoscopyUpperGI_img))
+                    {
+                        var extension = investigationImages.EndoscopyUpperGI_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.EndoscopyUpperGI_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.EndoscopyLowerGI_img))
+                    {
+                        var extension = investigationImages.EndoscopyLowerGI_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.EndoscopyLowerGI_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>Endoscopy - lower GI img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.EndoscopyLowerGI_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.EndoscopyLowerGI_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>PET-CT img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.PETCT_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.PETCT_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.PETCT_img))
+                    {
+                        var extension = investigationImages.PETCT_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.PETCT_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.TumorMarkers_img))
+                    {
+                        var extension = investigationImages.TumorMarkers_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.TumorMarkers_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>Tumor markers img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.TumorMarkers_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.TumorMarkers_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>IVP img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.IVP_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.IVP_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.IVP_img))
+                    {
+                        var extension = investigationImages.IVP_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.IVP_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.MCU_img))
+                    {
+                        var extension = investigationImages.MCU_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.MCU_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>MCU img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.MCU_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.MCU_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>RGU img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.RGU_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.RGU_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.RGU_img))
+                    {
+                        var extension = investigationImages.RGU_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.RGU_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.ABG_img))
+                    {
+                        var extension = investigationImages.ABG_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.ABG_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>ABG img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.ABG_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.ABG_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>Others img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.OtherO" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.OtherO" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.OtherO))
+                    {
+                        var extension = investigationImages.OtherO.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.OtherO">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.CBC_img))
+                    {
+                        var extension = investigationImages.CBC_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.CBC_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>CBC img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.CBC_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.CBC_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>RFT img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.RFT_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.RFT_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.RFT_img))
+                    {
+                        var extension = investigationImages.RFT_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.RFT_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.PTINR_img))
+                    {
+                        var extension = investigationImages.PTINR_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.PTINR_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h4>PT-INR img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.PTINR_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.PTINR_img" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <h4>LFT img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.LFT_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.LFT_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.LFT_img))
+                    {
+                        var extension = investigationImages.LFT_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.LFT_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.UrineRM_img))
+                    {
+                        var extension = investigationImages.UrineRM_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.UrineRM_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Urine RM Img</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.UrineRM_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.UrineRM_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>LIPID PROFILE IMG</h4>
+                <div class="form-group">
+                    <input asp-for="InvestigationImagesModel.LIPIDPROFILE_img" class="form-control" />
+                    <span asp-validation-for="InvestigationImagesModel.LIPIDPROFILE_img" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="EditImage">
+                    @if (!string.IsNullOrEmpty(investigationImages.LIPIDPROFILE_img))
+                    {
+                        var extension = investigationImages.LIPIDPROFILE_img.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@investigationImages.LIPIDPROFILE_img">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@investigationImages.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="form-group">
+        <div class="alert alert-primary" role="alert" id="ImageSuccessMessage" style="display: none;"></div>
+        <div class="alert alert-warning" role="alert" id="ImageErrorMessage" style="display: none;"></div>
+        <input type="button" value="Save" id="Imagebtn" class="btn btn-primary" />
+
+    </div>
+</form>
+
+
+<script src="~/customJs/ImageLoad.js"></script>
+
+

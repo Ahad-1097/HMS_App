@@ -1,0 +1,46 @@
+﻿@model App.Models.Identity.UserRegistrationModel
+
+
+<form asp-action="Register" asp-controller="Account">
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+        @Html.ValidationSummary()
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>First Name</strong></label>
+        <input asp-for="FirstName" type="text" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>Last Name</strong></label>
+        <input asp-for="LastName" type="text" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>Email</strong></label>
+        <input asp-for="Email" type="text" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>Password</strong></label>
+        <input asp-for="Password" type="text" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>Confirm Password</strong></label>
+        <input asp-for="ConfirmPassword" type="text" class="form-control" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="mb-1 text-white"><strong>Role</strong></label>
+        <select asp-for="UserRole" class="form-control">
+            <option value="Docter">Docter</option>
+            <option value="jr">Junior Resident </option>
+            <option value="sr">Sernior Resident </option>
+            <!-- Add more role options here -->
+        </select>
+        <span asp-validation-for="UserRole" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn bg-white  btn-block" style="color: #2767c4;">Create</button>
+    </div>
+</form>

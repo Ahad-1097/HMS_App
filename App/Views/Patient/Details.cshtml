@@ -1,0 +1,323 @@
+@model App.DtoModel.PatientModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!--**********************************     Content body start1     ***********************************-->
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <h4>Patient Details</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Patient Details</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Patient Details</h4>
+                        <input type="hidden" asp-for="PatientID" />
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#AddPatient" data-toggle="tab">Add Patient</a></li>
+                            <li><a href="#AddInvestigation" onclick="AddInvestigation(@Model.PatientID)" data-toggle="tab">Add Investigation</a></li>
+                            <li><a href="#AddPicture" onclick="AddPicture(@Model.PatientID)" data-toggle="tab">Add Picture</a></li>
+                            <li><a href="#Progress" onclick="Progress(@Model.PatientID)" data-toggle="tab">Progress</a></li>
+                            <li><a href="#Vitals" onclick="Vitals(@Model.PatientID)" data-toggle="tab">Vitals</a></li>
+                            <li><a href="#Diagnosis" onclick="Diagnosis(@Model.PatientID)" data-toggle="tab">Diagnosis</a></li>
+                            <li><a href="#CaseSheet" onclick="CaseSheet(@Model.PatientID)" data-toggle="tab">CaseSheet</a></li>
+                            <li><a href="#Operation" onclick="Operation(@Model.PatientID)" data-toggle="tab">Operation</a></li>
+                            <li><a href="#OutCome" onclick="OutCome(@Model.PatientID)" data-toggle="tab">OutCome</a></li>
+                            <li><a href="#Discharge" onclick="Discharge(@Model.PatientID)" data-toggle="tab">Discharge</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="AddPatient" class="tab-pane active">
+                                <div id="ViewPatient"></div>
+                            </div>
+                            <div id="AddInvestigation" class="tab-pane">
+                                <div id="AddInvestigationPartialView"></div>
+                            </div>
+                            <div id="AddPicture" class="tab-pane">
+                                <div id="EditPicture"></div>
+                            </div>
+                            <div id="Progress" class="tab-pane">
+                                <div id="ProgressData"></div>
+                            </div>
+                            <div id="Vitals" class="tab-pane">
+                                <div id="VitalsData"></div>
+                            </div>
+                            <div id="Diagnosis" class="tab-pane">
+                                <div id="DiagnosisData"></div>
+                            </div>
+                            <div id="CaseSheet" class="tab-pane">
+                                <div id="CaseSheetData"></div>
+                            </div>
+                            <div id="Operation" class="tab-pane">
+                                <div id="OperationData"></div>
+                            </div>
+                            <div id="OutCome" class="tab-pane">
+                                <div id="OutComeData"></div>
+                            </div>
+                            <div id="Discharge" class="tab-pane">
+                                <div id="DischargeData"></div>
+                            </div>
+                        </div>
+
+                      
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--**********************************
+    Content body end
+***********************************-->
+
+<style>
+    .tab-container {
+        margin-top: 20px;
+    }
+
+    .nav-pills {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .nav-pills li {
+            display: inline-block;
+        }
+
+            .nav-pills li a {
+                display: block;
+                padding: 10px 20px;
+                background-color: #f2f2f2;
+                color: #333;
+                text-decoration: none;
+            }
+
+            .nav-pills li.active a {
+                background-color: #ccc;
+            }
+
+    .tab-content {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .button-container {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+        .button-container button {
+            margin-left: 10px;
+        }
+</style>
+@section scripts{
+    <script>
+
+
+
+
+        $(document).ready(function () {
+
+            var id = $("#PatientID").val();
+
+            $.ajax({
+                url: '/Patient/Patientdata', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id,ViewName:"Detail" },
+                success: function (result) {
+                    $('#ViewPatient').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+
+            var rowCount = $('#myTable tr').length;
+            if (rowCount == 4) {
+                // $('#Adddata').attr("disabled", "disabled");
+                $('#Adddata').val("Update Investigation");
+                /*$('#Adddata').attr("type", "hidden");*/
+
+            } else {
+                $('#Adddata').val("Add new Investigation");
+            }
+
+            $('.nav-pills li').click(function () {
+                // Remove active class from all li items
+                $('.nav-pills li').removeClass('active');
+
+                // Add active class to the clicked li item
+                $(this).addClass('active');
+
+                // Get the corresponding tab ID
+                var tabId = $(this).find('a').attr('href');
+
+                // Hide all tab panes
+                $('.tab-content .tab-pane').removeClass('active');
+
+                // Show the corresponding tab pane
+                $(tabId).addClass('active');
+            });
+
+            $('#prevBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.prev('li').length === 1) {
+                    activeTab.removeClass('active').prev('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').prev('.tab-pane').addClass('active');
+                }
+            });
+
+            $('#nextBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.next('li').length === 1) {
+                    activeTab.removeClass('active').next('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').next('.tab-pane').addClass('active');
+                }
+            });
+        });
+
+
+        function AddInvestigation(id) {
+            $.ajax({
+                url: '/Patient/AddInvestigation', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#AddInvestigationPartialView').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function AddPicture(id) {
+            $.ajax({
+                url: '/Patient/AddPicture', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#EditPicture').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function Progress(id) {
+            $.ajax({
+                url: '/Patient/Progress', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#ProgressData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function Vitals(id) {
+            $.ajax({
+                url: '/Patient/Vitals', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#VitalsData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function Diagnosis(id) {
+            $.ajax({
+                url: '/Patient/DiagnosisEdit', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#DiagnosisData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function CaseSheet(id) {
+            $.ajax({
+                url: '/Patient/CaseSheet', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#CaseSheetData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function Operation(id) {
+            $.ajax({
+                url: '/Patient/Operation', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#OperationData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+        function OutCome(id) {
+            $.ajax({
+                url: '/Patient/Outcome', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#OutComeData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+
+        function Discharge(id) {
+            $.ajax({
+                url: '/Patient/Discharge', // Replace "ControllerName" with the actual name of your controller
+                type: 'GET',
+                data: { PatientID: id, ViewName: "Detail" },
+                success: function (result) {
+                    $('#DischargeData').html(result); // Replace the content of the container with the loaded partial view
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Log any error that occurred during the AJAX request
+                }
+            });
+        }
+
+
+    </script>
+
+
+
+}

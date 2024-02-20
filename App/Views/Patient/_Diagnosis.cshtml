@@ -1,0 +1,49 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+
+
+<form method="post" id="AddDiagnosisForm">
+    <div class="row">
+        <div class="col-sm-3 mb-2">
+            <h4>DAIGNOSIS</h4>
+        </div>
+        <div class="col-md-4 col-12 col-sm-4 mb-2">
+            <div class="form-group">
+                <input class="form-control" asp-for="PatientModel.Daignosis" placeholder="Enter message">
+                <span asp-validation-for="PatientModel.Daignosis" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 mb-2">
+            <h4>SIDE</h4>
+        </div>
+        <div class="col-md-4 col-12 col-sm-4 mb-2">
+            <div class="form-group">
+                <input class="form-control" asp-for="PatientModel.Side" placeholder="Enter message">
+                <span asp-validation-for="PatientModel.Side" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 mb-2">
+            <h4>CO-MORBITY</h4>
+        </div>
+        <div class="col-md-4 col-12 col-sm-4 mb-2">
+            <div class="form-group">
+                <input class="form-control" asp-for="PatientModel.CoMorbity" placeholder="Enter message">
+                <span asp-validation-for="PatientModel.CoMorbity" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+   
+    <div class="form-group col-md-4">
+        <div class="alert alert-primary" role="alert" id="DiagnosisMessage" style="display: none;"></div>
+        <div class="alert alert-warning" role="alert" id="DiagnosisErrorMessage" style="display: none;"></div>
+        <input type="button"  value="Save" id="DiagnosisBtn" onclick="getDiagnosisFromModel()" class="btn btn-primary"/>
+       
+        <input type="hidden" asp-for="PatientModel.PatientID" />
+        <input type="hidden" name="DiagnosisModelsJson" id="DiagnosisModelsJson" />
+    </div>
+</form>
+<script src="~/customJs/Diagnosis.js"></script>

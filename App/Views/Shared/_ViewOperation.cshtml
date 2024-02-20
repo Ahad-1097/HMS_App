@@ -1,0 +1,141 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+@{
+    var imageExtensions = new List<string>
+    { "jpg", "jpeg", "png", "gif" };
+}
+
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Operation Details</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Consultant:</label>
+                <div class="col-sm-9">
+                   @ViewBag.SelectedDoctor
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Date:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Date)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Indication:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Indication)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Anaesthetist:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Anaesthetist)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Operting Surgeon:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.OpertingSurgeon)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Position:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Position)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Anaesthesia:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Anaesthesia)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Preoperative Diagnosis:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.PreoperativeDiagnosis)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Operation Title:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.OperationTitle)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Findings:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Findings)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Duration:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Duration)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Steps Of Operation:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.StepsOfOperation)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Antibiotics:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.Antibiotics)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Specimens Sent For:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.SpecimensSentFor)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Post Operative Instructions:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Operation.PostOperativeInstructions)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">PER OP IMAGE :</label>
+                <div class="col-md-3">
+                    @if (!string.IsNullOrEmpty(Model.Operation.PerOPImage))
+                    {
+                        var extension = Model.Operation.PerOPImage.Split('.').LastOrDefault();
+
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@Model.Operation.PerOPImage" style="width: 140px">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@Model.Operation.PerOPImage" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+            
+            <a target="_blank" href="@Url.Action("Operation", "Patient",  new { PatientID = @Model.Operation.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,118 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+@{
+    ViewData["Title"] = "OperationSheet";
+}
+
+<!--**********************************
+            Content body start
+        ***********************************-->
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            
+            <div class="card-body">
+                <div class="basic-form">
+                    <form id="AddOperationForm" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input asp-for="Operation.PatientID" class="form-control" type="hidden">
+                                <input asp-for="Operation.Id" class="form-control" type="hidden">
+                                <label for="doctor">Consultants</label>
+                                @Html.DropDownList("Operation.Dr_ID", ViewBag.DoctorList as SelectList, "-- Select Doctor --", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Date</label>
+                                <input asp-for="Operation.Date" class="form-control" placeholder="Enter date">
+                                <span asp-validation-for="Operation.Date" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Indication</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.Indication" placeholder="Enter indication..."></textarea>
+                                <span asp-validation-for="Operation.Indication" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Anaesthetist</label>
+                                <input asp-for="Operation.Anaesthetist" class="form-control" placeholder="Enter anaesthetist">
+                                <span asp-validation-for="Operation.Anaesthetist" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Operating Surgeon(s)</label>
+                                <input asp-for="Operation.OpertingSurgeon" class="form-control" placeholder="Enter operating surgeon ">
+                                <span asp-validation-for="Operation.OpertingSurgeon" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Position</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.Position" placeholder="Enter position..."></textarea>
+                                <span asp-validation-for="Operation.Position" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Anaesthesia</label>
+                                <select class="form-control" asp-for="Operation.Anaesthesia">
+                                    <option value="GA">GA (General Anaesthesia)</option>
+                                    <option value="SA">SA (Spinal Anaesthesia)</option>
+                                    <option value="Local">Local Anaesthesia</option>
+                                    <option value="NerveBlock">Nerve Block</option>
+                                </select>
+                                <span asp-validation-for="Operation.Anaesthesia" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Pre-operative Diagnosis</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.PreoperativeDiagnosis" placeholder="Enter pre-operative diagnosis..."></textarea>
+                                <span asp-validation-for="Operation.PreoperativeDiagnosis" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Operation Title</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.OperationTitle" placeholder="Enter operation title..."></textarea>
+                                <span asp-validation-for="Operation.OperationTitle" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Findings</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.Findings" placeholder="Enter findings..."></textarea>
+                                <span asp-validation-for="Operation.Findings" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>DURATION</label>
+                                <input asp-for="Operation.Duration" class="form-control" placeholder="Enter duration">
+                                <span asp-validation-for="Operation.Duration" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Steps of Operation</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.StepsOfOperation" placeholder="Enter antibiotics..."></textarea>
+                                <span asp-validation-for="Operation.StepsOfOperation" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Antibiotics</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.Antibiotics" placeholder="Enter antibiotics..."></textarea>
+                                <span asp-validation-for="Operation.Antibiotics" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Specimens sent for</label>
+                                <input asp-for="Operation.SpecimensSentFor" class="form-control" placeholder="Enter specimen sent for">
+                                <span asp-validation-for="Operation.SpecimensSentFor" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Post - operative instruction</label>
+                                <textarea class="form-control" rows="4" asp-for="Operation.PostOperativeInstructions" placeholder=" Enter post - operative instruction..."></textarea>
+                                <span asp-validation-for="Operation.PostOperativeInstructions" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Perhaps Image</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage">
+                                @* <input asp-for="Operation.PerOPImage" class="form-control" placeholder="Enter specimen sent for"> *@
+                            </div>
+
+                        </div>
+                        <div class="alert alert-primary" role="alert" id="OperationSuccessMessage" style="display: none;"></div>
+                        <div class="alert alert-warning" role="alert" id="OperationErrorMessage" style="display: none;"></div>
+                        <input type="button" id="OperationBtn" onclick="getOperationFromModel()" class="btn btn-primary" value="Save" />
+                        <input type="hidden" name="OperationModelsJson" id="OperationModelsJson" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**********************************
+    Content body end
+***********************************-->

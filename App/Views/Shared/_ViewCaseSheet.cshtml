@@ -1,0 +1,211 @@
+﻿@model App.Models.ViewModel.PatientViewModel
+
+<div class="col-xl-12 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">CaseSheet Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PRESENTING COMPLAINTS:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.PRESENTING_COMPLAINTS)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">History Of Presenting Illness:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.HistoryOfPresentingIllness)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Past History:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.PastHistory)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Personal History:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.PersonalHistory)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Diet:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Diet)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Appetite:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Appetite)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sleep:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Sleep)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Bowel:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Bowel)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Bladder:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Bladder)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Addiction:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Addiction)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Family History:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.FamilyHistory)
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 class="my-3">Vitals</h3>
+
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">BP:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.BP)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PR:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.PR)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">RR:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.RR)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Temp:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Temp)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">SpO2:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.SpO2)
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 class="my-3">General Examination</h3>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Pallor:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Pallor)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Icterus:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Icterus)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Cyanosis:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Cyanosis)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Clubbing:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Clubbing)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"> Edema:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Edema)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Lymphadenopathy:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.Lymphadenopathy)
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="my-3">SYSTEMIC EXAMINATION</h3>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Respiratory System:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.RespiratorySystem)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">CNS:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.CNS)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">CVS:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.CVS)
+                </div>
+            </div>
+
+            
+            
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PerAbdomen:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.PerAbdomen)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Locoregional Exam:</label>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CaseSheet.LocoregionalExam)
+                </div>
+            </div>
+
+            <a target="_blank" href="@Url.Action("CaseSheet", "Patient",  new { PatientID = @Model.CaseSheet.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
+        </div>
+    </div>
+</div>
