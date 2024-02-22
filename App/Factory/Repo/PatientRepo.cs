@@ -1673,6 +1673,23 @@ namespace App.Repo
             return 0;
         }
 
+        public void UpdateVital(ProgressModel _model, long PatientId)
+        {
+
+            var data = _context.Progress.Where(a => a.PatientID == PatientId).FirstOrDefault();
+            if (data != null)
+            {
+                _model.Id= data.Id;
+                _model.PatientID = PatientId;
+                UpdateProgress(_model);
+            }
+            else
+            {
+                _model.PatientID = PatientId;
+                AddProgress(_model, PatientId);
+            }
+        }
+
         public bool UpdateProgress(ProgressModel _model)
         {
             if (_model.Id > 0)

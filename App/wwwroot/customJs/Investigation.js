@@ -1,6 +1,6 @@
 ﻿
 
-$("#AddInvestigation").click(function (event) {
+$("#AddInvestigationBtn").click(function (event) {
     var models = [];
     var model = {};
 

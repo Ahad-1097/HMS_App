@@ -18,10 +18,11 @@ using System.IO;
 using System.Reflection;
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PatientController : Controller
     {
         private readonly ApplicationContext _context;
@@ -30,6 +31,7 @@ namespace App.Controllers
         public static long _PatientId = 0;
         public static long _InvestigationId = 0;
         static int _catId = 0;
+        static bool addimgsuccess=false;
 
         List<InvestigationModel> TabledataList = new List<InvestigationModel>();
 
@@ -91,7 +93,10 @@ namespace App.Controllers
         };
 
             ViewBag.OutcomeType = new SelectList(OutcomeType, "ID", "Name");
-
+            if (addimgsuccess)
+            {
+                ViewBag.addImagesSuccess = "Data added successfully";
+            }
 
             return View();
         }
@@ -177,9 +182,9 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
-                
+
                 data = await _patient.PatientDetail(PatientID, cancellationToken);
-                
+
                 return PartialView("_ViewPatient", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
@@ -300,7 +305,7 @@ namespace App.Controllers
                 //  data.PatientModel.PatientID = PatientID;
                 //if (data.InvestigationImages != null && ImgId > 0)
                 //{
-                   
+
                 //    //data.InvestigationImages = data.InvestigationImagesList.Where(a => a.Id == ImgId).FirstOrDefault();
                 //    //data.InvestigationImages.PatientId = (int)PatientID;
                 //    return PartialView("_EditPicture", data);
@@ -345,7 +350,7 @@ namespace App.Controllers
                         return Json($"Error updating data: {ex.Message}");
                     }
                 }
-                else if(imageFiles.PatientId > 0 && imageFiles.Id == 0)
+                else if (imageFiles.PatientId > 0 && imageFiles.Id == 0)
                 {
                     try
                     {
@@ -360,6 +365,19 @@ namespace App.Controllers
                     {
                         return Json($"Error adding data: {ex.Message}");
                     }
+                }
+                else if (_PatientId > 0)
+                {
+
+                    _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
+                    msg = "Data added successfully";
+                    addimgsuccess=true;
+                   
+                    return RedirectToAction("Create");
+                    //InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
+                    //return PartialView("_AddPicture", investigationImagesModel);
+
+
                 }
 
                 //if (imageFiles.Msg == "save")
@@ -378,17 +396,7 @@ namespace App.Controllers
                 //    }
                 //}
 
-                //if (_PatientId > 0)
-                //{
-                //    try
-                //    {
-                //        _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
-                //        msg = "Data added successfully";
-                //        //return RedirectToAction("Create");
-                //        msg = "Data added successfully";
-                //        return Json(msg);
 
-                //    }
                 //    catch (Exception ex)
                 //    {
                 //        return Json($"Error adding data: {ex.Message}");
@@ -473,19 +481,19 @@ namespace App.Controllers
             {
                 string msg;
                 var _model = JsonConvert.DeserializeObject<List<ProgressModel>>(model).FirstOrDefault();
-                if (_model.Id > 0)
+                if (_PatientId > 0 )
                 {
-                    var result = _patient.UpdateProgress(_model);
-                    msg = "Data updated successfully";
+                     _patient.UpdateVital(_model, _PatientId);
+                    msg = "Successfull";
+                    return Json(msg);
+                }
+               else if (_model.PatientID > 0)
+                {
+                    _patient.UpdateVital(_model, _model.PatientID);
+                    msg = "Successfull";
                     return Json(msg);
                 }
 
-                if (_PatientId > 0)
-                {
-                    _patient.AddProgress(_model, _PatientId);
-                    msg = "Data added successfully";
-                    return Json(msg);
-                }
                 return Json("something went wrong");
             }
             return Json("something went wrong");
@@ -512,6 +520,7 @@ namespace App.Controllers
 
                 return GeneratePdf(data.Progress);
             }
+            data.Progress.PatientID = _PatientId;
             return PartialView("AddVitals", data);
 
         }
@@ -622,11 +631,11 @@ namespace App.Controllers
             if (PatientID > 0)
             {
                 data = _patient.OperationDetail(PatientID);
-                if (!string.IsNullOrWhiteSpace( data.Operation.Dr_ID))
+                if (!string.IsNullOrWhiteSpace(data.Operation.Dr_ID))
                 {
                     ViewBag.SelectedDoctor = doctors.FirstOrDefault(a => a.Dr_ID == data.Operation.Dr_ID).Dr_Name;
                 }
-                
+
             }
             if (PatientID > 0 && ViewName == "Edit")
             {

@@ -24,6 +24,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Patient Details</h4>
+                        <h4 id="commingfromAddimg" hidden>@ViewBag.addImagesSuccess</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-pills">
@@ -174,9 +175,10 @@
     <script src="~/customJs/Discharge.js"></script>
     <script src="~/customJs/ImageLoad.js"></script>
     <script src="~/customjs/Outcome.js"></script>
+    <script src="~/customjs/Vitals.js"></script>
     <script>
         $(document).ready(function () {
-           // AddPicture();
+           
 
 
             $('.select2').select2({
@@ -326,7 +328,10 @@
     <script>
         $(document).ready(function () {
 
-
+            // if ($("#commingfromAddimg").text() == "Data added successfully") {
+                
+            //      AddPicture();
+            // }
 
         @* $("#targetElement").load("/Controller/Action?activeTab=" + encodeURIComponent(activeTab));*@
 
