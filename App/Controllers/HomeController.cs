@@ -3,6 +3,7 @@ using App.Interface;
 using App.Models;
 using App.Models.DbContext;
 using App.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace App.Controllers
         }
 
 
-        //[Authorize(Roles = "Consultant")]
+        //[Authorize(Roles = "Docter")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
 
@@ -42,6 +44,7 @@ namespace App.Controllers
             model.TotalDocter = await _account.GetUserCountByRoleAsync("Docter");
             List<UserWithRoleViewModel> userList = await _account.UserbyRole("All");
             model.UserList = await _account.UserbyRole("Docter");
+            model.DocterList = await _account.UserbyRole("Doctor");
             model.TotalNewPatient = _docterRepo.NewPatient();
             model.TotalNewDicharge = _docterRepo.RecoverPatient();
             return View(model);

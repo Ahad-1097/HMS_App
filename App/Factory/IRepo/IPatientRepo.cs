@@ -48,6 +48,7 @@ namespace App.Interface
         long AddOutCome(OutcomeModel _model, long patientid);
         public PatientViewModel OutComeDetail(long PatientID);
         void UpdateVital(ProgressModel _model,long PatientId);
+        DischargePrintModel DischargePrintDetail(long PatientID);
 
     }
 }

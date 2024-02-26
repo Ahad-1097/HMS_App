@@ -8,13 +8,57 @@
         </div>
         <div class="card-body">
             <div class="basic-form">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">CADS No :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.CADSNumber)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">OPD/ Casualty No :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.OPDNumber)
+                    </div>
+                </div>
 
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Patient Name :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Name)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Age :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Age)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">GENDER :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Gender)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">PHONE NUMBER :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.PhoneNumber)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Address :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Address.Street),  @Html.DisplayFor(model => model.Patient.Address.City),  @Html.DisplayFor(model => model.Patient.Address.State)  @Html.DisplayFor(model => model.Patient.Address.ZipCode)
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">DOA:</label>
                     <div class="col-sm-9">
-
-                        @Html.DisplayFor(model => model.Discharge.DOA)
+                        @if (Model.Patient.DOA!=null)
+                        {
+                            @Html.DisplayFor(model => model.Patient.DOA)
+                        }
                     </div>
                 </div>
 

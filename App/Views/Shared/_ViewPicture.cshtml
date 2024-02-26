@@ -340,6 +340,113 @@
                 </div>
 
                 <div class="form-group row">
+                    <label class="col-md-3 col-form-label">ABG IMAGE :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.ABG_img))
+                        {
+                            var extension = investigationImages.ABG_img.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.ABG_img" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+
+                    <label class="col-md-3 col-form-label">Others :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.OtherO))
+                        {
+                            var extension = investigationImages.OtherO.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.OtherO" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">CBC IMG :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.CBC_img))
+                        {
+                            var extension = investigationImages.CBC_img.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.CBC_img" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+
+                    <label class="col-md-3 col-form-label">RFT IMG :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.RFT_img))
+                        {
+                            var extension = investigationImages.RFT_img.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.RFT_img" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">PT-INR IMG :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.PTINR_img))
+                        {
+                            var extension = investigationImages.PTINR_img.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.PTINR_img" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+
+                    <label class="col-md-3 col-form-label">LFT IMG :</label>
+                    <div class="col-md-3">
+                        @if (!string.IsNullOrEmpty(investigationImages.LFT_img))
+                        {
+                            var extension = investigationImages.LFT_img.Split('.').LastOrDefault();
+
+                            if (imageExtensions.Contains(extension))
+                            {
+                                <img src="~/Images_Data/@investigationImages.LFT_img" style="width: 140px">
+                            }
+                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a href="~/Images_Data/@investigationImages.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">Urine RM :</label>
                     <div class="col-md-3">
                         @if (!string.IsNullOrEmpty(investigationImages.UrineRM_img))
@@ -357,19 +464,19 @@
                         }
                     </div>
                 
-                    <label class="col-md-3 col-form-label">Others :</label>
+                    <label class="col-md-3 col-form-label">LIPID PROFILE IMG :</label>
                     <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.PTDNR_img))
+                        @if (!string.IsNullOrEmpty(investigationImages.LIPIDPROFILE_img))
                         {
-                            var extension = investigationImages.PTDNR_img.Split('.').LastOrDefault();
+                            var extension = investigationImages.LIPIDPROFILE_img.Split('.').LastOrDefault();
 
                             if (imageExtensions.Contains(extension))
                             {
-                                <img src="~/Images_Data/@investigationImages.PTDNR_img" style="width: 140px">
+                                <img src="~/Images_Data/@investigationImages.LIPIDPROFILE_img" style="width: 140px">
                             }
                             else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                             {
-                                <a href="~/Images_Data/@investigationImages.PTDNR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@investigationImages.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
                             }
                         }
                     </div>

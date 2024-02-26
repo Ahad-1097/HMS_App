@@ -44,9 +44,8 @@
     model.PerAbdomen = $("#CaseSheet_PerAbdomen").val();
     model.LocoregionalExam = $("#CaseSheet_LocoregionalExam").val();
     
-  
     models.push(model);
-    $("#CaseSheetModelsJson").val(JSON.stringify(models));
+     $("#CaseSheetModelsJson").val(JSON.stringify(models));
     return true;
 }
 
@@ -55,7 +54,6 @@ $("#CaseSheetBtn").click(function (event) {
     event.preventDefault();
     // var formData = $(this).serialize();
     var modelsJson = $("#CaseSheetModelsJson").val();
-
     // Submit the form using AJAX
     $.ajax({
         type: "POST",

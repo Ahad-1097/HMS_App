@@ -89,7 +89,7 @@ namespace App.Repo
             return usersWithRolesAndApproval;
         }
 
-         public async Task<List<UserWithRoleViewModel>> UserbyRole(string role)
+        public async Task<List<UserWithRoleViewModel>> UserbyRole(string role)
         {
             if (role == "All")
             {
@@ -123,6 +123,7 @@ namespace App.Repo
             {
                 List<UserWithRoleViewModel> userWithRole = new List<UserWithRoleViewModel>();
                 var usersInRole = await _userManager.GetUsersInRoleAsync(role);
+                usersInRole = usersInRole.Where(a => a.IsActive).ToList();
                 foreach (var user in usersInRole)
                 {
                     UserWithRoleViewModel viewModel = new UserWithRoleViewModel();
@@ -208,18 +209,19 @@ namespace App.Repo
             if (roleName == "ALL")
             {
 
-                var usersInRole =  _userManager.Users.Count();
+                var usersInRole = _userManager.Users.Where(a=>a.IsActive).Count();
                 return usersInRole;
             }
-            else {
+            else
+            {
                 // Find users in the role
                 var usersInRole = await _userManager.GetUsersInRoleAsync(roleName);
-                return usersInRole.Count;
+                return usersInRole.Where(a => a.IsActive).ToList().Count;
             }
 
 
             // Return the count of users in the role
-            
+
         }
 
 

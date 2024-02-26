@@ -14,6 +14,7 @@ using App.Models.EntityModels;
 using App.Models.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repo
@@ -298,6 +299,61 @@ namespace App.Repo
                 pvm.Discharge.SeniorResident = pvm.Patient.SeniorResident;
             }
             return pvm;
+        }
+
+        public DischargePrintModel DischargePrintDetail(long PatientID)
+        {
+
+            //pvm.Patient = _context.Patient.Include(p => p.Address).Include(d => d.Consultant).Where(a => a.PatientID == PatientID && a.IsActive).FirstOrDefault();
+            //pvm.Patient = _context.Patient.Include(p => p.Address).Where(a => a.PatientID == PatientID && a.IsActive).FirstOrDefault();
+            var PatientData = _context.Users
+                                .Join(_context.Patient,
+                                      user => user.Id,
+                                      patient => patient.DrId,
+                                      (user, patient) => new { User = user, Patient = patient })
+                                .Join(_context.Address,
+                                      data => data.Patient.Address_ID,
+                                      address => address.ID,
+                                      (data, address) => new { data.User, data.Patient, Address = address })
+                                .Where(a => a.Patient.IsActive && a.Patient.PatientID == PatientID)
+                                .FirstOrDefault();
+
+            var Dischargedata = _context.Discharge.Where(a => a.PatientID == PatientID).FirstOrDefault();
+
+            if (PatientData != null)
+            {
+                DischargePrintModel DischargePrintdata = new DischargePrintModel()
+                {
+
+                    Name = PatientData.Patient.Name,
+                    Gender = PatientData.Patient.Gender,
+                    Age = PatientData.Patient.Age,
+                    DOA = PatientData.Patient.DOA.ToString(),
+                    DOD=Dischargedata.DOD.ToString(),
+                    PhoneNumber = PatientData.Patient.PhoneNumber,
+                    AlternateNumber = PatientData.Patient.AlternateNumber,
+                    CADSNumber = PatientData.Patient.CADSNumber,
+                    OPDNumber = PatientData.Patient.OPDNumber,
+                    SeniorResident = PatientData.Patient.SeniorResident,
+                    JuniorResident = PatientData.Patient.JuniorResident,
+                    Street = PatientData.Patient.Address.Street,
+                    City = PatientData.Patient.Address.City,
+                    State = PatientData.Patient.Address.State,
+                    ZipCode = PatientData.Patient.Address.ZipCode,
+                    Dr_Name = "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName,
+                    Daignosis = PatientData.Patient.Daignosis,
+                    Side = PatientData.Patient.Side,
+                    CoMorbity = PatientData.Patient.CoMorbity,
+                    Diagnosis = Dischargedata.Diagnosis,
+                    CaseSummary = Dischargedata.CaseSummary,
+                    Investigations = Dischargedata.Investigations,
+                    TreatmentGiven = Dischargedata.TreatmentGiven,
+                    AdviceOndischarge = Dischargedata.AdviceOndischarge
+                };
+                return DischargePrintdata;
+
+            }
+            return null;
         }
 
         public long AddPatient(PatientModel _model, CancellationToken cancellationToken)
@@ -760,7 +816,7 @@ namespace App.Repo
                     Name = _patient.Name,
                     Age = _patient.Age,
                     Gender = _patient.Gender,
-                    DOA = _patient.DOA??DateTime.UtcNow,
+                    DOA = _patient.DOA ?? DateTime.UtcNow,
                     Address_ID = _addressId,
                     PhoneNumber = _patient.PhoneNumber,
                     AlternateNumber = _patient.AlternateNumber,
@@ -1348,7 +1404,7 @@ namespace App.Repo
                     LocoregionalExam = _model.LocoregionalExam,
 
                     Remark = _model.Remark,
-                    Value1 = _model.Value1,
+                    Value1 = _model.AddImage, //this used for addimges
                     Value2 = _model.Value2,
                     Value3 = _model.Value3,
                 };
@@ -1503,9 +1559,9 @@ namespace App.Repo
                     data.Remark = _model.Remark;
                 }
 
-                if (!string.IsNullOrEmpty(_model.Value1))
+                if (!string.IsNullOrEmpty(_model.AddImage))
                 {
-                    data.Value1 = _model.Value1;
+                    data.Value1 = _model.AddImage;
                 }
 
                 if (!string.IsNullOrEmpty(_model.Value2))
@@ -1679,7 +1735,7 @@ namespace App.Repo
             var data = _context.Progress.Where(a => a.PatientID == PatientId).FirstOrDefault();
             if (data != null)
             {
-                _model.Id= data.Id;
+                _model.Id = data.Id;
                 _model.PatientID = PatientId;
                 UpdateProgress(_model);
             }

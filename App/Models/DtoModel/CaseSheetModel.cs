@@ -1,4 +1,5 @@
 ﻿using App.Models.EntityModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -54,5 +55,7 @@ namespace App.Models.DtoModel
         public string Value1 { get; set; }
         public string Value2 { get; set; }
         public string Value3 { get; set; }
+        public string AddImage { get; set; }
+        public IFormFile AddImageFile { get; set; }
     }
 }

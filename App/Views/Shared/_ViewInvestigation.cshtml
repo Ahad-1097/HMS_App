@@ -7,6 +7,18 @@
             <h4 class="card-title">Investigation Details</h4>
         </div>
         <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Day:</label>
+                    @foreach (var item in Model.InvestigationList)
+                    {
+                        <div class="col-md-3 col-4 col-sm-4 mb-2">
+                            <div class="form-group">
+                                <label>@item.Day </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            
             @* CBC *@
             <div class="row">
                 <div class="col-sm-12 mb-12">

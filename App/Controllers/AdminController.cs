@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading;
 using App.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
 
-    // [Authorize(Roles ="Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 

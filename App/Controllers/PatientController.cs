@@ -19,6 +19,7 @@ using System.Reflection;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using App.Models.EntityModels;
 
 namespace App.Controllers
 {
@@ -262,7 +263,8 @@ namespace App.Controllers
             {
                 data = _patient.InvestigationDetail(PatientID);
 
-                return GeneratePdf(data.InvestigationList.FirstOrDefault());
+               // return GeneratePdf(data.InvestigationList.ToList());
+                return GenerateListofPdf(data.InvestigationList.ToList());
             }
             return PartialView("_EditInvestigation", data);
 
@@ -572,27 +574,38 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CaseSheet(string model)
+        public async Task<IActionResult> CaseSheet(string model )
         {
-            if (model != null)
+            try
             {
-                string msg;
-                var _model = JsonConvert.DeserializeObject<List<CaseSheetModel>>(model);
-                if (_model[0].Id > 0)
+                if (model != null)
                 {
-                    await _patient.UpdateCaseSheet(_model[0]);
-                    msg = "Data updated successfully";
-                    return Json(msg);
-                }
-                if (_PatientId > 0)
-                {
-                    _patient.AddCaseSheet(_model[0], _PatientId);
-                    msg = "Data added successfully";
-                    return Json(msg);
-                }
+                    string msg;
+                    var _model = JsonConvert.DeserializeObject<List<CaseSheetModel>>(model).FirstOrDefault();
+                    if (_model.Id > 0)
+                    {
+                        //_model.AddImage = await Uploadimg(AddImageFile);
+                        await _patient.UpdateCaseSheet(_model);
+                        msg = "Data updated successfully";
+                        return Json(msg);
+                    }
+                    if (_PatientId > 0)
+                    {
+                        //_model.AddImage = await Uploadimg(AddImageFile);
+                        _patient.AddCaseSheet(_model, _PatientId);
+                        msg = "Data added successfully";
+                        return Json(msg);
+                    }
 
-                return Json("something went wrong");
+                    return Json("something went wrong");
+                }
             }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
             return Json("something went wrong");
 
         }
@@ -822,9 +835,9 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-                data = _patient.DischargeDetail(PatientID);
+               var Printdata = _patient.DischargePrintDetail(PatientID);
 
-                return GeneratePdf(data.Discharge);
+                return GeneratePdf(Printdata);
             }
             return PartialView("Discharge", data);
         }
@@ -974,6 +987,59 @@ namespace App.Controllers
             return new EmptyResult();
         }
 
+        [HttpGet("/Patient/GeneratePdfdata")]
+        public IActionResult GenerateListofPdf(List<Investigation> model)
+        {
+            // Create a new document
+            Document doc = new Document();
+            MemoryStream memoryStream = new MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
+
+
+            List<string> propertiesToIgnore = new List<string>
+            { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
+                "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
+                "Address","Email","Status","IsActive","Title","SubCategoryTitle",
+                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3"
+            };
+
+            // Add data to the PDF document
+            doc.Open();
+            foreach (var item in model)
+            {
+                var properties = typeof(Investigation).GetProperties();
+                doc.AddTitle("heading");
+                doc.AddHeader("H1", "this is header");
+                foreach (PropertyInfo property in properties)
+                {
+                    if (propertiesToIgnore.Contains(property.Name))
+                    {
+                        continue; // Skip this property
+                    }
+                    string propertyName = property.Name;
+                    object propertyValue = property.GetValue(item);
+
+                    // Add the property name and value to the PDF as paragraphs
+                    doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
+
+                }
+            }
+
+            doc.Close(); // Close the document
+
+            // Create a copy of the MemoryStream
+            MemoryStream copyStream = new MemoryStream(memoryStream.ToArray());
+
+            // Set the content type and file name for the response
+            HttpContext.Response.ContentType = "application/pdf";
+            HttpContext.Response.Headers.Add("content-disposition", "inline;filename=mydocument.pdf");
+
+            // Write the PDF content to the response
+            copyStream.CopyTo(HttpContext.Response.Body);
+
+            return new EmptyResult();
+        }
+
 
         [HttpGet]
         public IActionResult Outcome(long PatientID, string ViewName)
@@ -1078,6 +1144,22 @@ namespace App.Controllers
 
         }
 
+
+        private async Task<string> Uploadimg(IFormFile imgfile)
+        {
+            if (imgfile!=null)
+            {
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + imgfile.FileName;
+                var filePath = Path.Combine("wwwroot/Images_Data", uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imgfile.CopyToAsync(fileStream);
+                }
+                return uniqueFileName;
+            }
+            return "";
+        }
     }
 
 }

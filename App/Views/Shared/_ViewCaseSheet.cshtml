@@ -1,4 +1,8 @@
 ﻿@model App.Models.ViewModel.PatientViewModel
+@* @{
+    var imageExtensions = new List<string>
+    { "jpg", "jpeg", "png", "gif" };
+} *@
 
 <div class="col-xl-12 col-lg-12">
     <div class="card">
@@ -204,7 +208,26 @@
                     @Html.DisplayFor(model => model.CaseSheet.LocoregionalExam)
                 </div>
             </div>
+@* 
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label"> Image :</label>
+                <div class="col-md-3">
+                    @if (!string.IsNullOrEmpty(Model.CaseSheet.Value1))
+                    {
+                        var extension = Model.CaseSheet.Value1.Split('.').LastOrDefault();
 
+                        if (imageExtensions.Contains(extension))
+                        {
+                            <img src="~/Images_Data/@Model.CaseSheet.Value1" style="width: 140px">
+                        }
+                        else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a href="~/Images_Data/@Model.CaseSheet.Value1" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                        }
+                    }
+                </div>
+            </div>
+ *@
             <a target="_blank" href="@Url.Action("CaseSheet", "Patient",  new { PatientID = @Model.CaseSheet.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
         </div>
     </div>

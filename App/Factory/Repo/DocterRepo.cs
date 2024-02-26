@@ -72,17 +72,17 @@ namespace App.Repo
 
         public int TotalPatient()
         {
-            return _context.Patient.Count();
+            return _context.Patient.Where(a=>a.IsActive).Count();
         }
 
         public int NewPatient()
         {
-            return _context.Patient.Where(a=>a.Status == "Admitted").Count();
+            return _context.Patient.Where(a=>a.Status == "Admitted" && a.IsActive).Count();
         }
 
         public int RecoverPatient()
         {
-            return _context.Patient.Where(a => a.Status == "Discharge").Count();
+            return _context.Patient.Where(a => a.Status == "Discharge" && a.IsActive).Count();
         }
 
       
