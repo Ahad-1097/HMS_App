@@ -68,7 +68,7 @@ $("#Imagebtn").click(function () {
     imgModel.CBC_img = $("#InvestigationImagesModel_CBC_img")[0].files[0];
     imgModel.RFT_img = $("#InvestigationImagesModel_RFT_img")[0].files[0];
     imgModel.LFT_img = $("#InvestigationImagesModel_LFT_img")[0].files[0];
-    imgModel.PTDNR_img = $("#InvestigationImagesModel_PTINR_img")[0].files[0];
+    imgModel.PTINR_img = $("#InvestigationImagesModel_PTINR_img")[0].files[0];
     imgModel.LIPIDPROFILE_img = $("#InvestigationImagesModel_LIPIDPROFILE_img")[0].files[0];
     imgModel.UrineRM_img = $("#InvestigationImagesModel_UrineRM_img")[0].files[0];
 
@@ -103,7 +103,7 @@ $("#Imagebtn").click(function () {
     formData.append("CBC_img", imgModel.CBC_img);
     formData.append("RFT_img", imgModel.RFT_img);
     formData.append("LFT_img", imgModel.LFT_img);
-    formData.append("PTDNR_img", imgModel.PTDNR_img);
+    formData.append("PTINR_img", imgModel.PTINR_img);
     formData.append("LIPIDPROFILE_img", imgModel.LIPIDPROFILE_img);
     formData.append("UrineRM_img", imgModel.UrineRM_img);
 

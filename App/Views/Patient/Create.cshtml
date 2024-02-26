@@ -63,7 +63,7 @@
 
                                     Html.RenderPartial("AddProgress");
                                 }
-                            </div> 
+                            </div>
                             <div id="Vitals" class="tab-pane">
                                 @{
 
@@ -176,9 +176,53 @@
     <script src="~/customJs/ImageLoad.js"></script>
     <script src="~/customjs/Outcome.js"></script>
     <script src="~/customjs/Vitals.js"></script>
+    <script src="~/customJs/AddMultipleImage.js"></script>
     <script>
         $(document).ready(function () {
-           
+            if ($("#commingfromAddimg").text() == "Data added successfully") {
+                $("#AddPatient").removeClass("active");
+                $("#AddPicture").addClass("active");
+                $("#PatientBtn").val("Successfull");
+                $("#ImageSuccessMessage").text("Successfull").show();
+                $(".nav.nav-pills").children().eq(2).addClass("active");
+                $(".nav.nav-pills").children().first().removeClass("active");
+                AddPicture();
+            }
+
+        @* $("#targetElement").load("/Controller/Action?activeTab=" + encodeURIComponent(activeTab));*@
+
+                $('.nav-pills li').click(function () {
+                    // Remove active class from all li items
+                    $('.nav-pills li').removeClass('active');
+
+                    // Add active class to the clicked li item
+                    $(this).addClass('active');
+
+                    // Get the corresponding tab ID
+                    var tabId = $(this).find('a').attr('href');
+
+                    // Hide all tab panes
+                    $('.tab-content .tab-pane').removeClass('active');
+
+                    // Show the corresponding tab pane
+                    $(tabId).addClass('active');
+                });
+
+            $('#prevBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.prev('li').length === 1) {
+                    activeTab.removeClass('active').prev('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').prev('.tab-pane').addClass('active');
+                }
+            });
+
+            $('#nextBtn').click(function () {
+                var activeTab = $('.nav-pills > .active');
+                if (activeTab.next('li').length === 1) {
+                    activeTab.removeClass('active').next('li').addClass('active');
+                    $('.tab-content > .active').removeClass('active').next('.tab-pane').addClass('active');
+                }
+            });
 
 
             $('.select2').select2({
@@ -325,50 +369,6 @@
 
 
     </script>
-    <script>
-        $(document).ready(function () {
 
-            // if ($("#commingfromAddimg").text() == "Data added successfully") {
-                
-            //      AddPicture();
-            // }
-
-        @* $("#targetElement").load("/Controller/Action?activeTab=" + encodeURIComponent(activeTab));*@
-
-                $('.nav-pills li').click(function () {
-                    // Remove active class from all li items
-                    $('.nav-pills li').removeClass('active');
-
-                    // Add active class to the clicked li item
-                    $(this).addClass('active');
-
-                    // Get the corresponding tab ID
-                    var tabId = $(this).find('a').attr('href');
-
-                    // Hide all tab panes
-                    $('.tab-content .tab-pane').removeClass('active');
-
-                    // Show the corresponding tab pane
-                    $(tabId).addClass('active');
-                });
-
-            $('#prevBtn').click(function () {
-                var activeTab = $('.nav-pills > .active');
-                if (activeTab.prev('li').length === 1) {
-                    activeTab.removeClass('active').prev('li').addClass('active');
-                    $('.tab-content > .active').removeClass('active').prev('.tab-pane').addClass('active');
-                }
-            });
-
-            $('#nextBtn').click(function () {
-                var activeTab = $('.nav-pills > .active');
-                if (activeTab.next('li').length === 1) {
-                    activeTab.removeClass('active').next('li').addClass('active');
-                    $('.tab-content > .active').removeClass('active').next('.tab-pane').addClass('active');
-                }
-            });
-        });
-
-    </script>
 
 }

@@ -1179,6 +1179,10 @@ namespace App.Repo
                 {
                     _imgExists.RFT_img = fileNames["RFT_img"];
                 }
+                if (fileNames.ContainsKey("PTINR_img"))
+                {
+                    _imgExists.PTINR_img = fileNames["PTINR_img"];
+                }
                 if (fileNames.ContainsKey("LFT_img"))
                 {
                     _imgExists.LFT_img = fileNames["LFT_img"];

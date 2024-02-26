@@ -32,7 +32,7 @@ namespace App.Controllers
         public static long _PatientId = 0;
         public static long _InvestigationId = 0;
         static int _catId = 0;
-        static bool addimgsuccess=false;
+        static bool addimgsuccess = false;
 
         List<InvestigationModel> TabledataList = new List<InvestigationModel>();
 
@@ -98,6 +98,7 @@ namespace App.Controllers
             {
                 ViewBag.addImagesSuccess = "Data added successfully";
             }
+            addimgsuccess = false;
 
             return View();
         }
@@ -235,7 +236,6 @@ namespace App.Controllers
         [HttpGet]
         public IActionResult AddInvestigation(long PatientID, string ViewName)
         {
-
             PatientViewModel data = new PatientViewModel();
 
             if (PatientID > 0 && ViewName == "Edit")
@@ -263,7 +263,7 @@ namespace App.Controllers
             {
                 data = _patient.InvestigationDetail(PatientID);
 
-               // return GeneratePdf(data.InvestigationList.ToList());
+                // return GeneratePdf(data.InvestigationList.ToList());
                 return GenerateListofPdf(data.InvestigationList.ToList());
             }
             return PartialView("_EditInvestigation", data);
@@ -293,6 +293,7 @@ namespace App.Controllers
         public IActionResult AddPicture(long PatientID, string ViewName, long ImgId = 0)
         {
             PatientViewModel data = new PatientViewModel();
+           
 
             if (PatientID > 0 && ViewName == "Edit")
             {
@@ -373,50 +374,56 @@ namespace App.Controllers
 
                     _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
                     msg = "Data added successfully";
-                    addimgsuccess=true;
-                   
-                    return RedirectToAction("Create");
+                    addimgsuccess = true;
+
+                    return RedirectToAction("Create", true);
                     //InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
                     //return PartialView("_AddPicture", investigationImagesModel);
-
-
                 }
 
                 //if (imageFiles.Msg == "save")
                 //{
-                //    _PatientId = imageFiles.PatientId;
-                //    var _InvestigationImgId = _patient.PictureDetail(_PatientId,0);
-                //    if (_InvestigationImgId.InvestigationImages != null)
+                //    try
                 //    {
-                //        _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
-                //        msg = "Data added successfully";
+                //        await _patient.UpdateInvestigationImages(imageFiles, cancellationToken);
+                //        msg = "Data updated successfully";
                 //        return Json(msg);
                 //    }
-                //    else
-                //    {
-
-                //    }
-                //}
-
-
                 //    catch (Exception ex)
                 //    {
-                //        return Json($"Error adding data: {ex.Message}");
+                //        return Json($"Error updating data: {ex.Message}");
                 //    }
                 //}
-                //if (_PatientId > 0 && _InvestigationId > 0 && imageFiles.Msg == "save")
+                //else if (imageFiles.PatientId > 0 && imageFiles.Id == 0)
                 //{
                 //    try
                 //    {
                 //        _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
                 //        msg = "Data added successfully";
+                //        //return RedirectToAction("Create");
+                //        msg = "Data added successfully";
                 //        return Json(msg);
+
                 //    }
                 //    catch (Exception ex)
                 //    {
                 //        return Json($"Error adding data: {ex.Message}");
                 //    }
                 //}
+                //else if (_PatientId > 0)
+                //{
+
+                //    _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
+                //    msg = "Data added successfully";
+                //    addimgsuccess=true;
+
+                //    return RedirectToAction("Create");
+                //    //InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
+                //    //return PartialView("_AddPicture", investigationImagesModel);
+
+
+                //}
+
 
                 return Json("Invalid parameters or conditions");
             }
@@ -483,13 +490,13 @@ namespace App.Controllers
             {
                 string msg;
                 var _model = JsonConvert.DeserializeObject<List<ProgressModel>>(model).FirstOrDefault();
-                if (_PatientId > 0 )
+                if (_PatientId > 0)
                 {
-                     _patient.UpdateVital(_model, _PatientId);
+                    _patient.UpdateVital(_model, _PatientId);
                     msg = "Successfull";
                     return Json(msg);
                 }
-               else if (_model.PatientID > 0)
+                else if (_model.PatientID > 0)
                 {
                     _patient.UpdateVital(_model, _model.PatientID);
                     msg = "Successfull";
@@ -556,7 +563,6 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> DiagnosisEdit(long PatientID, string ViewName, CancellationToken cancellationToken)
         {
-
             PatientViewModel data = new PatientViewModel();
 
             if (PatientID > 0 && ViewName == "Edit")
@@ -574,7 +580,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CaseSheet(string model )
+        public async Task<IActionResult> CaseSheet(string model)
         {
             try
             {
@@ -605,7 +611,7 @@ namespace App.Controllers
 
                 throw;
             }
-            
+
             return Json("something went wrong");
 
         }
@@ -795,7 +801,6 @@ namespace App.Controllers
         [HttpGet]
         public IActionResult Discharge(long PatientID, string ViewName)
         {
-
             if (PatientID == 0)
             {
                 if (_PatientId != 0)
@@ -835,7 +840,7 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-               var Printdata = _patient.DischargePrintDetail(PatientID);
+                var Printdata = _patient.DischargePrintDetail(PatientID);
 
                 return GeneratePdf(Printdata);
             }
@@ -1023,6 +1028,7 @@ namespace App.Controllers
                     doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
 
                 }
+                doc.Add(new Paragraph($"-----------------------------------------------------------------------------"));
             }
 
             doc.Close(); // Close the document
@@ -1147,7 +1153,7 @@ namespace App.Controllers
 
         private async Task<string> Uploadimg(IFormFile imgfile)
         {
-            if (imgfile!=null)
+            if (imgfile != null)
             {
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + imgfile.FileName;
                 var filePath = Path.Combine("wwwroot/Images_Data", uniqueFileName);
