@@ -1,7 +1,7 @@
 ﻿@model App.Models.ViewModel.PatientViewModel
 
 @{
-    var investigationImages = Model.InvestigationImages;
+    var investigationImages = Model.InvestigationImagesList;
 
     var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif" };
 }
@@ -17,474 +17,625 @@
                 <div id="popup-container" style="display: none;"></div>
 
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label">Blood Sugar :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.BloodSugar_img))
-                        {
-                            var extension = investigationImages.BloodSugar_img.Split('.').LastOrDefault();
-
-                            if (imageExtensions.Contains(extension))
+                    <label class="col-md-2 col-form-label">Blood Sugar :</label>
+                    @foreach (var item in investigationImages)
+                    {
+                        <div class="col-md-2 viewimg">
+                            @if (!string.IsNullOrWhiteSpace(item.BloodSugar_img))
                             {
-                                <img src="~/Images_Data/@investigationImages.BloodSugar_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
-                        }
-                    </div>
+                                var extension = item.BloodSugar_img.Split('.').LastOrDefault();
 
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.BloodSugar_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
 
-                    <label class="col-md-3 col-form-label">TFT_img:</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.TFT_img))
-                        {
-                            var extension = investigationImages.TFT_img.Split('.').LastOrDefault();
+                            }
+                        </div>
+                    }
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.TFT_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
-                        }
-                    </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-md-3 col-form-label">TFT_img:</label>
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.TFT_img))
+                        {
+                            var extension = item.TFT_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                <img src="~/Images_Data/@item.TFT_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                <a href="~/Images_Data/@item.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
+                        }
+
+                    }
+                </div>
+
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">USG:</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.USG_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.USG_img))
                         {
-                            var extension = investigationImages.USG_img.Split('.').LastOrDefault();
+                            var extension = item.USG_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.USG_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                <img src="~/Images_Data/@item.USG_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                <a href="~/Images_Data/@item.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">SONOMMOGRAPHY :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.SONOMMOGRAPHY_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.SONOMMOGRAPHY_img))
                         {
-                            var extension = investigationImages.SONOMMOGRAPHY_img.Split('.').LastOrDefault();
+                            var extension = item.SONOMMOGRAPHY_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                <img src="~/Images_Data/@item.SONOMMOGRAPHY_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                <a href="~/Images_Data/@item.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
 
-                   
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">CECT :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.CECT_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        if (!string.IsNullOrWhiteSpace(item.CECT_img))
                         {
-                            var extension = investigationImages.CECT_img.Split('.').LastOrDefault();
+                            var extension = item.CECT_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.CECT_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.CECT_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                       
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">MRI :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.MRI_img))
-                        {
-                            var extension = investigationImages.MRI_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.MRI_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.MRI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.MRI_img))
+                        {
+                            var extension = item.MRI_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.MRI_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.MRI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">FNAC :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.FNAC_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.FNAC_img))
                         {
-                            var extension = investigationImages.FNAC_img.Split('.').LastOrDefault();
+                            var extension = item.FNAC_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.FNAC_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.FNAC_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">Trucut Biopsy :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.TrucutBiopsy_img))
-                        {
-                            var extension = investigationImages.TrucutBiopsy_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.TrucutBiopsy_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.TrucutBiopsy_img))
+                        {
+                            var extension = item.TrucutBiopsy_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.TrucutBiopsy_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Receptor Status :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.ReceptorStatus_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.ReceptorStatus_img))
                         {
-                            var extension = investigationImages.ReceptorStatus_img.Split('.').LastOrDefault();
+                            var extension = item.ReceptorStatus_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.ReceptorStatus_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.ReceptorStatus_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">MRCP img:</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.MRCP_img))
-                        {
-                            var extension = investigationImages.MRCP_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.MRCP_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.MRCP_img))
+                        {
+                            var extension = item.MRCP_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.MRCP_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
 
-                    </div>
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">ERCP :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.ERCP_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.ERCP_img))
                         {
-                            var extension = investigationImages.ERCP_img.Split('.').LastOrDefault();
+                            var extension = item.ERCP_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.ERCP_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.ERCP_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">Endoscopy Upper GI :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.EndoscopyUpperGI_img))
+                    @foreach (var item in investigationImages)
+                    {
+                        @if (!string.IsNullOrWhiteSpace(item.EndoscopyUpperGI_img))
                         {
-                            var extension = investigationImages.EndoscopyUpperGI_img.Split('.').LastOrDefault();
+                            var extension = item.EndoscopyUpperGI_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.EndoscopyUpperGI_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.EndoscopyUpperGI_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Endoscopy Lower GI :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.EndoscopyLowerGI_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.EndoscopyLowerGI_img))
                         {
-                            var extension = investigationImages.EndoscopyLowerGI_img.Split('.').LastOrDefault();
+                            var extension = item.EndoscopyLowerGI_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.EndoscopyLowerGI_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.EndoscopyLowerGI_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">PETCT :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.PETCT_img))
-                        {
-                            var extension = investigationImages.PETCT_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.PETCT_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.PETCT_img))
+                        {
+                            var extension = item.PETCT_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.PETCT_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">TUMOR MARKERS :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.TumorMarkers_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.TumorMarkers_img))
                         {
-                            var extension = investigationImages.TumorMarkers_img.Split('.').LastOrDefault();
+                            var extension = item.TumorMarkers_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.TumorMarkers_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.TumorMarkers_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
-                    <label class="col-md-3 col-form-label">IVP :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.IVP_img))
-                        {
-                            var extension = investigationImages.IVP_img.Split('.').LastOrDefault();
-
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.IVP_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
-                        }
-                    </div>
+                    }
                 </div>
-               
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">IVP :</label>
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.IVP_img))
+                        {
+                            var extension = item.IVP_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.IVP_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
+                        }
+
+                    }
+                </div>
+
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">MCU :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.MCU_img))
-                        {
-                            var extension = investigationImages.MCU_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.MCU_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.MCU_img))
+                        {
+                            var extension = item.MCU_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.MCU_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
-                
+
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">RGU :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.RGU_img))
-                        {
-                            var extension = investigationImages.RGU_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.RGU_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.RGU_img))
+                        {
+                            var extension = item.RGU_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.RGU_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">ABG IMAGE :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.ABG_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.ABG_img))
                         {
-                            var extension = investigationImages.ABG_img.Split('.').LastOrDefault();
+                            var extension = item.ABG_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.ABG_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.ABG_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">Others :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.OtherO))
-                        {
-                            var extension = investigationImages.OtherO.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.OtherO" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.OtherO))
+                        {
+                            var extension = item.OtherO.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.OtherO" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">CBC IMG :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.CBC_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.CBC_img))
                         {
-                            var extension = investigationImages.CBC_img.Split('.').LastOrDefault();
+                            var extension = item.CBC_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.CBC_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.CBC_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">RFT IMG :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.RFT_img))
-                        {
-                            var extension = investigationImages.RFT_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.RFT_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.RFT_img))
+                        {
+                            var extension = item.RFT_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.RFT_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">PT-INR IMG :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.PTINR_img))
+                    @foreach (var item in investigationImages)
+                    {
+
+                        @if (!string.IsNullOrWhiteSpace(item.PTINR_img))
                         {
-                            var extension = investigationImages.PTINR_img.Split('.').LastOrDefault();
+                            var extension = item.PTINR_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.PTINR_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.PTINR_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
 
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">LFT IMG :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.LFT_img))
-                        {
-                            var extension = investigationImages.LFT_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.LFT_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.LFT_img))
+                        {
+                            var extension = item.LFT_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.LFT_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+
+                    }
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Urine RM :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.UrineRM_img))
-                        {
-                            var extension = investigationImages.UrineRM_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.UrineRM_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.UrineRM_img))
+                        {
+                            var extension = item.UrineRM_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.UrineRM_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
-                
+
+                    }
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">LIPID PROFILE IMG :</label>
-                    <div class="col-md-3">
-                        @if (!string.IsNullOrEmpty(investigationImages.LIPIDPROFILE_img))
-                        {
-                            var extension = investigationImages.LIPIDPROFILE_img.Split('.').LastOrDefault();
+                    @foreach (var item in investigationImages)
+                    {
 
-                            if (imageExtensions.Contains(extension))
-                            {
-                                <img src="~/Images_Data/@investigationImages.LIPIDPROFILE_img" style="width: 140px">
-                            }
-                            else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
-                            {
-                                <a href="~/Images_Data/@investigationImages.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
-                            }
+                        @if (!string.IsNullOrWhiteSpace(item.LIPIDPROFILE_img))
+                        {
+                            var extension = item.LIPIDPROFILE_img.Split('.').LastOrDefault();
+                            <div class="col-md-2 viewimg">
+
+                                @if (imageExtensions.Contains(extension))
+                                {
+                                    <img src="~/Images_Data/@item.LIPIDPROFILE_img" style="width: 100px">
+                                }
+                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a href="~/Images_Data/@item.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                }
+                            </div>
                         }
-                    </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
 

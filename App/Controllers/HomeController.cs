@@ -32,27 +32,21 @@ namespace App.Controllers
             _account = account;
         }
 
-
-        //[Authorize(Roles = "Docter")]
         //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "doctor")]
         public async Task<IActionResult> Index()
         {
-
             var doctors = _docterRepo.GetDoterList();
             DashboardViewModel model = new DashboardViewModel();
             model.TotalPatient = _docterRepo.TotalPatient();
-            model.TotalDocter = await _account.GetUserCountByRoleAsync("Docter");
+            model.TotalDocter = await _account.GetUserCountByRoleAsync("Doctor");
             List<UserWithRoleViewModel> userList = await _account.UserbyRole("All");
-            model.UserList = await _account.UserbyRole("Docter");
+            model.UserList = await _account.UserbyRole("Doctor");
             model.DocterList = await _account.UserbyRole("Doctor");
             model.TotalNewPatient = _docterRepo.NewPatient();
             model.TotalNewDicharge = _docterRepo.RecoverPatient();
             return View(model);
         }
-
-      
-       
-
 
         public IActionResult Privacy()
         {

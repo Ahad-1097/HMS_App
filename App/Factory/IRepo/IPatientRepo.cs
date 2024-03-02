@@ -39,7 +39,7 @@ namespace App.Interface
         bool UpdateOutCome(OutcomeModel _model);
         Task<PatientViewModel> PatientDetail(long? PatientID, CancellationToken cancellationToken);
         PatientViewModel InvestigationDetail(long PatientID);
-        PatientViewModel PictureDetail(long PatientID, long imgId);
+        PatientViewModel PictureDetail(long PatientID, long imgId,string ViewName);
         PatientViewModel ProgressDetail(long PatientID);
         PatientViewModel CaseSheetDetail(long PatientID);
         PatientViewModel OperationDetail(long PatientID);

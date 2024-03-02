@@ -299,31 +299,21 @@ namespace App.Controllers
             {
                 // Pass the value to the view
 
-                data = _patient.PictureDetail(PatientID, ImgId);
+                data = _patient.PictureDetail(PatientID, ImgId, "Edit");
                 if (data.InvestigationImages == null)
                 {
                     ViewBag.Method = "save";
                     ViewBag.PatientId = PatientID;
                 }
-                //  data.PatientModel.PatientID = PatientID;
-                //if (data.InvestigationImages != null && ImgId > 0)
-                //{
-
-                //    //data.InvestigationImages = data.InvestigationImagesList.Where(a => a.Id == ImgId).FirstOrDefault();
-                //    //data.InvestigationImages.PatientId = (int)PatientID;
-                //    return PartialView("_EditPicture", data);
-                //}
                 else
                 {
-                    //data = _patient.PictureDetail(PatientID, ImgId);
-                    //data.InvestigationImages.PatientId = (int)PatientID;
                     return PartialView("_EditPicture", data);
                 }
             }
 
             else if (PatientID > 0 && ViewName == "Detail")
             {
-                data = _patient.PictureDetail(PatientID, ImgId);
+                data = _patient.PictureDetail(PatientID, ImgId, "Detail");
                 return PartialView("_ViewPicture", data);
             }
 
@@ -809,12 +799,6 @@ namespace App.Controllers
                 };
             };
 
-            //var JRlist = await _docterRepo.getDropDownlist("jr");
-            //ViewBag.JRlist = new SelectList(JRlist, "Name", "Name");
-
-            //var SRlist = await _docterRepo.getDropDownlist("sr");
-            //ViewBag.SRlist = new SelectList(SRlist, "Name", "Name");
-
             PatientViewModel data = new PatientViewModel();
             if (PatientID > 0 && ViewName == "Edit")
             {
@@ -826,13 +810,6 @@ namespace App.Controllers
                 data = _patient.DischargeDetail(PatientID);
                 return PartialView("Discharge", data);
             }
-            //if (_PatientId > 0)
-            //{
-
-            //    data = _patient.DischargeDetail(_PatientId);
-            //    return PartialView("Discharge", data);
-            //}
-
             else if (PatientID > 0 && ViewName == "Detail")
             {
                 data = _patient.DischargeDetail(PatientID);

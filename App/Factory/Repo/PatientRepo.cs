@@ -209,7 +209,7 @@ namespace App.Repo
             return pvm;
         }
 
-        public PatientViewModel PictureDetail(long PatientID, long imgId)
+        public PatientViewModel PictureDetail(long PatientID, long imgId ,string ViewName)
         {
             try
             {
@@ -217,6 +217,10 @@ namespace App.Repo
                 {
                     InvestigationImagesList = _context.InvestigationImages.Where(a => a.PatientId == PatientID).ToList()
                 };
+                if (ViewName == "Detail")
+                {
+                    return pvm;
+                }
                 if (imgId == 0)
                 {
                     pvm.InvestigationImages = pvm.InvestigationImagesList.FirstOrDefault();
