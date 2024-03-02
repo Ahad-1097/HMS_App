@@ -242,8 +242,9 @@ namespace App.Controllers
             {
                 _PatientId = PatientID;
                 data = _patient.InvestigationDetail(PatientID);
-                if (data.InvestigationList.Count() == 0)
+                if (data.InvestigationList.Any(a=>a.Id==0))
                 {
+                    //data.InvestigationModel.PatientID= _PatientId;
                     return PartialView("_AddInvestigation", data);
                 }
                 else
@@ -1029,7 +1030,7 @@ namespace App.Controllers
         {
             PatientViewModel data = new PatientViewModel();
 
-            ViewBag.PatientID = PatientID;
+            //ViewBag.PatientID = PatientID;
 
 
             if (PatientID > 0 && ViewName == "Edit")
@@ -1048,7 +1049,7 @@ namespace App.Controllers
 
                 return GeneratePdf(data.Outcome);
             }
-
+            data.Outcome.PatientID = _PatientId;
             return PartialView("_Outcome", data);
 
         }
@@ -1074,10 +1075,17 @@ namespace App.Controllers
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
-                    else if (_PatientId > 0 && _model.Id == 0)
+                    else if (_model.PatientID > 0 && _model.Id == 0)
                     {
 
                         _patient.AddOutCome(_model, _model.PatientID);
+                        msg = "Data added successfully";
+                        return Json(msg);
+                    }
+                    else if (_PatientId > 0)
+                    {
+
+                        _patient.AddOutCome(_model, _PatientId);
                         msg = "Data added successfully";
                         return Json(msg);
                     }

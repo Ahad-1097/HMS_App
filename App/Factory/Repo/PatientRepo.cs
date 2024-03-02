@@ -201,10 +201,14 @@ namespace App.Repo
             PatientViewModel pvm = new PatientViewModel();
             //pvm.InvestigationList = _context.Investigation.Include(a => a.Patient).Where(a => a.PatientID == PatientID).ToList();
             pvm.InvestigationList = _context.Investigation.Where(a => a.PatientID == PatientID).ToList();
-            if (pvm.InvestigationList == null)
+            if (pvm.InvestigationList == null || pvm.InvestigationList.Count==0)
             {
-                pvm.InvestigationList = new List<Investigation>();
-                pvm.InvestigationList[0].PatientID = PatientID;
+                var inv = new Investigation()
+                {
+                    PatientID=PatientID
+                };
+                pvm.InvestigationModel = new InvestigationModel() { PatientID=PatientID};
+                pvm.InvestigationList.Add(inv);
             }
             return pvm;
         }
