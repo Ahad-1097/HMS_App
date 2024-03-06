@@ -5,7 +5,7 @@
 <form method="post" id="AddDiagnosisForm">
     <div class="row">
         <div class="col-sm-3 mb-2">
-            <h4>DAIGNOSIS</h4>
+            <h4>Diagnosis</h4>
         </div>
         <div class="col-md-4 col-12 col-sm-4 mb-2">
             <div class="form-group">
@@ -20,14 +20,20 @@
         </div>
         <div class="col-md-4 col-12 col-sm-4 mb-2">
             <div class="form-group">
-                <input class="form-control" asp-for="PatientModel.Side" placeholder="Enter message">
+                <select asp-for="PatientModel.Side" name="PatientModel.Side" class="form-control">
+                    <option value="" selected>Select Side</option>
+                    <option>Left</option>
+                    <option>Right</option>
+                    <option>Bilateral</option>
+                </select>
                 <span asp-validation-for="PatientModel.Side" class="text-danger"></span>
             </div>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-sm-3 mb-2">
-            <h4>CO-MORBITY</h4>
+            <h4>Comorbidity</h4>
         </div>
         <div class="col-md-4 col-12 col-sm-4 mb-2">
             <div class="form-group">

@@ -20,10 +20,12 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using App.Models.EntityModels;
+using SixLabors.Fonts;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace App.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PatientController : Controller
     {
         private readonly ApplicationContext _context;
@@ -927,7 +929,6 @@ namespace App.Controllers
             MemoryStream memoryStream = new MemoryStream();
             PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
 
-
             List<string> propertiesToIgnore = new List<string>
             { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
                 "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
@@ -935,12 +936,29 @@ namespace App.Controllers
                 "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3"
             };
 
+
+
             // Add data to the PDF document
             doc.Open();
             // Iterate through the properties of the model and add them to the PDF
             PropertyInfo[] properties = typeof(TModel).GetProperties();
-            doc.AddTitle("heading");
-            doc.AddHeader("H1", "this is header");
+
+
+            // Add image
+            //string imagePath = "path/to/image.jpg";
+            //Image image = new Image(ImageDataFactory.Create(imagePath));
+            //doc.Add(image);
+
+            iTextSharp.text.Font hs = new iTextSharp.text.Font();
+            hs.Size = 18;
+            hs.SetColor(0, 122, 100);
+            hs.IsBold();
+            //hs.SetStyle((int)TextAlignment.Center);
+            Paragraph header = new Paragraph("Department of Surgery, J.N Medical College AMU", hs);
+            header.Alignment = 1;
+            doc.Add(header);
+            doc.Add(new Paragraph($"=========================================================================="));
+
             foreach (PropertyInfo property in properties)
             {
                 if (propertiesToIgnore.Contains(property.Name))
@@ -956,6 +974,21 @@ namespace App.Controllers
 
 
             }
+
+
+
+
+            doc.Add(new Paragraph($"=========================================================================="));
+            iTextSharp.text.Font fs = new iTextSharp.text.Font();
+            fs.Size = 18;
+            fs.SetColor(0, 122, 100);
+            fs.IsBold();
+
+            fs.SetStyle((int)TextAlignment.Start);
+            Paragraph footer = new Paragraph("signature :", fs);
+            doc.Add(footer);
+
+
             doc.Close(); // Close the document
 
             // Create a copy of the MemoryStream

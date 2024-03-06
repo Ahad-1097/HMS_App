@@ -36,9 +36,10 @@
                                 <input asp-for="Operation.Anaesthetist" class="form-control" placeholder="Enter anaesthetist">
                                 <span asp-validation-for="Operation.Anaesthetist" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>Operating Surgeon(s)</label>
-                                <input asp-for="Operation.OpertingSurgeon" class="form-control" placeholder="Enter operating surgeon ">
+                                <textarea class="form-control" rows="4" asp-for="Operation.OpertingSurgeon" placeholder="Enter  operating surgeon..."></textarea>
+                                @* <input asp-for="Operation.OpertingSurgeon" class="form-control" placeholder="Enter operating surgeon "> *@
                                 <span asp-validation-for="Operation.OpertingSurgeon" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
@@ -97,7 +98,7 @@
                                 <span asp-validation-for="Operation.PostOperativeInstructions" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
-                                <label>Perhaps Image</label>
+                                <label>PER-OP image</label>
                                 <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage">
                                 @* <input asp-for="Operation.PerOPImage" class="form-control" placeholder="Enter specimen sent for"> *@
                             </div>

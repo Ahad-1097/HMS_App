@@ -85,8 +85,8 @@ namespace App.Models.EntityModels
         public string TumorMarkers { get; set; }
         public string IVP { get; set; }
         public string MCU { get; set; }
-        public string RGU { get; set; }
-       
+        public string RGU { get; set; } //Cystoscopy
+
         public string OtherO { get; set; }
         public string OtherT { get; set; }
         public string OtherTh { get; set; }

@@ -2,7 +2,7 @@
 
 
 
-<form  id="AddPatientForm" >
+<form id="AddPatientForm">
     <div class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="PatientModel.PatientID" class="form-control" />
@@ -47,7 +47,7 @@
             <span asp-validation-for="PatientModel.Gender" class="text-danger"></span>
             <span asp-validation-for="PatientModel.Gender" class="text-danger"></span>
         </div>
-        
+
         <div class="form-group col-md-12">
             <div class="row">
                 <div class="form-group col-md-3">
@@ -62,9 +62,41 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="PatientModel.State" class="control-label"></label>
-                    <input asp-for="PatientModel.State" class="form-control" placeholder="Enter State" />
+                    @* <input asp-for="PatientModel.State" class="form-control" placeholder="Enter State" /> *@
+                    <select asp-for="PatientModel.State" name="PatientModel.State" class="form-control">
+                        <option selected value="">Select State</option>
+                        <option>Andhra Pradesh</option>
+                        <option>Arunachal Pradesh</option>
+                        <option>Assam</option>
+                        <option>Bihar</option>
+                        <option>Chhattisgarh</option>
+                        <option>Goa</option>
+                        <option>Gujarat</option>
+                        <option>Haryana</option>
+                        <option>Himachal Pradesh</option>
+                        <option>Jharkhand</option>
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Madhya Pradesh</option>
+                        <option>Maharashtra</option>
+                        <option>Manipur</option>
+                        <option>Meghalaya</option>
+                        <option>Mizoram</option>
+                        <option>Nagaland</option>
+                        <option>Odisha</option>
+                        <option>Punjab</option>
+                        <option>Rajasthan</option>
+                        <option>Sikkim</option>
+                        <option>Tamil Nadu</option>
+                        <option>Telangana</option>
+                        <option>Tripura</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Uttarakhand</option>
+                        <option>West Bengal</option>
+                    </select>
                     <span asp-validation-for="PatientModel.State" class="text-danger"></span>
                 </div>
+
                 <div class="form-group col-md-3">
                     <label asp-for="PatientModel.ZipCode" class="control-label">Pin Code</label>
                     <input asp-for="PatientModel.ZipCode" class="form-control" placeholder="Enter Pin Code" />
@@ -75,22 +107,22 @@
 
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.PhoneNumber" class="control-label">Phone Number</label>
-            <input asp-for="PatientModel.PhoneNumber" class="form-control" placeholder="Enter Phone Number" />
+            <input asp-for="PatientModel.PhoneNumber" class="form-control" placeholder="Enter Phone Number" required />
             <span asp-validation-for="PatientModel.PhoneNumber" class="text-danger"></span>
         </div>
-        
+
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.AlternateNumber" class="control-label">Alternate Number</label>
             <input asp-for="PatientModel.AlternateNumber" class="form-control" placeholder="Alternate Number" />
             <span asp-validation-for="PatientModel.AlternateNumber" class="text-danger"></span>
         </div>
-        
+
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.JuniorResident" class="control-label">Resident Junior</label>
             <input asp-for="PatientModel.JuniorResident" class="form-control" placeholder="Enter  Name" />
-            
-           @* @Html.DropDownList("PatientModel.JuniorResident", ViewBag.JRlist as SelectList, "-- Select Junior --", new { @class = "form-control" })
-           *@
+
+            @* @Html.DropDownList("PatientModel.JuniorResident", ViewBag.JRlist as SelectList, "-- Select Junior --", new { @class = "form-control" })
+            *@
             <span asp-validation-for="PatientModel.JuniorResident" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
@@ -98,10 +130,10 @@
             <input asp-for="PatientModel.SeniorResident" class="form-control" placeholder="Enter  Name" />
 
             @* @Html.DropDownList("PatientModel.SeniorResident", ViewBag.SRlist as SelectList, "-- Select Senior --", new { @class = "form-control" })
-*@
+            *@
             <span asp-validation-for="PatientModel.SeniorResident" class="text-danger"></span>
         </div>
-       
+
         <input type="hidden" name="ModelsJson" id="ModelsJson" />
     </div>
     <div class="form-group">

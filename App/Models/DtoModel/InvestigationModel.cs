@@ -34,7 +34,7 @@ namespace App.Models.DtoModel
         public string TotalBil { get; set; }
         public string DirectBil { get; set; }
         public string AlkPhosphate { get; set; }
-        public string SGDT { get; set; }
+        public string SGDT { get; set; } //SGOT
         public string SGPT { get; set; }
 
         // TFT
@@ -87,7 +87,7 @@ namespace App.Models.DtoModel
         public string TumorMarkers { get; set; }
         public string IVP { get; set; }
         public string MCU { get; set; }
-        public string RGU { get; set; }
+        public string RGU { get; set; } //Cystoscopy
 
         public string OtherO { get; set; }
         public string OtherT { get; set; }
