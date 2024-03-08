@@ -25,16 +25,23 @@ namespace App.Models.DtoModel
         
        
         public long Address_ID { get; set; }
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "Alternate Number")]
         public string AlternateNumber { get; set; }
+        [Display(Name = "CADS NO")]
         public string CADSNumber { get; set; }
-      
+        [Display(Name = "OPD Number")]
         public string OPDNumber { get; set; }
         public string Dr_ID { get; set; }
+        [Display(Name = "Senior Resident")]
         public string SeniorResident { get; set; }
+
+        [Display(Name = "Junior Resident")]
         public string JuniorResident { get; set; }
         public string Daignosis { get; set; }
         public string Side { get; set; }
+        [Display(Name = "Co-Morbity")]
         public string CoMorbity { get; set; }
        
         public string Street { get; set; }

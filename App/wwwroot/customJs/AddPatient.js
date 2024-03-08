@@ -86,3 +86,15 @@ function getPatientFormModels() {
 
 }
 
+function makeRequired() {
+    var phoneNumber = $("#PatientModel_PhoneNumber").val();
+    if (phoneNumber == "") {
+        $("#PatientBtn").prop("disabled", true);
+        $("#PhoneNumber").show();
+    } else {
+        $("#PatientBtn").prop("disabled", false);
+        $("#PhoneNumber").hide();
+    }
+
+}
+

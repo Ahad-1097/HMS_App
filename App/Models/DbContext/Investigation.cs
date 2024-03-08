@@ -20,6 +20,7 @@ namespace App.Models.EntityModels
         public string PLT { get; set; }
 
         //RFT
+        [Display(Name = "S.GEAT")]
         public string SGeat { get; set; }
         public string BUN { get; set; }
 
@@ -29,8 +30,11 @@ namespace App.Models.EntityModels
         public string Random { get; set; }
 
         //  LFT
+        [Display(Name = "Total Bil")]
         public string TotalBil { get; set; }
+        [Display(Name = "Direct Bil")]
         public string DirectBil { get; set; }
+        [Display(Name = "ALK Phosphate")]
         public string AlkPhosphate { get; set; }
         public string SGDT { get; set; }
         public string SGPT { get; set; }
@@ -60,7 +64,9 @@ namespace App.Models.EntityModels
 
         //URINE RM IMG
         public string Blood { get; set; }
+        [Display(Name = "Pus Cell")]
         public string PusCell { get; set; }
+        [Display(Name = "Epithelial Cell")]
         public string EpithelialCell { get; set; }
         public string Crystals { get; set; }
         public string Sugar { get; set; }
@@ -79,14 +85,20 @@ namespace App.Models.EntityModels
         public string ReceptorStatus { get; set; }
         public string MRCP { get; set; }
         public string ERCP { get; set; }
+        [Display(Name = "Endoscopy-Upper GI")]
         public string EndoscopyUpperGI { get; set; }
+        [Display(Name = "Endoscopy-Lower GI")]
         public string EndoscopyLowerGI { get; set; }
+        [Display(Name = "PET-CT")]
         public string PETCT { get; set; }
+        [Display(Name = "Tumor Markers")]
         public string TumorMarkers { get; set; }
         public string IVP { get; set; }
         public string MCU { get; set; }
+        [Display(Name = "Cystoscopy")]
         public string RGU { get; set; } //Cystoscopy
 
+        [Display(Name = "Others")]
         public string OtherO { get; set; }
         public string OtherT { get; set; }
         public string OtherTh { get; set; }

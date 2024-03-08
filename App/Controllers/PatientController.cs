@@ -18,10 +18,9 @@ using System.IO;
 using System.Reflection;
 using System;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 using App.Models.EntityModels;
 using SixLabors.Fonts;
-using Microsoft.JSInterop.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Controllers
 {
@@ -78,14 +77,16 @@ namespace App.Controllers
         // GET: Patient/Create
         public async Task<IActionResult> Create()
         {
-            var doctors = _docterRepo.GetDoterList();
+            var doctors = await _docterRepo.GetDoterList();
             ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
 
-            var JRlist = await _docterRepo.getDropDownlist("jr");
-            ViewBag.JRlist = new SelectList(JRlist, "Name", "Name");
+            //var JRlist = await _docterRepo.getDropDownlist("jr");
+            //ViewBag.JRlist = new SelectList(JRlist, "Name", "Name");
 
-            var SRlist = await _docterRepo.getDropDownlist("sr");
-            ViewBag.SRlist = new SelectList(SRlist, "Name", "Name");
+            //var SRlist = await _docterRepo.getDropDownlist("sr");
+            //ViewBag.SRlist = new SelectList(SRlist, "Name", "Name");
+
+
             List<DropDrownModel> OutcomeType = new List<DropDrownModel>
         {
             new DropDrownModel { ID = "Discharged", Name = "Discharged" },
@@ -110,7 +111,7 @@ namespace App.Controllers
         {
             if (id == null) { return NotFound(); }
 
-            var doctors = _docterRepo.GetDoterList();
+            var doctors = await _docterRepo.GetDoterList();
             ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
 
             List<DropDrownModel> OutcomeType = new List<DropDrownModel>
@@ -151,7 +152,7 @@ namespace App.Controllers
                         msg = "Data added successfully";
                     }
 
-                    var doctors = _docterRepo.GetDoterList();
+                    var doctors = await _docterRepo.GetDoterList();
                     ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
 
                     return Json(msg);
@@ -168,7 +169,7 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> Patientdata(long PatientID, string ViewName, CancellationToken cancellationToken)
         {
-            var doctors = _docterRepo.GetDoterList();
+            var doctors = await _docterRepo.GetDoterList();
             ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
 
             //var JRlist = await _docterRepo.getDropDownlist("jr");
@@ -207,7 +208,7 @@ namespace App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var doctors = _docterRepo.GetDoterList();
+                var doctors = await _docterRepo.GetDoterList();
                 ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
 
                 var _model = JsonConvert.DeserializeObject<List<InvestigationModel>>(data).FirstOrDefault();
@@ -244,7 +245,7 @@ namespace App.Controllers
             {
                 _PatientId = PatientID;
                 data = _patient.InvestigationDetail(PatientID);
-                if (data.InvestigationList.Any(a=>a.Id==0))
+                if (data.InvestigationList.Any(a => a.Id == 0))
                 {
                     //data.InvestigationModel.PatientID= _PatientId;
                     return PartialView("_AddInvestigation", data);
@@ -296,7 +297,7 @@ namespace App.Controllers
         public IActionResult AddPicture(long PatientID, string ViewName, long ImgId = 0)
         {
             PatientViewModel data = new PatientViewModel();
-           
+
 
             if (PatientID > 0 && ViewName == "Edit")
             {
@@ -635,10 +636,10 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Operation(long PatientID, string ViewName)
+        public async Task<IActionResult> Operation(long PatientID, string ViewName)
         {
             PatientViewModel data = new PatientViewModel();
-            var doctors = _docterRepo.GetDoterList();
+            var doctors = await _docterRepo.GetDoterList();
             ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
             if (PatientID > 0)
             {
@@ -821,7 +822,6 @@ namespace App.Controllers
             else if (PatientID > 0 && ViewName == "Print")
             {
                 var Printdata = _patient.DischargePrintDetail(PatientID);
-
                 return GeneratePdf(Printdata);
             }
             return PartialView("Discharge", data);
@@ -933,7 +933,7 @@ namespace App.Controllers
             { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
                 "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
                 "Address","Email","Status","IsActive","Title","SubCategoryTitle",
-                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3"
+                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3","SerialNumber"
             };
 
 
@@ -961,22 +961,30 @@ namespace App.Controllers
 
             foreach (PropertyInfo property in properties)
             {
-                if (propertiesToIgnore.Contains(property.Name))
+                if (propertiesToIgnore.Contains(property.Name)) { continue; }
+
+                string propertyName;
+
+                var displayNameAttribute = property.GetCustomAttribute<DisplayAttribute>();
+                if (displayNameAttribute != null && displayNameAttribute.Name != null)
                 {
-                    continue; // Skip this property
+                    propertyName = displayNameAttribute.Name;
                 }
-                string propertyName = property.Name;
-                object propertyValue = property.GetValue(model);
-
-                // Add the property name and value to the PDF as paragraphs
-                doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
-
-
-
+                else
+                {
+                    propertyName = property.Name;
+                }
+                if (model != null)
+                {
+                    var propertyValue = property.GetValue(model) ?? null;
+                    // Add the property name and value to the PDF as paragraphs
+                    doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
+                }
+                else
+                {
+                    doc.Add(new Paragraph($"{propertyName}: "));
+                }
             }
-
-
-
 
             doc.Add(new Paragraph($"=========================================================================="));
             iTextSharp.text.Font fs = new iTextSharp.text.Font();

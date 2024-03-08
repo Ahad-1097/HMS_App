@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,17 +41,18 @@ namespace App.Repo
             data.IsActive = false;
             await _context.SaveChangesAsync(cancellationToken);
         }
-        public List<DoctorModel> GetDoterList()
+        public async Task<List<DoctorModel>> GetDoterList()
         {
-
-            var doctorsList = _context.Users.Join(_context.UserRoles, user => user.Id, role => role.UserId, (user, role) => new { User = user, Role = role })
-                                            .Where(x => x.User.IsApproved && x.Role.RoleId == "5")
-                                            .Select(x => new DoctorModel
-                                            {
-                                                Dr_Name =  x.User.FirstName + " " + x.User.LastName,
-                                                Dr_ID = x.Role.UserId
-                                            }).ToList();
-            return doctorsList;
+            var drList = new List<DoctorModel>();
+            var usersInRole = await _userManager.GetUsersInRoleAsync("Doctor");
+            drList = usersInRole.Where(a => a.IsActive)
+                  .Select(a => new DoctorModel
+                  {
+                      Dr_Name = a.FirstName + " " + a.LastName,
+                      Dr_ID = a.Id
+                  }).ToList();
+            
+            return drList;
         }
 
         public async Task<List<DropDrownModel>> getDropDownlist(string role)
@@ -72,12 +74,12 @@ namespace App.Repo
 
         public int TotalPatient()
         {
-            return _context.Patient.Where(a=>a.IsActive).Count();
+            return _context.Patient.Where(a => a.IsActive).Count();
         }
 
         public int NewPatient()
         {
-            return _context.Patient.Where(a=>a.Status == "Admitted" && a.IsActive).Count();
+            return _context.Patient.Where(a => a.Status == "Admitted" && a.IsActive).Count();
         }
 
         public int RecoverPatient()
@@ -85,6 +87,6 @@ namespace App.Repo
             return _context.Patient.Where(a => a.Status == "Discharge" && a.IsActive).Count();
         }
 
-      
+
     }
 }

@@ -32,7 +32,7 @@
                             <li><a href="#AddInvestigation" data-toggle="tab" onclick="AddInvestigation()">Add Investigation</a></li>
                             <li><a href="#AddPicture" data-toggle="tab" onclick="AddPicture()">Add Picture</a></li>
                             <li><a href="#Progress" data-toggle="tab" onclick="Progress()">Progress</a></li>
-                            <li><a href="#Vitals" data-toggle="tab" onclick="Vitals()">Vitals</a></li>
+                            @* <li><a href="#Vitals" data-toggle="tab" onclick="Vitals()">Vitals</a></li> *@
                             <li><a href="#Diagnosis" data-toggle="tab" onclick="Diagnosis()">Diagnosis</a></li>
                             <li><a href="#CaseSheet" data-toggle="tab" onclick=" CaseSheet()">CaseSheet</a></li>
                             <li><a href="#Operation" data-toggle="tab" onclick="Operation()">Operation</a></li>
@@ -64,12 +64,12 @@
                                     Html.RenderPartial("AddProgress");
                                 }
                             </div>
-                            <div id="Vitals" class="tab-pane">
+                           @*  <div id="Vitals" class="tab-pane">
                                 @{
 
                                     Html.RenderPartial("AddVitals");
                                 }
-                            </div>
+                            </div> *@
 
                             <div id="Diagnosis" class="tab-pane">
                                 @{
@@ -179,6 +179,8 @@
     <script src="~/customJs/AddMultipleImage.js"></script>
     <script>
         $(document).ready(function () {
+            $("#PhoneNumber").hide();
+            $("#PatientBtn").prop("disabled", true);
             if ($("#commingfromAddimg").text() == "Data added successfully") {
                 $("#AddPatient").removeClass("active");
                 $("#AddPicture").addClass("active");
@@ -186,6 +188,7 @@
                 $("#ImageSuccessMessage").text("Successfull").show();
                 $(".nav.nav-pills").children().eq(2).addClass("active");
                 $(".nav.nav-pills").children().first().removeClass("active");
+                
                 AddPicture();
             }
 
@@ -256,7 +259,6 @@
                 $("#AddInvestigation").val("Add Investigation").prop("disabled", false);
             }
 
-
         }
         function AddPicture() {
             var btn = $("#PatientBtn").val();
@@ -311,7 +313,6 @@
         }
 
         function Outcome() {
-            debugger
             var btn = $("#PatientBtn").val();
             if (btn != "Successfull") {
                 $("#OperationBtn").val("Patient form should be completed").prop("disabled", true);
@@ -321,8 +322,6 @@
         }
 
         function LoadDischargePartial() {
-
-
             $.ajax({
                 url: '/Patient/Discharge', // Replace "ControllerName" with the actual name of your controller
                 type: 'GET',
@@ -341,7 +340,7 @@
                 $("#DischargeBtn").val("Save").prop("disabled", false);
             }
         }
-
+        
 
 
         $(function () {
@@ -364,9 +363,6 @@
                 });
             });
         });
-
-
-
 
     </script>
 

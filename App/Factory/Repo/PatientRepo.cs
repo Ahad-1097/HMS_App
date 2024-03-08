@@ -328,7 +328,7 @@ namespace App.Repo
 
             var Dischargedata = _context.Discharge.Where(a => a.PatientID == PatientID).FirstOrDefault();
 
-            if (PatientData != null)
+            if (PatientData != null && Dischargedata !=null)
             {
                 DischargePrintModel DischargePrintdata = new DischargePrintModel()
                 {

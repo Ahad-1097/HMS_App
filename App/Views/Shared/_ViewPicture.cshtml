@@ -3,7 +3,7 @@
 @{
     var investigationImages = Model.InvestigationImagesList;
 
-    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif" };
+    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif", "pdf", "docx", "doc" };
 }
 
 <div class="col-xl-12 col-lg-12">
@@ -17,7 +17,7 @@
                 <div id="popup-container" style="display: none;"></div>
 
                 <div class="form-group row">
-                    <label class="col-md-2 col-form-label">Blood Sugar :</label>
+                    <label class="col-md-3 col-form-label">Blood Sugar :</label>
                     @foreach (var item in investigationImages)
                     {
                         <div class="col-md-2 viewimg">
@@ -25,13 +25,17 @@
                             {
                                 var extension = item.BloodSugar_img.Split('.').LastOrDefault();
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.BloodSugar_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.BloodSugar_img" title="@item.BloodSugar_img">
                                 }
 
                             }
@@ -48,14 +52,17 @@
                         {
                             var extension = item.TFT_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
-
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <img src="~/Images_Data/@item.TFT_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <a href="~/Images_Data/@item.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.TFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.TFT_img">
                                 }
                             </div>
                         }
@@ -74,13 +81,17 @@
                             var extension = item.USG_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <img src="~/Images_Data/@item.USG_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <a href="~/Images_Data/@item.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.USG_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.USG_img">
                                 }
                             </div>
                         }
@@ -98,13 +109,17 @@
                             var extension = item.SONOMMOGRAPHY_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <img src="~/Images_Data/@item.SONOMMOGRAPHY_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                <a href="~/Images_Data/@item.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.SONOMMOGRAPHY_img" >
                                 }
                             </div>
                         }
@@ -122,14 +137,19 @@
                             var extension = item.CECT_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.CECT_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.CECT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                                 }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.CECT_img">
+                                }
+
                             </div>
                         }
 
@@ -146,13 +166,17 @@
                             var extension = item.MRI_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.MRI_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.MRI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.MRI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.MRI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.MRI_img">
                                 }
                             </div>
                         }
@@ -169,13 +193,17 @@
                             var extension = item.FNAC_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.FNAC_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.FNAC_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.FNAC_img">
                                 }
                             </div>
                         }
@@ -193,13 +221,17 @@
                             var extension = item.TrucutBiopsy_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.TrucutBiopsy_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.TrucutBiopsy_img">
                                 }
                             </div>
                         }
@@ -215,14 +247,17 @@
                         {
                             var extension = item.ReceptorStatus_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
-
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.ReceptorStatus_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.ReceptorStatus_img">
                                 }
                             </div>
                         }
@@ -240,13 +275,17 @@
                             var extension = item.MRCP_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.MRCP_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.MRCP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.MRCP_img">
                                 }
                             </div>
                         }
@@ -263,13 +302,17 @@
                             var extension = item.ERCP_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.ERCP_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.ERCP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.ERCP_img">
                                 }
                             </div>
                         }
@@ -278,21 +321,24 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label">Endoscopy Upper GI :</label>
+                    <label class="col-md-4 col-form-label">Endoscopy Upper GI :</label>
                     @foreach (var item in investigationImages)
                     {
                         @if (!string.IsNullOrWhiteSpace(item.EndoscopyUpperGI_img))
                         {
                             var extension = item.EndoscopyUpperGI_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
-
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.EndoscopyUpperGI_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.EndoscopyUpperGI_img">
                                 }
                             </div>
                         }
@@ -300,7 +346,7 @@
                     }
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label">Endoscopy Lower GI :</label>
+                    <label class="col-md-4 col-form-label">Endoscopy Lower GI :</label>
                     @foreach (var item in investigationImages)
                     {
 
@@ -309,13 +355,17 @@
                             var extension = item.EndoscopyLowerGI_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.EndoscopyLowerGI_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.EndoscopyLowerGI_img">
                                 }
                             </div>
                         }
@@ -333,13 +383,17 @@
                             var extension = item.PETCT_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.PETCT_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.PETCT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.PETCT_img">
                                 }
                             </div>
                         }
@@ -356,13 +410,17 @@
                             var extension = item.TumorMarkers_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.TumorMarkers_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.TumorMarkers_img">
                                 }
                             </div>
                         }
@@ -380,13 +438,17 @@
                             var extension = item.IVP_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                 @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.IVP_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.IVP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.IVP_img">
                                 }
                             </div>
                         }
@@ -404,13 +466,17 @@
                             var extension = item.MCU_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.MCU_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.MCU_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.MCU_img">
                                 }
                             </div>
                         }
@@ -428,13 +494,17 @@
                             var extension = item.RGU_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.RGU_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.RGU_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.RGU_img">
                                 }
                             </div>
                         }
@@ -452,13 +522,17 @@
                             var extension = item.ABG_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.ABG_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.ABG_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.ABG_img">
                                 }
                             </div>
                         }
@@ -476,13 +550,17 @@
                             var extension = item.OtherO.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.OtherO" style="width: 100px">
+                                    <a href="~/Images_Data/@item.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.OtherO" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.OtherO">
                                 }
                             </div>
                         }
@@ -500,13 +578,17 @@
                             var extension = item.CBC_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.CBC_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.CBC_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.CBC_img">
                                 }
                             </div>
                         }
@@ -524,13 +606,17 @@
                             var extension = item.RFT_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.RFT_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.RFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.RFT_img">
                                 }
                             </div>
                         }
@@ -547,13 +633,17 @@
                             var extension = item.PTINR_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.PTINR_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.PTINR_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.PTINR_img">
                                 }
                             </div>
                         }
@@ -571,13 +661,18 @@
                             var extension = item.LFT_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.LFT_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.LFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.LFT_img">
                                 }
                             </div>
                         }
@@ -595,13 +690,17 @@
                             var extension = item.UrineRM_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.UrineRM_img" style="width: 100px">
+                                    <a href="~/Images_Data/@item.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                    <a href="~/Images_Data/@item.UrineRM_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                    <img class="imgofview" src="~/Images_Data/@item.UrineRM_img">
                                 }
                             </div>
                         }
@@ -619,13 +718,17 @@
                             var extension = item.LIPIDPROFILE_img.Split('.').LastOrDefault();
                             <div class="col-md-2 viewimg">
 
-                                @if (imageExtensions.Contains(extension))
+                                @if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <img src="~/Images_Data/@item.LIPIDPROFILE_img" style="width: 100px">
+                                <a href="~/Images_Data/@item.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                                 }
-                                else if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a href="~/Images_Data/@item.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 80px; color: red"></i></a>
+                                <a href="~/Images_Data/@item.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                }
+                                else if (imageExtensions.Contains(extension))
+                                {
+                                <img class="imgofview" src="~/Images_Data/@item.LIPIDPROFILE_img">
                                 }
                             </div>
                         }

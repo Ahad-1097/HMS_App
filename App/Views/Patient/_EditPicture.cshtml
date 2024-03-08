@@ -3,7 +3,7 @@
     var investigationImages = Model.InvestigationImages;
     int imgct = 0;
 
-    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif", "pdf", "docx" };
+    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif", "pdf", "docx", "doc" };
 }
 
 <form method="post" id="AddImageForm" enctype="multipart/form-data">
@@ -49,7 +49,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.BloodSugar_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -86,7 +86,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.TFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.TFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -110,7 +110,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.USG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.USG_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -147,7 +147,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.SONOMMOGRAPHY_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -171,7 +171,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.CECT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.CECT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -207,9 +207,9 @@
                         var extension = investigationImages.MRI_img.Split('.').LastOrDefault();
                         if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
                         {
-                            <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                            <a href="~/Images_Data/@investigationImages.MRI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.MRI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -232,7 +232,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.FNAC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.FNAC_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -270,7 +270,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.TrucutBiopsy_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -293,7 +293,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.ReceptorStatus_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -331,7 +331,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.MRCP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -355,7 +355,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.ERCP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.ERCP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -393,7 +393,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.EndoscopyUpperGI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -416,7 +416,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.EndoscopyLowerGI_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -453,7 +453,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.PETCT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.PETCT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -476,7 +476,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.TumorMarkers_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -514,7 +514,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.IVP_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.IVP_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -539,7 +539,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.MCU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.MCU_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -577,7 +577,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.RGU_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.RGU_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -602,7 +602,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.ABG_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.ABG_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -640,7 +640,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.OtherO" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.OtherO" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -665,7 +665,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.CBC_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.CBC_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -703,7 +703,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.RFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.RFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -727,7 +727,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.PTINR_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.PTINR_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -765,7 +765,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.LFT_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.LFT_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -790,7 +790,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.UrineRM_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.UrineRM_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }
@@ -825,7 +825,7 @@
                         {
                             <a href="~/Images_Data/@investigationImages.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
                         }
-                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase))
+                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
                         {
                             <a href="~/Images_Data/@investigationImages.LIPIDPROFILE_img" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
                         }

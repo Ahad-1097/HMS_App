@@ -33,7 +33,7 @@
                             <li><a href="#AddInvestigation" onclick="AddInvestigation(@Model.PatientModel.PatientID)" data-toggle="tab">Add Investigation</a></li>
                             <li><a href="#AddPicture" onclick="AddPicture(@Model.PatientModel.PatientID)" data-toggle="tab">Add Picture</a></li>
                             <li><a href="#Progress" onclick="Progress(@Model.PatientModel.PatientID)" data-toggle="tab">Progress</a></li>
-                            <li><a href="#Vitals" onclick="Vitals(@Model.PatientModel.PatientID)" data-toggle="tab">Vitals</a></li>
+                            @* <li><a href="#Vitals" onclick="Vitals(@Model.PatientModel.PatientID)" data-toggle="tab">Vitals</a></li> *@
                             <li><a href="#Diagnosis" onclick="Diagnosis(@Model.PatientModel.PatientID)" data-toggle="tab">Diagnosis</a></li>
                             <li><a href="#CaseSheet" onclick="CaseSheet(@Model.PatientModel.PatientID)" data-toggle="tab">CaseSheet</a></li>
 
@@ -55,9 +55,9 @@
                             <div id="Progress" class="tab-pane">
                                 <div id="ProgressData"></div>
                             </div>
-                            <div id="Vitals" class="tab-pane">
+                           @*  <div id="Vitals" class="tab-pane">
                                 <div id="VitalsData"></div>
-                            </div>
+                            </div> *@
                             <div id="Diagnosis" class="tab-pane">
                                 <div id="DiagnosisData"></div>
                             </div>

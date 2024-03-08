@@ -30,6 +30,103 @@
                         @Html.DisplayFor(model => model.Progress.GeneralCondition)
                     </div>
                 </div>
+                @* Vitals *@
+                <div class="row">
+                    <h3 class="my-3">Vitals</h3>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.PR)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.PR)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.BP)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.BP)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.RR)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.RR)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.SpO2)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.SpO2)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Temp)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Temp)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">General Examination</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.GeneralExamination)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.CNS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.CNS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.CVS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.CVS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.RS)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.RS)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.PA)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.PA)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Local Examination</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.LocalExamination)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Drains)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Drains)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Urine)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Urine)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Advice)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Advice)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">@Html.DisplayNameFor(model => model.Progress.Remark)</label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Progress.Remark)
+                    </div>
+                </div>
+
               
                 <a target="_blank" href="@Url.Action("Progress", "Patient",  new { PatientID = @Model.Progress.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
             </div>

@@ -17,9 +17,13 @@ namespace App.Models.DbContext
         public long PatientID { get; set; }
         [ForeignKey(nameof(PatientID))]
         public Patient Patient { get; set; }
+        [Display(Name = "PRESENTING COMPLAINTS")]
         public string PRESENTING_COMPLAINTS { get; set; }
+        [Display(Name = "History Of Presenting Illness")]
         public string HistoryOfPresentingIllness { get; set; }
+        [Display(Name = "Past History")]
         public string PastHistory { get; set; }
+        [Display(Name = "Personal History")]
         public string PersonalHistory { get; set; }
         public string Diet { get; set; }
         public string Appetite { get; set; }
@@ -27,6 +31,7 @@ namespace App.Models.DbContext
         public string Bowel { get; set; }
         public string Bladder { get; set; }
         public string Addiction { get; set; }
+        [Display(Name = "Family History")]
         public string FamilyHistory { get; set; }
 
         //Vitals
@@ -47,10 +52,12 @@ namespace App.Models.DbContext
         public string Lymphadenopathy { get; set; }
 
         //SYSTEMIC EXAMINATION
+        [Display(Name = "Respiratory System")]
         public string RespiratorySystem { get; set; }
         public string CNS { get; set; }
         public string CVS { get; set; }
         public string PerAbdomen { get; set; }
+        [Display(Name = "Locoregional Exam")]
         public string LocoregionalExam { get; set; }
         
        

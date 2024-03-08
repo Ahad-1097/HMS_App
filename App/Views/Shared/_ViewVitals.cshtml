@@ -104,6 +104,7 @@
                         @Html.DisplayFor(model => model.Progress.Remark)
                     </div>
                 </div>
+
                 <a target="_blank" href="@Url.Action("Vitals", "Patient",  new { PatientID = @Model.Progress.PatientID,ViewName="Print" })" class="btn btn-primary">Print Data</a>
             </div>
 
