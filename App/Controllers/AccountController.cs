@@ -84,7 +84,7 @@ namespace App.Controllers
                             return new RedirectToActionResult("Index", "Admin", null);
                         }
 
-                        else if (roles.Contains("Docter"))
+                        else if (roles.Contains("Doctor"))
                         {
                             return new RedirectToActionResult("Index", "Admin", null);
                         }

@@ -100,8 +100,12 @@ namespace App.Models.EntityModels
 
         [Display(Name = "Others")]
         public string OtherO { get; set; }
-        public string OtherT { get; set; }
-        public string OtherTh { get; set; }
+
+        [Display(Name = "Serum Amylase")]
+        public string OtherT { get; set; } // Serum Amylase
+
+        [Display(Name = "Serum Lipase")]
+        public string OtherTh { get; set; }  // Serum lipase
         public string CreatedBy { get; set; }
         public string UpdateBy { get; set; }
         public DateTime CreatedOn { get; set; }

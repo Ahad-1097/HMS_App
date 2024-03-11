@@ -108,7 +108,7 @@
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.PhoneNumber" class="control-label">Phone Number <span class="text-danger">*</span></label>
             <input asp-for="PatientModel.PhoneNumber" class="form-control" onkeyup="makeRequired()" placeholder="Enter Phone Number" required />
-            <span asp-validation-for="PatientModel.PhoneNumber" id="PhoneNumber" class="text-danger"> Required</span>
+            <span asp-validation-for="PatientModel.PhoneNumber" id="PhoneNumber" class="text-danger hidden"> Required</span>
             
         </div>
 

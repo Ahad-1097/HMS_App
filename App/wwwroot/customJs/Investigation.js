@@ -78,6 +78,8 @@ $("#AddInvestigationBtn").click(function (event) {
     model.MCU = $("#InvestigationModel_MCU").val();
     model.RGU = $("#InvestigationModel_RGU").val();
     model.OtherO = $("#InvestigationModel_OtherO").val();
+    model.OtherT = $("#InvestigationModel_OtherT").val(); // Serum Amylase 
+    model.OtherTh = $("#InvestigationModel_OtherTh").val(); // Serum lipase
 
     models.push(model);
     var isAnyPropertyNull = false;
@@ -238,6 +240,8 @@ function EditInvestigationModels() {
     model.MCU = $("#InvestigationList_0__MCU").val();
     model.RGU = $("#InvestigationList_0__RGU").val();
     model.OtherO = $("#InvestigationList_0__OtherO").val();
+    model.OtherT = $("#InvestigationList_0__OtherT").val(); // Serum Amylase 
+    model.OtherTh = $("#InvestigationList_0__OtherTh").val(); // Serum lipase
     models.push(model);
 
     $("#InvestigationModelsJson").val(JSON.stringify(models));

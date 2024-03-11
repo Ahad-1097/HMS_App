@@ -12,3 +12,13 @@
 .imgofview {
     padding:5px;
 }
+
+.nav-pills li a {
+    padding: 10px 12px !important;
+    border-right: 2px solid #fff;
+}
+
+
+.hidden {
+    display: none; /* or any other display property you desire */
+}

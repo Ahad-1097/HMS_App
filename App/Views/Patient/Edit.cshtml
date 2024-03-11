@@ -55,8 +55,8 @@
                             <div id="Progress" class="tab-pane">
                                 <div id="ProgressData"></div>
                             </div>
-                           @*  <div id="Vitals" class="tab-pane">
-                                <div id="VitalsData"></div>
+                            @*  <div id="Vitals" class="tab-pane">
+                            <div id="VitalsData"></div>
                             </div> *@
                             <div id="Diagnosis" class="tab-pane">
                                 <div id="DiagnosisData"></div>
@@ -132,7 +132,7 @@
 </style>
 
 
-@section scripts{
+@section scripts {
 
     @*<script src="~/lib/select2/js/select2.min.js"></script>*@
     <script src="~/customJs/AddPatient.js"></script>
@@ -146,10 +146,8 @@
     <script src="~/customJs/CaseSheet.js"></script>
     <script src="~/customjs/Vitals.js"></script>
     <script>
-
-
         $(document).ready(function () {
-
+            $("#PhoneNumber").hide();
             var id = $("#PatientModel_PatientID").val();
 
             $.ajax({
@@ -293,6 +291,8 @@
                     $("#InvestigationList_0__MCU").val(data[0].mcu);
                     $("#InvestigationList_0__RGU").val(data[0].rgu);
                     $("#InvestigationList_0__OtherO").val(data[0].otherO);
+                    $("#InvestigationList_0__OtherT").val(); // Serum Amylase
+                    $("#InvestigationList_0__OtherTh").val(); // Serum lipase
                 }
             });
         }

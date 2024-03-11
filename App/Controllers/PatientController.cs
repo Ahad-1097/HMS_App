@@ -19,12 +19,12 @@ using System.Reflection;
 using System;
 using Microsoft.AspNetCore.Http;
 using App.Models.EntityModels;
-using SixLabors.Fonts;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PatientController : Controller
     {
         private readonly ApplicationContext _context;
@@ -187,15 +187,12 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
-
                 data = await _patient.PatientDetail(PatientID, cancellationToken);
-
                 return PartialView("_ViewPatient", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
                 data = await _patient.PatientDetail(PatientID, cancellationToken);
-
                 return GeneratePdf(data.PatientModel);
             }
             return PartialView("AddPatient", data);
@@ -371,54 +368,7 @@ namespace App.Controllers
                     addimgsuccess = true;
 
                     return RedirectToAction("Create", true);
-                    //InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
-                    //return PartialView("_AddPicture", investigationImagesModel);
                 }
-
-                //if (imageFiles.Msg == "save")
-                //{
-                //    try
-                //    {
-                //        await _patient.UpdateInvestigationImages(imageFiles, cancellationToken);
-                //        msg = "Data updated successfully";
-                //        return Json(msg);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        return Json($"Error updating data: {ex.Message}");
-                //    }
-                //}
-                //else if (imageFiles.PatientId > 0 && imageFiles.Id == 0)
-                //{
-                //    try
-                //    {
-                //        _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
-                //        msg = "Data added successfully";
-                //        //return RedirectToAction("Create");
-                //        msg = "Data added successfully";
-                //        return Json(msg);
-
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        return Json($"Error adding data: {ex.Message}");
-                //    }
-                //}
-                //else if (_PatientId > 0)
-                //{
-
-                //    _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
-                //    msg = "Data added successfully";
-                //    addimgsuccess=true;
-
-                //    return RedirectToAction("Create");
-                //    //InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
-                //    //return PartialView("_AddPicture", investigationImagesModel);
-
-
-                //}
-
-
                 return Json("Invalid parameters or conditions");
             }
 
@@ -942,22 +892,61 @@ namespace App.Controllers
             doc.Open();
             // Iterate through the properties of the model and add them to the PDF
             PropertyInfo[] properties = typeof(TModel).GetProperties();
-
-
-            // Add image
-            //string imagePath = "path/to/image.jpg";
-            //Image image = new Image(ImageDataFactory.Create(imagePath));
-            //doc.Add(image);
-
-            iTextSharp.text.Font hs = new iTextSharp.text.Font();
-            hs.Size = 18;
+            iTextSharp.text.Font hs = new iTextSharp.text.Font
+            {
+                Size = 18
+            };
             hs.SetColor(0, 122, 100);
             hs.IsBold();
-            //hs.SetStyle((int)TextAlignment.Center);
-            Paragraph header = new Paragraph("Department of Surgery, J.N Medical College AMU", hs);
-            header.Alignment = 1;
-            doc.Add(header);
-            doc.Add(new Paragraph($"=========================================================================="));
+
+
+            // Create a table to contain the header content
+            PdfPTable headerTable = new PdfPTable(1)
+            {
+                TotalWidth = doc.PageSize.Width, // Set total width to match document width
+                LockedWidth = true, // Ensure the table width is fixed
+            };
+
+            // Create a cell with the content
+            PdfPCell headerCell = new PdfPCell();
+
+            // Create a Phrase with the image and header text
+            Phrase headerPhrase = new Phrase();
+
+            // Add the image
+            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance("wwwroot/images/logo.png"); // Replace "path_to_your_image.jpg" with the path to your image
+            image.ScaleToFit(700f, 700f); // Adjust the image size as needed
+            headerPhrase.Add(new Chunk(image, 0, 0));
+
+            // Add the header text
+            headerPhrase.Add(new Chunk("     Department of Surgery, J.N Medical College AMU", hs));
+
+            // Set the Phrase as the content of the cell
+            headerCell.AddElement(headerPhrase);
+
+            // Set cell properties
+            headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            headerCell.Border = 0; // No border
+
+            // Add the cell to the table
+            headerTable.AddCell(headerCell);
+
+            // Write the table to the PDF document
+            headerTable.WriteSelectedRows(0, 1, 30, doc.Top, writer.DirectContent);
+
+            // Draw a line 
+            PdfContentByte cbh = writer.DirectContent;
+            // Set the color of the line
+            cbh.SetColorStroke(BaseColor.GREEN);
+            // Set the width of the line
+            cbh.SetLineWidth(1f);
+
+            // Draw a line from the left edge to the right edge of the page
+            cbh.MoveTo(doc.LeftMargin, doc.PageSize.Height - 60);
+            cbh.LineTo(doc.PageSize.Width - doc.RightMargin, doc.PageSize.Height - 60);
+            cbh.Stroke();
+
+            doc.Add(new Paragraph($"\n\n\n"));
 
             foreach (PropertyInfo property in properties)
             {
@@ -977,8 +966,38 @@ namespace App.Controllers
                 if (model != null)
                 {
                     var propertyValue = property.GetValue(model) ?? null;
-                    // Add the property name and value to the PDF as paragraphs
-                    doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
+                    
+                    // Create a table with two columns to contain the property name and value
+                    PdfPTable table = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100
+                    };
+                    float[] columnWidths = { 40f, 60f }; // Define column widths (50% each)
+                    table.SetWidths(columnWidths);
+
+                    // Create a cell for the property name
+                    PdfPCell propertyNameCell = new PdfPCell(new Phrase(propertyName, FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                    {
+                        HorizontalAlignment = Element.ALIGN_LEFT,
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Border = 0,// No border
+                        BorderWidthBottom = 1,
+                        Padding = 5f
+                    };
+                    table.AddCell(propertyNameCell);
+
+                    // Create a cell for the property value
+                    PdfPCell propertyValueCell = new PdfPCell(new Phrase($"{propertyValue}", FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                    {
+                        HorizontalAlignment = Element.ALIGN_LEFT,
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Border = 0, // No border
+                        BorderWidthBottom = 1
+                    };
+                    table.AddCell(propertyValueCell);
+
+                    // Add the table to the document
+                    doc.Add(table);
                 }
                 else
                 {
@@ -986,16 +1005,34 @@ namespace App.Controllers
                 }
             }
 
-            doc.Add(new Paragraph($"=========================================================================="));
-            iTextSharp.text.Font fs = new iTextSharp.text.Font();
-            fs.Size = 18;
-            fs.SetColor(0, 122, 100);
-            fs.IsBold();
+            // Add signature line at the bottom of the page
+            PdfPTable signatureTable = new PdfPTable(1)
+            {
+                TotalWidth = doc.PageSize.Width, // Set total width to match document width
+                LockedWidth = true, // Ensure the table width is fixed
+            };
 
-            fs.SetStyle((int)TextAlignment.Start);
-            Paragraph footer = new Paragraph("signature :", fs);
-            doc.Add(footer);
+            // Create a cell with the content
+            PdfPCell signatureCell = new PdfPCell(new Phrase("Signature:"))
+            {
+                
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                Border = 0
+            };
 
+            signatureTable.AddCell(signatureCell);
+            signatureTable.WriteSelectedRows(0, 1, 36, 55, writer.DirectContent);
+
+            // Create a new PdfContentByte object
+            PdfContentByte cb = writer.DirectContent;
+            // Set the color of the line
+            cb.SetColorStroke(BaseColor.GREEN);
+            // Set the width of the line
+            cb.SetLineWidth(1f);
+            // Draw a line at the bottom of the page
+            cb.MoveTo(doc.LeftMargin, doc.BottomMargin);
+            cb.LineTo(doc.PageSize.Width - doc.RightMargin, doc.BottomMargin);
+            cb.Stroke();
 
             doc.Close(); // Close the document
 
@@ -1021,7 +1058,7 @@ namespace App.Controllers
 
 
             List<string> propertiesToIgnore = new List<string>
-            { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
+            { "PatientID","Patient","Address_ID","Dr_ID","Id",
                 "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
                 "Address","Email","Status","IsActive","Title","SubCategoryTitle",
                 "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3"
@@ -1029,25 +1066,131 @@ namespace App.Controllers
 
             // Add data to the PDF document
             doc.Open();
+
+            //header and single line --------------------
+            iTextSharp.text.Font hs = new iTextSharp.text.Font
+            {
+                Size = 18
+            };
+            hs.SetColor(0, 122, 100);
+            hs.IsBold();
+
+
+            // Create a table to contain the header content
+            PdfPTable headerTable = new PdfPTable(1)
+            {
+                TotalWidth = doc.PageSize.Width, // Set total width to match document width
+                LockedWidth = true, // Ensure the table width is fixed
+            };
+
+            // Create a cell with the content
+            PdfPCell headerCell = new PdfPCell();
+
+            // Create a Phrase with the image and header text
+            Phrase headerPhrase = new Phrase();
+
+            // Add the image
+            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance("wwwroot/images/logo.png"); // Replace "path_to_your_image.jpg" with the path to your image
+            image.ScaleToFit(700f, 700f); // Adjust the image size as needed
+            headerPhrase.Add(new Chunk(image, 0, 0));
+
+            // Add the header text
+            headerPhrase.Add(new Chunk("     Department of Surgery, J.N Medical College AMU", hs));
+
+            // Set the Phrase as the content of the cell
+            headerCell.AddElement(headerPhrase);
+
+            // Set cell properties
+            headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            headerCell.Border = 0; // No border
+
+            // Add the cell to the table
+            headerTable.AddCell(headerCell);
+
+            // Write the table to the PDF document
+            headerTable.WriteSelectedRows(0, 1, 30, doc.Top, writer.DirectContent);
+
+            // Draw a line 
+            PdfContentByte cbh = writer.DirectContent;
+            // Set the color of the line
+            cbh.SetColorStroke(BaseColor.GREEN);
+            // Set the width of the line
+            cbh.SetLineWidth(1f);
+
+            // Draw a line from the left edge to the right edge of the page
+            cbh.MoveTo(doc.LeftMargin, doc.PageSize.Height - 60);
+            cbh.LineTo(doc.PageSize.Width - doc.RightMargin, doc.PageSize.Height - 60);
+            cbh.Stroke();
+
+            doc.Add(new Paragraph($"\n\n\n"));
+
+            /// data start-----------------------------
+
+
             foreach (var item in model)
             {
                 var properties = typeof(Investigation).GetProperties();
-                doc.AddTitle("heading");
-                doc.AddHeader("H1", "this is header");
+
                 foreach (PropertyInfo property in properties)
                 {
-                    if (propertiesToIgnore.Contains(property.Name))
-                    {
-                        continue; // Skip this property
-                    }
-                    string propertyName = property.Name;
-                    object propertyValue = property.GetValue(item);
+                    if (propertiesToIgnore.Contains(property.Name)) { continue; }
 
-                    // Add the property name and value to the PDF as paragraphs
-                    doc.Add(new Paragraph($"{propertyName}: {propertyValue}"));
+                    string propertyName;
+
+                    var displayNameAttribute = property.GetCustomAttribute<DisplayAttribute>();
+                    if (displayNameAttribute != null && displayNameAttribute.Name != null)
+                    {
+                        propertyName = displayNameAttribute.Name;
+                    }
+                    else
+                    {
+                        propertyName = property.Name;
+                    }
+                    if (item != null)
+                    {
+                        var propertyValue = property.GetValue(item) ?? null;
+
+                        // Create a table with two columns to contain the property name and value
+                        PdfPTable table = new PdfPTable(2)
+                        {
+                            WidthPercentage = 100
+                        };
+                        float[] columnWidths = { 40f, 60f }; // Define column widths (50% each)
+                        table.SetWidths(columnWidths);
+
+                        // Create a cell for the property name
+                        PdfPCell propertyNameCell = new PdfPCell(new Phrase(propertyName, FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                        {
+                            HorizontalAlignment = Element.ALIGN_LEFT,
+                            VerticalAlignment = Element.ALIGN_MIDDLE,
+                            Border = 0,// No border
+                            BorderWidthBottom = 1,
+                            Padding = 5f
+                        };
+                        table.AddCell(propertyNameCell);
+
+                        // Create a cell for the property value
+                        PdfPCell propertyValueCell = new PdfPCell(new Phrase($"{propertyValue}", FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                        {
+                            HorizontalAlignment = Element.ALIGN_LEFT,
+                            VerticalAlignment = Element.ALIGN_MIDDLE,
+                            Border = 0, // No border
+                            BorderWidthBottom = 1
+                        };
+                        table.AddCell(propertyValueCell);
+
+                        // Add the table to the document
+                        doc.Add(table);
+                    }
+                    else
+                    {
+                        doc.Add(new Paragraph($"{propertyName}: "));
+                    }
 
                 }
-                doc.Add(new Paragraph($"-----------------------------------------------------------------------------"));
+                //---------------------------new data start---------------------------------------------;
+                // Start a new page
+                doc.NewPage();
             }
 
             doc.Close(); // Close the document
@@ -1064,7 +1207,6 @@ namespace App.Controllers
 
             return new EmptyResult();
         }
-
 
         [HttpGet]
         public IActionResult Outcome(long PatientID, string ViewName)

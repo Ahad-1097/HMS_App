@@ -12,6 +12,8 @@ namespace App.DtoModel
         public long PatientID { get; set; }
         [Display(Name = "Patient Name")]
         public string Name { get; set; }
+        [Display(Name = "Consultants")]
+        public string Dr_Name { get; set; }
         public string Gender { get; set; }
         public string Age { get; set; }
         [DataType(DataType.Date)]
@@ -56,7 +58,7 @@ namespace App.DtoModel
         public string ZipCode { get; set; }
         public string Title { get; set; }
         public string SubCategoryTitle { get; set; }
-        public string Dr_Name { get; set; }
+       
         public SubCategoryModel subCategory { get; set; }
         public List<InvestigationModel> InvestigationModel { get; set; }
         public virtual InvestigationImagesModel InvestigationImagesModel { get; set; }

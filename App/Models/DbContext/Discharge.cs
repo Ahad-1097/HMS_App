@@ -20,9 +20,12 @@ namespace App.Models.DbContext
         [DataType(DataType.Date)]
         public string DOD { get; set; }
         public string Diagnosis { get; set; }
+        [Display(Name = "Case Summary")]
         public string CaseSummary { get; set; }
         public string Investigations { get; set; }
+        [Display(Name = "Treatment Given")]
         public string TreatmentGiven { get; set; }
+        [Display(Name = "Advice On discharge")]
         public string AdviceOndischarge { get; set; }
         public string SeniorResident { get; set; }
         public string JuniorResident { get; set; }

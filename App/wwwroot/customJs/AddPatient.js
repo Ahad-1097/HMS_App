@@ -90,10 +90,10 @@ function makeRequired() {
     var phoneNumber = $("#PatientModel_PhoneNumber").val();
     if (phoneNumber == "") {
         $("#PatientBtn").prop("disabled", true);
-        $("#PhoneNumber").show();
+        $("#PhoneNumber").removeClass("hidden");
     } else {
         $("#PatientBtn").prop("disabled", false);
-        $("#PhoneNumber").hide();
+        $("#PhoneNumber").addClass("hidden");
     }
 
 }

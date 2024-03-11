@@ -90,8 +90,8 @@ namespace App.Models.DtoModel
         public string RGU { get; set; } //Cystoscopy
 
         public string OtherO { get; set; }
-        public string OtherT { get; set; }
-        public string OtherTh { get; set; }
+        public string OtherT { get; set; } // Serum Amylase 
+        public string OtherTh { get; set; } // Serum lipase
         public string CreatedBy { get; set; }
         public string UpdateBy { get; set; }
         public DateTime CreatedOn { get; set; }

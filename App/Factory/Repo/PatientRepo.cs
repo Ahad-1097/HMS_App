@@ -336,7 +336,7 @@ namespace App.Repo
                     Name = PatientData.Patient.Name,
                     Gender = PatientData.Patient.Gender,
                     Age = PatientData.Patient.Age,
-                    DOA = PatientData.Patient.DOA.ToString(),
+                    DOA = PatientData.Patient.DOA.ToString("dd/MM/yyyy"),
                     DOD=Dischargedata.DOD.ToString(),
                     PhoneNumber = PatientData.Patient.PhoneNumber,
                     AlternateNumber = PatientData.Patient.AlternateNumber,
@@ -745,12 +745,12 @@ namespace App.Repo
 
                     if (!string.IsNullOrEmpty(_model.OtherT))
                     {
-                        Model.OtherT = _model.OtherT;
+                        Model.OtherT = _model.OtherT; // Serum Amylase 
                     }
 
                     if (!string.IsNullOrEmpty(_model.OtherTh))
                     {
-                        Model.OtherTh = _model.OtherTh;
+                        Model.OtherTh = _model.OtherTh; // Serum lipase
                     }
 
                     Model.UpdatedOn = DateTime.Now;
@@ -881,6 +881,8 @@ namespace App.Repo
                     AlkPhosphate = investigationData.AlkPhosphate,
                     SGDT = investigationData.SGDT,
                     SGPT = investigationData.SGPT,
+                    OtherT=investigationData.OtherT, // Serum Amylase 
+                    OtherTh =investigationData.OtherTh, // Serum lipase
 
                     //TFT
                     T3 = investigationData.T3,
@@ -933,8 +935,7 @@ namespace App.Repo
                     MCU = investigationData.MCU,
                     RGU = investigationData.RGU,
                     OtherO = investigationData.OtherO,
-                    OtherT = investigationData.OtherT,
-                    OtherTh = investigationData.OtherTh,
+                    
 
                     CreatedOn = DateTime.UtcNow,
                     UpdatedOn = DateTime.UtcNow,
@@ -1042,7 +1043,7 @@ namespace App.Repo
                     }
                     if (fileNames.ContainsKey("RGU_img") && fileNames["RGU_img"].Count > i)
                     {
-                        InvImgTbl.RGU_img = fileNames["RGU_img"][i];
+                        InvImgTbl.RGU_img = fileNames["RGU_img"][i]; /*Cystoscopy*/
                     }
                     if (fileNames.ContainsKey("ABG_img") && fileNames["ABG_img"].Count > i)
                     {
@@ -1168,7 +1169,7 @@ namespace App.Repo
                 }
                 if (fileNames.ContainsKey("RGU_img"))
                 {
-                    _imgExists.RGU_img = fileNames["RGU_img"];
+                    _imgExists.RGU_img = fileNames["RGU_img"]; /*Cystoscopy*/
                 }
 
                 if (fileNames.ContainsKey("ABG_img"))

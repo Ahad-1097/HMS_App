@@ -189,6 +189,28 @@
                     </div>
                 }
             </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Serum Amylase :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.OtherT </label>
+                        </div>
+                    </div>
+                }
+            </div> 
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Serum lipase :</label>
+                @foreach (var item in Model.InvestigationList)
+                {
+                    <div class="col-md-3 col-4 col-sm-4 mb-2">
+                        <div class="form-group">
+                            <label>@item.OtherTh </label>
+                        </div>
+                    </div>
+                }
+            </div>
 
             @* TFT *@
             <div class="row">

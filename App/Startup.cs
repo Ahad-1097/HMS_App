@@ -86,8 +86,8 @@ namespace App
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                //pattern: "{controller=Account}/{action=Login}/{id?}");
-                pattern: "{controller=Admin}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{id?}");
+                //pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }

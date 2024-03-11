@@ -27468,11 +27468,12 @@ table.dataTable thead .sorting {
     .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
       color: #fff !important;
       background: #007A64 !important; }
-    .dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.next {
-      background: transparent !important;
-      color: #007A64 !important;
-      margin: 0 10px;
-      border: 1px solid #007A64 !important; }
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+    background: #007A64 !important;
+    color: #ffffff !important;
+    margin: 0 10px;
+    border: 1px solid #007A64 !important;
+}
       .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
         background: #007A64 !important;
         color: #fff !important; }
