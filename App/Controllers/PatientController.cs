@@ -625,40 +625,37 @@ namespace App.Controllers
                 if (model != null)
                 {
                     string msg;
+                    // Handle the image file
+                    if (model.PerOPImageFile1 != null && model.PerOPImageFile1.Length > 0)
+                    {
+                        model.PerOPImage = await _patient.Addimge(model.PerOPImageFile1);
+                    }
+                    if (model.PerOPImageFile2 != null && model.PerOPImageFile2.Length > 0)
+                    {
+                        model.PerOPImage2 = await _patient.Addimge(model.PerOPImageFile2);
+                    }
+                    if (model.PerOPImageFile3 != null && model.PerOPImageFile3.Length > 0)
+                    {
+                        model.PerOPImage3 = await _patient.Addimge(model.PerOPImageFile3);
+                    }
+                    if (model.PerOPImageFile4 != null && model.PerOPImageFile4.Length > 0)
+                    {
+                        model.PerOPImage4 = await _patient.Addimge(model.PerOPImageFile4);
+                    }
+                    if (model.PerOPImageFile5 != null && model.PerOPImageFile5.Length > 0)
+                    {
+                        model.PerOPImage5 = await _patient.Addimge(model.PerOPImageFile5);
+                    }
+
 
                     // Assuming you're using a service/repository named _patient
                     if (model.Id > 0)
                     {
-                        // Handle the image file
-                        if (model.PerOPImageFile != null && model.PerOPImageFile.Length > 0)
-                        {
-                            var uniqueFileName = Guid.NewGuid().ToString() + "_" +
-                                model.PerOPImageFile.FileName;
-                            var filePath = Path.Combine("wwwroot/Images_Data", uniqueFileName);
-
-                            using (var fileStream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await model.PerOPImageFile.CopyToAsync(fileStream);
-                            }
-                            model.PerOPImage = uniqueFileName;
-                        }
                         await _patient.UpdateOperationSheet(model);
                         msg = "Data updated successfully";
                     }
                     else if (_PatientId > 0)
                     {
-                        // Handle the image file
-                        if (model.PerOPImageFile != null && model.PerOPImageFile.Length > 0)
-                        {
-                            var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.PerOPImageFile.FileName;
-                            var filePath = Path.Combine("wwwroot/Images_Data", uniqueFileName);
-
-                            using (var fileStream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await model.PerOPImageFile.CopyToAsync(fileStream);
-                            }
-                            model.PerOPImage = uniqueFileName;
-                        }
                         _patient.AddOperationSheet(model, _PatientId);
                         msg = "Data added successfully";
                     }
@@ -671,9 +668,6 @@ namespace App.Controllers
                     {
                         return Json("Something went wrong");
                     }
-
-
-
                     return Json(msg);
                 }
 
@@ -883,7 +877,7 @@ namespace App.Controllers
             { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
                 "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
                 "Address","Email","Status","IsActive","Title","SubCategoryTitle",
-                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3","SerialNumber"
+                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3","Value4","PerOPImage","SerialNumber"
             };
 
 

@@ -1,6 +1,7 @@
 ﻿@model App.Models.ViewModel.PatientViewModel
 @{
     ViewData["Title"] = "OperationSheet";
+    var imageExtensions = new List<string> { "jpg", "jpeg", "png", "gif", "pdf", "docx", "doc" };
 }
 
 <!--**********************************
@@ -9,7 +10,7 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card">
-            
+
             <div class="card-body">
                 <div class="basic-form">
                     <form id="AddOperationForm" enctype="multipart/form-data">
@@ -97,10 +98,123 @@
                                 <textarea class="form-control" rows="4" asp-for="Operation.PostOperativeInstructions" placeholder=" Enter post - operative instruction..."></textarea>
                                 <span asp-validation-for="Operation.PostOperativeInstructions" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label>PER-OP image</label>
-                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage">
-                                @* <input asp-for="Operation.PerOPImage" class="form-control" placeholder="Enter specimen sent for"> *@
+                            <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
+                                    @if (!string.IsNullOrEmpty(Model.Operation.PerOPImage))
+                                    {
+                                        var extension = Model.Operation.PerOPImage.Split('.').LastOrDefault();
+
+
+                                        if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <a  href="~/Images_Data/@Model.Operation.PerOPImage" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                                        }
+                                        else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <a  href="~/Images_Data/@Model.Operation.PerOPImage" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                        }
+                                        else if (imageExtensions.Contains(extension))
+                                        {
+                                            <img class="editimg" src="~/Images_Data/@Model.Operation.PerOPImage" title="@Model.Operation.PerOPImage">
+                                        }
+                                    }
+                                </div>
+                               
+                                <label>PER-OP image 1</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
+                                @if (!string.IsNullOrEmpty(Model.Operation.Value1))
+                                {
+                                    var extension = Model.Operation.Value1.Split('.').LastOrDefault();
+
+
+                                    if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value1" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                                    }
+                                    else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value1" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                    }
+                                    else if (imageExtensions.Contains(extension))
+                                    {
+                                        <img class="editimg" src="~/Images_Data/@Model.Operation.Value1" title="@Model.Operation.Value1">
+                                    }
+                                }
+                                </div>
+                                <label>PER-OP image 2</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage2">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
+                                @if (!string.IsNullOrEmpty(Model.Operation.Value2))
+                                {
+                                    var extension = Model.Operation.Value2.Split('.').LastOrDefault();
+
+                                    if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value2" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                                    }
+                                    else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value2" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                    }
+                                    else if (imageExtensions.Contains(extension))
+                                    {
+                                        <img class="editimg" src="~/Images_Data/@Model.Operation.Value2" title="@Model.Operation.Value2">
+                                    }
+                                }
+                                </div>
+                                <label>PER-OP image 3</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage3">
+                            </div> 
+                            <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
+                                @if (!string.IsNullOrEmpty(Model.Operation.Value3))
+                                {
+                                    var extension = Model.Operation.Value3.Split('.').LastOrDefault();
+
+                                    if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value3" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                                    }
+                                    else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value3" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                    }
+                                    else if (imageExtensions.Contains(extension))
+                                    {
+                                        <img class="editimg" src="~/Images_Data/@Model.Operation.Value3" title="@Model.Operation.Value3">
+                                    }
+                                }
+                                </div>
+                                <label>PER-OP image 4</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage4">
+                            </div> 
+                            <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
+                                @if (!string.IsNullOrEmpty(Model.Operation.Value4))
+                                {
+                                    var extension = Model.Operation.Value4.Split('.').LastOrDefault();
+
+                                    if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value4" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 40px; color: red"></i></a>
+                                    }
+                                    else if (string.Equals(extension, "docx", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, "doc", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="~/Images_Data/@Model.Operation.Value4" target="_blank"><i class="fa-solid fa-file-word" style="font-size: 40px; color: blue"></i></a>
+                                    }
+                                    else if (imageExtensions.Contains(extension))
+                                    {
+                                        <img class="editimg" src="~/Images_Data/@Model.Operation.Value4" title="@Model.Operation.Value4">
+                                    }
+                                }
+                                </div>
+                                <label>PER-OP image 5</label>
+                                <input type="file" class="form-control" name="PerOPImageFile" id="Operation_PerOPImage5">
                             </div>
 
                         </div>

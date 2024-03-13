@@ -1617,7 +1617,11 @@ namespace App.Repo
                     Antibiotics = _model.Antibiotics,
                     SpecimensSentFor = _model.SpecimensSentFor,
                     PostOperativeInstructions = _model.PostOperativeInstructions,
-                    PerOPImage = _model.PerOPImage
+                    PerOPImage = _model.PerOPImage,
+                    Value1 = _model.PerOPImage2,
+                    Value2 = _model.PerOPImage3,
+                    Value3 = _model.PerOPImage4,
+                    Value4 = _model.PerOPImage5,
 
                 };
                 _context.Operation.Add(_operation);
@@ -1699,6 +1703,22 @@ namespace App.Repo
                 if (!string.IsNullOrEmpty(_model.PerOPImage))
                 {
                     data.PerOPImage = _model.PerOPImage;
+                }
+                if (!string.IsNullOrEmpty(_model.PerOPImage2))
+                {
+                    data.Value1 = _model.PerOPImage2;
+                }
+                if (!string.IsNullOrEmpty(_model.PerOPImage3))
+                {
+                    data.Value2 = _model.PerOPImage3;
+                }
+                if (!string.IsNullOrEmpty(_model.PerOPImage4))
+                {
+                    data.Value3 = _model.PerOPImage4;
+                }
+                if (!string.IsNullOrEmpty(_model.PerOPImage5))
+                {
+                    data.Value4 = _model.PerOPImage5;
                 }
                 // _context.Operation.Update(data);
                 await _context.SaveChangesAsync();
@@ -2081,6 +2101,18 @@ namespace App.Repo
                 return true;
             }
             return false;
+        }
+
+        public async Task<string> Addimge(IFormFile img)
+        {
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + img.FileName;
+            var filePath = Path.Combine("wwwroot/Images_Data", uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await img.CopyToAsync(fileStream);
+            }
+            return uniqueFileName;
         }
     }
 }

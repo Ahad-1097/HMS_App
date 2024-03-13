@@ -9,6 +9,13 @@ namespace App.Models.DtoModel
     {
         public long Id { get; set; }
         public long PatientID { get; set; }
+        //patient
+        public string Name { get; set; }
+        [Display(Name = "Consultants")]
+        public string Dr_Name { get; set; }
+        public string Gender { get; set; }
+        public string Age { get; set; }
+        
         public string DOA { get; set; }
         public string DOD { get; set; }
        
@@ -19,13 +26,6 @@ namespace App.Models.DtoModel
         public string TreatmentGiven { get; set; }
         [Display(Name = "Advice On discharge")]
         public string AdviceOndischarge { get; set; }
-
-
-        //patient
-        public string Name { get; set; }
-        public string Gender { get; set; }
-        public string Age { get; set; }
-        
        
         public long Address_ID { get; set; }
         [Display(Name = "Phone Number")]
@@ -53,7 +53,7 @@ namespace App.Models.DtoModel
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Title { get; set; }
-        public string Dr_Name { get; set; }
+       
         public bool IsActive { get; set; }
     }
 }

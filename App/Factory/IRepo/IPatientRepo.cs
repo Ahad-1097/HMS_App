@@ -49,6 +49,7 @@ namespace App.Interface
         public PatientViewModel OutComeDetail(long PatientID);
         void UpdateVital(ProgressModel _model,long PatientId);
         DischargePrintModel DischargePrintDetail(long PatientID);
+        Task<string> Addimge(IFormFile img);
 
     }
 }

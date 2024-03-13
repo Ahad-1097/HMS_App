@@ -22,3 +22,6 @@
 .hidden {
     display: none; /* or any other display property you desire */
 }
+.editimg{
+    width:50%;
+}

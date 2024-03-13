@@ -20,9 +20,25 @@
     formData.append('PostOperativeInstructions', $("#Operation_PostOperativeInstructions").val());
 
     // Handle the image input
-    var imageInput = document.getElementById('Operation_PerOPImage'); // Replace 'ImageInput' with the actual ID of your file input
-    if (imageInput.files.length > 0) {
-        formData.append('PerOPImageFile', imageInput.files[0]);
+    var imageInput1 = document.getElementById('Operation_PerOPImage1'); // Replace 'ImageInput' with the actual ID of your file input
+    if (imageInput1.files.length > 0) {
+        formData.append('PerOPImageFile1', imageInput1.files[0]);
+    }
+    var imageInput2 = document.getElementById('Operation_PerOPImage2'); // Replace 'ImageInput' with the actual ID of your file input
+    if (imageInput2.files.length > 0) {
+        formData.append('PerOPImageFile2', imageInput2.files[0]);
+    }
+    var imageInput3 = document.getElementById('Operation_PerOPImage3'); // Replace 'ImageInput' with the actual ID of your file input
+    if (imageInput3.files.length > 0) {
+        formData.append('PerOPImageFile3', imageInput3.files[0]);
+    }
+    var imageInput4 = document.getElementById('Operation_PerOPImage4'); // Replace 'ImageInput' with the actual ID of your file input
+    if (imageInput4.files.length > 0) {
+        formData.append('PerOPImageFile4', imageInput4.files[0]);
+    }
+    var imageInput5 = document.getElementById('Operation_PerOPImage5'); // Replace 'ImageInput' with the actual ID of your file input
+    if (imageInput5.files.length > 0) {
+        formData.append('PerOPImageFile5', imageInput5.files[0]);
     }
 
     $.ajax({

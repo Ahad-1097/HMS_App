@@ -30,7 +30,16 @@ namespace App.Models.DtoModel
         public string SpecimensSentFor { get; set; }
         public string PostOperativeInstructions { get; set; }
         public string PerOPImage { get; set; }
-        public IFormFile PerOPImageFile { get; set; }
+        public string PerOPImage2 { get; set; }
+        public string PerOPImage3 { get; set; }
+        public string PerOPImage4 { get; set; }
+        public string PerOPImage5 { get; set; }
+        public IFormFile PerOPImageFile1 { get; set; }
+        public IFormFile PerOPImageFile2 { get; set; }
+        public IFormFile PerOPImageFile3 { get; set; }
+        public IFormFile PerOPImageFile4 { get; set; }
+        public IFormFile PerOPImageFile5 { get; set; }
+        
 
     }
 }
