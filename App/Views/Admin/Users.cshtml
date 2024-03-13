@@ -53,6 +53,9 @@
                                     Approval Status
                                 </th>
                                 <th>
+                                    Phone No
+                                </th>
+                                <th>
                                     Roles
                                 </th>
                                 <th></th>
@@ -68,6 +71,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.IsApproved)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Roles)

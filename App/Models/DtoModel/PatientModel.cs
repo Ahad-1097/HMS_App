@@ -36,10 +36,11 @@ namespace App.DtoModel
 
         [Display(Name = "Junior Resident")]
         public string JuniorResident { get; set; }
+        [Display(Name = "Diagnosis")]
         public string Daignosis { get; set; }
         public string Side { get; set; }
 
-        [Display(Name = "Co-Morbity")]
+        [Display(Name = "Comorbidity")]
         public string CoMorbity { get; set; }
         [Display(Name = "Age")]
         public string OtherO { get; set; }

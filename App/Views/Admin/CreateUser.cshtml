@@ -53,6 +53,11 @@
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Phone" class="control-label">Phone No:</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label class="mb-1"><strong>Email</strong></label>
                         <input asp-for="Email" type="text" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -70,23 +75,28 @@
                     <div class="form-group">
                         <label class="mb-1"><strong>Role</strong></label>
                         <select asp-for="UserRole" class="form-control">
-                            <option value="User">User    </option>
-                            <option value="Doctor">Doctor  </option>
-                            <option value="Admin">Admin  </option>
+                            @* <option value="User">User</option> *@
+                            <option value="Doctor">Consultant </option>
+                            @* <option value="Admin">Admin  </option> *@
                             <option value="Jr">Junior Resident </option>
                             <option value="Sr">Senior Resident </option>
-                            <!-- Add more role options here -->
+                            
                         </select>
                         <span asp-validation-for="UserRole" class="text-danger"></span>
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary" >Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a class="" asp-controller="Admin" asp-action="Users" aria-expanded="false">
+                            <span class="btn btn-secondary">Cancel</span>
+                        </a>
                     </div>
                 </form>
 
             </div>
         </div>
-       
+        <div>
+            <a asp-controller="Admin" asp-action="Users"  > Back to List</a>
+        </div>
     </div>
 </div>
 

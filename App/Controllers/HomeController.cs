@@ -33,18 +33,17 @@ namespace App.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "doctor")]
+        //[Authorize(Roles = "Doctor")]
         public async Task<IActionResult> Index()
         {
-            var doctors = _docterRepo.GetDoterList();
-            DashboardViewModel model = new DashboardViewModel();
-            model.TotalPatient = _docterRepo.TotalPatient();
-            model.TotalDocter = await _account.GetUserCountByRoleAsync("Doctor");
-            List<UserWithRoleViewModel> userList = await _account.UserbyRole("All");
-            model.UserList = await _account.UserbyRole("Doctor");
-            model.DocterList = await _account.UserbyRole("Doctor");
-            model.TotalNewPatient = _docterRepo.NewPatient();
-            model.TotalNewDicharge = _docterRepo.RecoverPatient();
+            DashboardViewModel model = new DashboardViewModel
+            {
+                TotalPatient = _docterRepo.TotalPatient(),
+                TotalDocter = await _account.GetUserCountByRoleAsync("Doctor"),
+                DocterList = await _account.UserbyRole("Doctor"),
+                TotalNewPatient = _docterRepo.NewPatient(),
+                TotalNewDicharge = _docterRepo.RecoverPatient()
+            };
             return View(model);
         }
 

@@ -55,7 +55,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         overflow: scroll;
-    }*/
+        }*/
 </style>
 
 <body class="">
@@ -71,10 +71,13 @@
                                         <a href="#"><img src="images/logo.png" alt="" style="width:60px;"></a>
                                     </div>
                                     <h4 class="text-center mb-4 text-white">Sign up your account</h4>
+                                    @if (!string.IsNullOrWhiteSpace(ViewBag.error))
+                                    {
+                                        <span class="text-danger">@ViewBag.error </span> 
+                                    }
                                     <form asp-action="Register" asp-controller="Account">
-                                        <div asp-validation-summary="ModelOnly" class="text-danger">
-                                            @Html.ValidationSummary()
-                                        </div>
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>First Name</strong></label>
                                             <input asp-for="FirstName" type="text" class="form-control" />
@@ -91,6 +94,11 @@
                                             <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
+                                            <label class="mb-1 text-white"><strong>Phone No:</strong></label>
+                                            <input asp-for="Phone" class="form-control" />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Password</strong></label>
                                             <input asp-for="Password" type="password" class="form-control" />
                                             <span asp-validation-for="Password" class="text-danger"></span>
@@ -103,8 +111,8 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Role</strong></label>
                                             <select asp-for="UserRole" class="form-control">
-                                                <option value="User">User    </option>
-                                                <option value="Doctor">Doctor  </option>
+                                                @* <option value="User">User</option> *@
+                                                <option value="Doctor">Consultant</option>
                                                 <option value="Jr">Junior Resident </option>
                                                 <option value="Sr">Senior Resident </option>
                                                 <!-- Add more role options here -->
@@ -140,7 +148,9 @@
 </body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 </html>

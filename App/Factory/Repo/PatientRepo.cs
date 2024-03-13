@@ -349,7 +349,6 @@ namespace App.Repo
                     State = PatientData.Patient.Address.State,
                     ZipCode = PatientData.Patient.Address.ZipCode,
                     Dr_Name = "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName,
-                    Daignosis = PatientData.Patient.Daignosis,
                     Side = PatientData.Patient.Side,
                     CoMorbity = PatientData.Patient.CoMorbity,
                     Diagnosis = Dischargedata.Diagnosis,

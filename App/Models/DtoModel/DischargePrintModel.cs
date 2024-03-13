@@ -11,7 +11,7 @@ namespace App.Models.DtoModel
         public long PatientID { get; set; }
         public string DOA { get; set; }
         public string DOD { get; set; }
-        public string Diagnosis { get; set; }
+       
         [Display(Name = "Case Summary")]
         public string CaseSummary { get; set; }
         public string Investigations { get; set; }
@@ -42,9 +42,10 @@ namespace App.Models.DtoModel
 
         [Display(Name = "Junior Resident")]
         public string JuniorResident { get; set; }
-        public string Daignosis { get; set; }
+        [Display(Name = "Diagnosis")]
+        public string Diagnosis { get; set; }
         public string Side { get; set; }
-        [Display(Name = "Co-Morbity")]
+        [Display(Name = "Comorbidity")]
         public string CoMorbity { get; set; }
        
         public string Street { get; set; }

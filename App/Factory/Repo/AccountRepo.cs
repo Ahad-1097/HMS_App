@@ -48,6 +48,7 @@ namespace App.Repo
                 UserName = _model.Email,
                 FirstName = _model.FirstName,
                 LastName = _model.LastName,
+                PhoneNumber=_model.Phone,
                 IsApproved = false,
                 IsActive = true
 
@@ -82,6 +83,7 @@ namespace App.Repo
             {
                 UserId = user.Id,
                 UserName = user.UserName,
+                UserPhone=user.PhoneNumber,
                 Roles = _userManager.GetRolesAsync(user).Result.FirstOrDefault(),
                 IsApproved = user.IsApproved // Assuming you have an IsApproved property in your ApplicationUser model
             }).ToListAsync();
@@ -99,7 +101,8 @@ namespace App.Repo
                     {
                         UserId = user.Id,
                         UserName = user.FirstName + " " + user.LastName,
-                        IsApproved = user.IsApproved
+                        IsApproved = user.IsApproved,
+                        UserPhone = user.PhoneNumber,
                     }).ToListAsync();
 
                 foreach (var user in usersWithRoles)

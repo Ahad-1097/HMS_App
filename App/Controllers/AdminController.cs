@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading;
 using App.Models.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace App.Controllers
 {
@@ -40,15 +41,15 @@ namespace App.Controllers
        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-
-            DashboardViewModel model = new DashboardViewModel();
-            model.TotalPatient = _docterRepo.TotalPatient();
-            model.TotalDocter = await _account.GetUserCountByRoleAsync("Doctor");
-            // List<UserWithRoleViewModel> doctors = await _account.UserbyRole("All");
-            model.UserList = await _account.UserbyRole("All");
-            model.DocterList = await _account.UserbyRole("Doctor");
-            model.TotalNewPatient = _docterRepo.NewPatient();
-            model.TotalNewDicharge = _docterRepo.RecoverPatient();
+            DashboardViewModel model = new DashboardViewModel
+            {
+                TotalPatient = _docterRepo.TotalPatient(),
+                TotalDocter = await _account.GetUserCountByRoleAsync("Doctor"),
+                UserList = await _account.UserbyRole("All"),
+                DocterList = await _account.UserbyRole("Doctor"),
+                TotalNewPatient = _docterRepo.NewPatient(),
+                TotalNewDicharge = _docterRepo.RecoverPatient()
+            };
             return View(model);
 
         }
@@ -56,8 +57,10 @@ namespace App.Controllers
         [HttpGet("Users")]
         public async Task<IActionResult> Users()
         {
-            DashboardViewModel model = new DashboardViewModel();
-            model.UserList = await _account.UserbyRole("All");
+            DashboardViewModel model = new DashboardViewModel
+            {
+                UserList = await _account.UserbyRole("All")
+            };
             return View(model);
         }
 
@@ -82,8 +85,8 @@ namespace App.Controllers
         {
 
             var user = await _account.FindByIdAsync(userId);
-            var rolList = user.RoleList;
-            ViewBag.RoleList = new SelectList(rolList, "Name", "Name");
+            //var rolList = user.RoleList;
+            //ViewBag.RoleList = new SelectList(rolList, "Name", "Name");
             if (user == null) { return NotFound(); }
             else
             {

@@ -20,7 +20,7 @@ namespace App.Models.EntityModels
         public string PLT { get; set; }
 
         //RFT
-        [Display(Name = "S.GEAT")]
+        [Display(Name = "S.Create")]
         public string SGeat { get; set; }
         public string BUN { get; set; }
 
@@ -36,6 +36,7 @@ namespace App.Models.EntityModels
         public string DirectBil { get; set; }
         [Display(Name = "ALK Phosphate")]
         public string AlkPhosphate { get; set; }
+        [Display(Name = "SGOT")]
         public string SGDT { get; set; }
         public string SGPT { get; set; }
 
@@ -77,11 +78,14 @@ namespace App.Models.EntityModels
         public string ABG { get; set; }
 
         public string USG { get; set; }
+        [Display(Name = "Sonography")]
         public string SONOMMOGRAPHY { get; set; }
         public string CECT { get; set; }
         public string MRI { get; set; }
         public string FNAC { get; set; }
+        [Display(Name = "Trucut Biopsy")]
         public string TrucutBiopsy { get; set; }
+        [Display(Name = "Receptor Status")]
         public string ReceptorStatus { get; set; }
         public string MRCP { get; set; }
         public string ERCP { get; set; }
@@ -94,6 +98,7 @@ namespace App.Models.EntityModels
         [Display(Name = "Tumor Markers")]
         public string TumorMarkers { get; set; }
         public string IVP { get; set; }
+        [Display(Name = "MCU + RGU")]
         public string MCU { get; set; }
         [Display(Name = "Cystoscopy")]
         public string RGU { get; set; } //Cystoscopy

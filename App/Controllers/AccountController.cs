@@ -40,7 +40,9 @@ namespace App.Controllers
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.TryAddModelError(error.Code, error.Description);
+                        ViewBag.error = error.Description;
+                       // ModelState.TryAddModelError(error.Code, error.Description);
+                        ModelState.AddModelError(error.Code, error.Description);
                     }
                     return View(userModel);
                 }
@@ -72,7 +74,7 @@ namespace App.Controllers
                 {
                     // Retrieve the user object
                     var user = await _userManager.FindByEmailAsync(_model.Email);
-                    if (user != null && user.IsActive == true)
+                    if (user != null && user.IsActive && user.IsApproved)
                     {
 
                         // Get the user's roles
