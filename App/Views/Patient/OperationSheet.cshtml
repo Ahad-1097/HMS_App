@@ -100,7 +100,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-6">
-                                    @if (!string.IsNullOrEmpty(Model.Operation.PerOPImage))
+                                    @if (Model!=null && !string.IsNullOrEmpty(Model.Operation.PerOPImage))
                                     {
                                         var extension = Model.Operation.PerOPImage.Split('.').LastOrDefault();
 
@@ -125,8 +125,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-6">
-                                @if (!string.IsNullOrEmpty(Model.Operation.Value1))
-                                {
+                                    @if (Model != null && !string.IsNullOrEmpty(Model.Operation.Value1))
+                                    {
                                     var extension = Model.Operation.Value1.Split('.').LastOrDefault();
 
 
@@ -149,8 +149,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-6">
-                                @if (!string.IsNullOrEmpty(Model.Operation.Value2))
-                                {
+                                    @if (Model != null && !string.IsNullOrEmpty(Model.Operation.Value2))
+                                    {
                                     var extension = Model.Operation.Value2.Split('.').LastOrDefault();
 
                                     if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
@@ -172,8 +172,8 @@
                             </div> 
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-6">
-                                @if (!string.IsNullOrEmpty(Model.Operation.Value3))
-                                {
+                                    @if (Model != null && !string.IsNullOrEmpty(Model.Operation.Value3))
+                                    {
                                     var extension = Model.Operation.Value3.Split('.').LastOrDefault();
 
                                     if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
@@ -195,8 +195,8 @@
                             </div> 
                             <div class="form-group col-md-4">
                                 <div class="form-group col-md-6">
-                                @if (!string.IsNullOrEmpty(Model.Operation.Value4))
-                                {
+                                    @if (Model != null && !string.IsNullOrEmpty(Model.Operation.Value4))
+                                    {
                                     var extension = Model.Operation.Value4.Split('.').LastOrDefault();
 
                                     if (string.Equals(extension, "pdf", StringComparison.OrdinalIgnoreCase))
