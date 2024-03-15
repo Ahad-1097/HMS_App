@@ -39,6 +39,8 @@ namespace App.Models.DbContext
         public string Value2 { get; set; }
         public string Value3 { get; set; }
         public string Value4 { get; set; }
+        [Display(Name = "Consultants")]
+        public string Value5 { get; set; }
 
     }
 }

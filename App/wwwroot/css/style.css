@@ -9560,10 +9560,10 @@ a {
   transition: all .2s ease;
   z-index: 5; }
   .nav-header .logo-abbr {
-    max-width: 52px; }
+    max-width: 85px; }
     @media only screen and (max-width: 575px) {
       .nav-header .logo-abbr {
-        max-width: 40px; } }
+        max-width: 58px; } }
   .nav-header .logo-compact {
     display: none; }
   @media only screen and (min-width: 1200px) and (max-width: 1400px) {
@@ -9578,12 +9578,12 @@ a {
     font-size: 1.125rem;
     color: #fff;
     text-decoration: none;
-    padding-left: 50px;
+    padding-left: 22px;
     padding-right: 50px;
     font-weight: 700; }
     @media only screen and (max-width: 1400px) {
       .nav-header .brand-logo {
-        padding-left: 25px;
+        padding-left: 12px;
         padding-right: 25px; } }
     [data-sidebar-style="compact"] .nav-header .brand-logo, [data-sidebar-style="mini"] .nav-header .brand-logo {
       padding-left: 0;
@@ -9595,8 +9595,8 @@ a {
         padding-right: 0;
         justify-content: center; } }
   .nav-header .brand-title {
-    margin-left: 10px;
-    max-width: 80px;
+    margin-left: 2px;
+    max-width: 15px;
     margin-top: 0px; }
     [data-theme-version="dark"] .nav-header .brand-title {
       background-position: 0 120%; }

@@ -521,6 +521,7 @@ namespace App.Migrations
                     Value2 = table.Column<string>(nullable: true),
                     Value3 = table.Column<string>(nullable: true),
                     Value4 = table.Column<string>(nullable: true),
+                    Value5 = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

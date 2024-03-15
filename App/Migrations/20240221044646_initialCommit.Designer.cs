@@ -365,6 +365,11 @@ namespace App.Migrations
                     b.Property<string>("Value3")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Value4")
+                       .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Value5")
+                       .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PatientID");

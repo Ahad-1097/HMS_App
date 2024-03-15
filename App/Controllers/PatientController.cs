@@ -610,6 +610,10 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
+                if (data.Operation.Dr_ID!=null && doctors!=null)
+                {
+                    data.Operation.Value5 = doctors.Where(a => a.Dr_ID == data.Operation.Dr_ID).Select(a => a.Dr_Name).FirstOrDefault();
+                }
                 return GeneratePdf(data.Operation);
             }
             return PartialView("OperationSheet", data);
