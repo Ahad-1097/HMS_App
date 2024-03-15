@@ -30,4 +30,10 @@
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\images\logo_signUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
