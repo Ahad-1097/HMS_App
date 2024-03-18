@@ -20,7 +20,7 @@ namespace App.Models.EntityModels
         public string PLT { get; set; }
 
         //RFT
-        [Display(Name = "S.Create")]
+        [Display(Name = "S.Creat")]
         public string SGeat { get; set; }
         public string BUN { get; set; }
 

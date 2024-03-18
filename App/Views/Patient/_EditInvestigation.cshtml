@@ -67,7 +67,7 @@
         </div>
         <div class="row">
             <div class=" col-6 col-sm-3 mb-2">
-                <h4>S.create</h4>
+                <h4>S.creat</h4>
             </div>
             <div class="col-md-3 col-6 col-sm-4 mb-2">
                 <div class="form-group">
@@ -504,7 +504,7 @@
             </div>
 
             <div class=" col-6 col-sm-3 mb-2">
-                <h4>Sonography </h4>
+                <h4>Sonomammography </h4>
             </div>
             <div class="col-md-3 col-6 col-sm-4 mb-2">
                 <div class="form-group">
@@ -683,7 +683,8 @@
             <div class="alert alert-primary" role="alert" id="InvestigationsuccessMessage" style="display: none;"></div>
             <div class="alert alert-warning" role="alert" id="InvestigationerrorMessage" style="display: none;"></div>
 
-            <button type="button" id="AddInvestigation" onclick="EditInvestigationModels()" class="btn btn-primary">Update Investigation</button>
+            <button type="button" id="AddInvestigation" onclick="EditInvestigationModels('')" class="btn btn-primary">Update Investigation</button>
+            <button type="button" id="AddInvestigation" onclick="EditInvestigationModels('New')" class="btn btn-success">Save as New</button>
             <input type="hidden" name="InvestigationModelsJson" id="InvestigationModelsJson" />
         </div>
     </form>

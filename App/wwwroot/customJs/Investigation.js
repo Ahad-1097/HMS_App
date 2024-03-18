@@ -153,7 +153,7 @@ $("#AddInvestigationBtn").click(function (event) {
 });
 
 
-function EditInvestigationModels() {
+function EditInvestigationModels(_req) {
     var models = [];
     var model = {};
     model.Id = $("#InvestigationList_0__Id").val();
@@ -162,7 +162,7 @@ function EditInvestigationModels() {
         model.PatientID = 0;
     }
 
-    if (model.Id == "") {
+    if (model.Id == "" || _req =='New') {
         model.Id = 0;
     }
 

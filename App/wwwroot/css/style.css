@@ -27236,7 +27236,8 @@ code {
 .table-responsive-sm {
   min-width: 30rem !important; }
 .table-responsive-md {
-  min-width: 36rem !important; }
+  min-width: 50rem !important; }
+
 .table-responsive-lg {
   min-width: 60.9375rem !important; }
 .table-responsive-xl {
