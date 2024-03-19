@@ -78,7 +78,7 @@ namespace App.Models.EntityModels
         public string ABG { get; set; }
 
         public string USG { get; set; }
-        [Display(Name = "Sonography")]
+        [Display(Name = "Sonomammography")]
         public string SONOMMOGRAPHY { get; set; }
         public string CECT { get; set; }
         public string MRI { get; set; }

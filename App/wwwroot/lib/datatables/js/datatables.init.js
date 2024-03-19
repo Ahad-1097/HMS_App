@@ -94,7 +94,8 @@ let dataSet = [
    // var table = $('#example3, #example4, #example5').DataTable();
 
     var table = $('#example3, #example4, #example5').DataTable({
-        "ordering": true // Disable initial sorting order
+        "ordering": true, // Disable initial sorting order
+        "order": [[0, "desc"]] // Set initial sorting order for columns
     });
 
 	$('#example tbody').on('click', 'tr', function () {

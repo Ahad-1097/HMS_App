@@ -743,6 +743,8 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> Discharge(long PatientID, string ViewName)
         {
+            var doctors = await _docterRepo.GetAllDoterList();
+           
             if (PatientID == 0)
             {
                 if (_PatientId != 0)
@@ -755,16 +757,25 @@ namespace App.Controllers
             if (PatientID > 0 && ViewName == "Edit")
             {
                 data = _patient.DischargeDetail(PatientID);
+                if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
+                {
+                    string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
+                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                }
                 return PartialView("Discharge", data);
             }
             if (PatientID > 0 && ViewName == "Create")
             {
                 data = _patient.DischargeDetail(PatientID);
+                if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
+                {
+                    string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
+                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                }
                 return PartialView("Discharge", data);
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
-                var doctors = await _docterRepo.GetDoterList();
                 data = _patient.DischargeDetail(PatientID);
                 if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
                 {

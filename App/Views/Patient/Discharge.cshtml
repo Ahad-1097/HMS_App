@@ -19,6 +19,10 @@
                         <input asp-for="Discharge.Id" class="form-control" type="hidden">
                         <div class="form-row">
                             <div class="form-group col-md-6">
+                                <label for="doctor">Consultants </label>
+                                <input type="text" value="@ViewBag.SelectedDoctor" class="form-control" placeholder="Consultants" disabled />
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label asp-for="Patient.CADSNumber" class="control-label">CADS Number</label>
                                 <input asp-for="Patient.CADSNumber" class="form-control" placeholder="Enter CADS Number" disabled />
                                 <span asp-validation-for="Patient.CADSNumber" class="text-danger"></span>
@@ -91,8 +95,18 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Diagnosis</label>
-                                <textarea asp-for="Discharge.Diagnosis" class="form-control" rows="4"></textarea>
-                                <span asp-validation-for="Discharge.Diagnosis" class="text-danger"></span>
+                                <input asp-for="Patient.Daignosis" class="form-control" placeholder="Enter Daignosis" disabled>
+                                <span asp-validation-for="Patient.Daignosis" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Side</label>
+                                <input asp-for="Patient.Side" class="form-control" placeholder="Enter Side" disabled>
+                                <span asp-validation-for="Patient.Side" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>CoMorbity</label>
+                                <input asp-for="Patient.CoMorbity" class="form-control" placeholder="Enter CoMorbity" disabled>
+                                <span asp-validation-for="Patient.CoMorbity" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Case Summary</label>
@@ -110,7 +124,7 @@
                                 <span asp-validation-for="Discharge.TreatmentGiven" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
-                                <label>Advice on discharge</label>
+                                <label>Discharge Advice </label>
                                 <textarea asp-for="Discharge.AdviceOndischarge" class="form-control" rows="4"></textarea>
                                 <span asp-validation-for="Discharge.AdviceOndischarge" class="text-danger"></span>
                             </div>
@@ -119,13 +133,13 @@
                               
                                @* @Html.DropDownList("Patient.JuniorResident", ViewBag.JRlist as SelectList, "-- Select Junior --", new { @class = "form-control" })
                                *@ 
-                                <input asp-for="Patient.JuniorResident" class="form-control" placeholder="Enter  Name" disabled />
+                                <input asp-for="Patient.JuniorResident" class="form-control" placeholder="Enter  JuniorResident" disabled />
 
                                 <span asp-validation-for="Patient.SeniorResident" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="Patient.SeniorResident" class="control-label">Resident Senior</label>
-                                <input asp-for="Patient.SeniorResident" class="form-control" placeholder="Enter  Name" disabled />
+                                <input asp-for="Patient.SeniorResident" class="form-control" placeholder="Enter  SeniorResident" disabled />
 
                                 @*@Html.DropDownList("Patient.SeniorResident", ViewBag.SRlist as SelectList, "-- Select Senior --", new { @class = "form-control" })
                                *@

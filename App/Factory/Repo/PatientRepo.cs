@@ -349,11 +349,11 @@ namespace App.Repo
                     Dr_Name = "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName,
                     Side = PatientData.Patient.Side,
                     CoMorbity = PatientData.Patient.CoMorbity,
-                    Diagnosis = Dischargedata == null ? "" : Dischargedata.Diagnosis,
-                    CaseSummary = "",//Dischargedata.CaseSummary,
-                    Investigations = "",//Dischargedata.Investigations,
-                    TreatmentGiven = "",//Dischargedata.TreatmentGiven,
-                    AdviceOndischarge = "",//Dischargedata.AdviceOndischarge
+                    Diagnosis = PatientData.Patient.Daignosis,
+                    CaseSummary = Dischargedata == null ? "" : Dischargedata.CaseSummary,
+                    Investigations = Dischargedata == null ? "" : Dischargedata.Investigations,
+                    TreatmentGiven = Dischargedata == null ? "" : Dischargedata.TreatmentGiven,
+                    AdviceOndischarge = Dischargedata == null ? "" : Dischargedata.AdviceOndischarge
                 };
                 return DischargePrintdata;
 

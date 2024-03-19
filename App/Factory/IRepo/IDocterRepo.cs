@@ -12,6 +12,7 @@ namespace App.Interface
     public interface IDocterRepo
     {
         Task<List<DoctorModel>> GetDoterList();
+        Task<List<DoctorModel>> GetAllDoterList();
         int TotalPatient();
         int TotalDotor();
         Task DeleteDoctor(long Dr_Id, CancellationToken cancellationToken);

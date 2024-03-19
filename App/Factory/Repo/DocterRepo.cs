@@ -55,6 +55,20 @@ namespace App.Repo
             return drList;
         }
 
+        public async Task<List<DoctorModel>> GetAllDoterList()
+        {
+            var drList = new List<DoctorModel>();
+            var usersInRole = await _userManager.GetUsersInRoleAsync("Doctor");
+            drList = usersInRole
+                  .Select(a => new DoctorModel
+                  {
+                      Dr_Name = a.FirstName + " " + a.LastName,
+                      Dr_ID = a.Id
+                  }).ToList();
+
+            return drList;
+        }
+
         public async Task<List<DropDrownModel>> getDropDownlist(string role)
         {
             var usersInRole = await _userManager.GetUsersInRoleAsync(role);
