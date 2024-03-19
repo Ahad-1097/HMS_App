@@ -10,7 +10,7 @@
 
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.Dr_Name">Consultants  </label>
-            @Html.DropDownList("PatientModel.Dr_ID", ViewBag.DoctorList as SelectList, "-- Select Doctor --", new { @class = "form-control" })
+            @Html.DropDownList("PatientModel.Dr_ID", ViewBag.DoctorList as SelectList, new { @class = "form-control" })
         </div>
         <div class="form-group col-md-6">
             <label asp-for="PatientModel.CADSNumber" class="control-label">CADS Number</label>

@@ -508,7 +508,7 @@
             </div>
             <div class="col-md-3 col-6 col-sm-4 mb-2">
                 <div class="form-group">
-                    <input asp-for="InvestigationList[0].SONOMMOGRAPHY" class="form-control" placeholder="Enter Sonography..." />
+                    <input asp-for="InvestigationList[0].SONOMMOGRAPHY" class="form-control" placeholder="Enter Sonomammography..." />
                     <span asp-validation-for="InvestigationList[0].SONOMMOGRAPHY" class="text-danger"></span>
                 </div>
             </div>
@@ -696,7 +696,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table primary-table-bordered" id="myTable">
+                    <table class="table primary-table-bordered" id="example5">
                         <thead class="thead-primary">
                             <tr>
                                 <th scope="col">Day</th>
@@ -705,6 +705,7 @@
                                 <th scope="col">Blood Sugar</th>
                                 <th scope="col">LFT</th>
                                 <th scope="col">TFT</th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -721,6 +722,7 @@
                                     <td>@item.TotalBil</td>
                                     <td>@item.T3</td>
                                     <td><a id="EditDay" onclick="OnClickEdit(@item.Id)" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a></td>
+                                    <td><a id="DeleteDay" onclick="OnDeleteInvestigation(@item.Id,@item.PatientID,'edit')" class="btn btn-danger shadow btn-xs sharp mr-1"><i class="fa fa-trash"></i></a></td>
                                 </tr>
                             }
 

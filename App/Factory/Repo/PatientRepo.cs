@@ -186,7 +186,7 @@ namespace App.Repo
                     State = a.Patient.Address.State,
                     ZipCode = a.Patient.Address.ZipCode,
                     Dr_ID = a.Patient.DrId,
-                    Dr_Name = "Dr." + a.User.FirstName + " " + a.User.LastName,
+                    Dr_Name = !a.User.FirstName.Contains("Dr")? "Dr." + a.User.FirstName + " " + a.User.LastName : a.User.FirstName + " " + a.User.LastName,
                     Daignosis = a.Patient.Daignosis,
                     Side = a.Patient.Side,
                     CoMorbity = a.Patient.CoMorbity,
@@ -328,7 +328,7 @@ namespace App.Repo
 
             var Dischargedata = _context.Discharge.Where(a => a.PatientID == PatientID).FirstOrDefault();
 
-            if (PatientData != null && Dischargedata !=null)
+            if (PatientData != null)
             {
                 DischargePrintModel DischargePrintdata = new DischargePrintModel()
                 {
@@ -337,25 +337,23 @@ namespace App.Repo
                     Gender = PatientData.Patient.Gender,
                     Age = PatientData.Patient.Age,
                     DOA = PatientData.Patient.DOA.ToString("dd/MM/yyyy"),
-                    DOD=Dischargedata.DOD.ToString(),
+                    DOD=Dischargedata==null?"": Dischargedata.DOD.ToString(),
                     PhoneNumber = PatientData.Patient.PhoneNumber,
-                    AlternateNumber = PatientData.Patient.AlternateNumber,
+                    //AlternateNumber = PatientData.Patient.AlternateNumber,
                     CADSNumber = PatientData.Patient.CADSNumber,
                     OPDNumber = PatientData.Patient.OPDNumber,
                     SeniorResident = PatientData.Patient.SeniorResident,
                     JuniorResident = PatientData.Patient.JuniorResident,
-                    Street = PatientData.Patient.Address.Street,
-                    City = PatientData.Patient.Address.City,
-                    State = PatientData.Patient.Address.State,
-                    ZipCode = PatientData.Patient.Address.ZipCode,
+                    Address = PatientData.Patient.Address.Street+" " + PatientData.Patient.Address.City + " " + PatientData.Patient.Address.State + " " + PatientData.Patient.Address.ZipCode,
+                    
                     Dr_Name = "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName,
                     Side = PatientData.Patient.Side,
                     CoMorbity = PatientData.Patient.CoMorbity,
-                    Diagnosis = Dischargedata.Diagnosis,
-                    CaseSummary = Dischargedata.CaseSummary,
-                    Investigations = Dischargedata.Investigations,
-                    TreatmentGiven = Dischargedata.TreatmentGiven,
-                    AdviceOndischarge = Dischargedata.AdviceOndischarge
+                    Diagnosis = Dischargedata == null ? "" : Dischargedata.Diagnosis,
+                    CaseSummary = "",//Dischargedata.CaseSummary,
+                    Investigations = "",//Dischargedata.Investigations,
+                    TreatmentGiven = "",//Dischargedata.TreatmentGiven,
+                    AdviceOndischarge = "",//Dischargedata.AdviceOndischarge
                 };
                 return DischargePrintdata;
 

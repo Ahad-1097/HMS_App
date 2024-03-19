@@ -135,7 +135,7 @@ $("#AddInvestigationBtn").click(function (event) {
                     row.append($("<td></td>").text(item.Fasting));//BloodSugar
                     row.append($("<td></td>").text(item.TotalBil));//LFT
                     row.append($("<td></td>").text(item.T3)); //TFT
-                    row.append($("<td></td>").html("<a id='EditDay' onclick='OnDeleteInvestigation(" + item.Id + ")' class='btn btn-primary shadow btn-xs sharp mr-1'><i class='fa fa-trash'></i></a>"));
+                    row.append($("<td></td>").html("<a id='EditDay' onclick='OnDeleteInvestigation(" + item.Id + ", " + item.PatientID + "," + "" + ")' class='btn btn-danger shadow btn-xs sharp mr-1'><i class='fa fa-trash'></i></a>"));
                     $("#example5 tbody").append(row);
                 });
             },
@@ -269,7 +269,7 @@ function EditInvestigationModels(_req) {
                 $("#InvestigationerrorMessage").text("something went wrong").show();
             }
 
-            $("#myTable tbody").empty();
+            $("#example5 tbody").empty();
 
             // Loop through the data and add a row for each item
             $.each(tableData, function (index, item) {
@@ -281,7 +281,8 @@ function EditInvestigationModels(_req) {
                 row.append($("<td></td>").text(item.TotalBil));//LFT
                 row.append($("<td></td>").text(item.T3)); //TFT
                 row.append($("<td></td>").html("<a id='EditDay' onclick='OnClickEdit(" + item.Id + ")' class='btn btn-primary shadow btn-xs sharp mr-1'><i class='fa fa-pencil'></i></a>"));
-                $("#myTable tbody").append(row);
+                row.append($("<td></td>").html("<a id='DeleteDay' onclick='OnDeleteInvestigation(" + item.Id + ", " + item.PatientID + "," + "edit" + ")' class='btn btn-danger shadow btn-xs sharp mr-1'><i class='fa fa-trash'></i></a>"));
+                $("#example5 tbody").append(row);
             });
         },
         error: function (xhr, status, error) {
@@ -298,12 +299,8 @@ function EditInvestigationModels(_req) {
 
 }
 
-function OnDeleteInvestigation(Id) {
-    var selectedValue = Id;
-    var PatientID = $("#InvestigationModel_PatientId").val();
-    if (PatientID == "") {
-        PatientID = 0;
-    }
+function OnDeleteInvestigation(Id, PatientID,page) {
+    
     $.ajax({
         url: "/Patient/DeleteInvestigation",
         type: 'GET',
@@ -321,7 +318,12 @@ function OnDeleteInvestigation(Id) {
                 row.append($("<td></td>").text(item.Fasting));//BloodSugar
                 row.append($("<td></td>").text(item.TotalBil));//LFT
                 row.append($("<td></td>").text(item.T3)); //TFT
-                row.append($("<td></td>").html("<a id='EditDay' onclick='OnDeleteInvestigation(" + item.Id + ")' class='btn btn-primary shadow btn-xs sharp mr-1'><i class='fa fa-trash'></i></a>"));
+                
+                if (page == "edit") {
+                    row.append($("<td></td>").html("<a id='EditDay' onclick='OnClickEdit(" + item.Id +")' class='btn btn-primary shadow btn-xs sharp mr-1'><i class='fa fa-pencil'></i></a>"));
+                }
+                row.append($("<td></td>").html("<a id='DeleteDay' onclick='OnDeleteInvestigation(" + item.Id + ", " + item.PatientID + "," + "edit" + ")' class='btn btn-danger shadow btn-xs sharp mr-1'><i class='fa fa-trash'></i></a>"));
+
                 $("#example5 tbody").append(row);
             });
 

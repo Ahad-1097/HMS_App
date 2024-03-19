@@ -84,8 +84,14 @@
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Daignosis)
-
+                                        @if (!string.IsNullOrWhiteSpace(item.Daignosis))
+                                        {
+                                            <span>@(item.Daignosis.Length > 25 ? item.Daignosis.Substring(0, 25) + "..." : item.Daignosis)</span>
+                                            @if (item.Daignosis.Length > 25)
+                                            {
+                                                <span class="InfoIcon" title="@item.Daignosis"><i class="fa fa-info-circle"></i></span>
+                                            }
+                                        }
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DOA)

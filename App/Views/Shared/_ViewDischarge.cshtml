@@ -9,6 +9,30 @@
         <div class="card-body">
             <div class="basic-form">
                 <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Consultant :</label>
+                    <div class="col-sm-9">
+                        @ViewBag.SelectedDoctor
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Patient Name :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Name)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">GENDER :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Gender)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Age :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.Age)
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-3 col-form-label">CADS No :</label>
                     <div class="col-sm-9">
                         @Html.DisplayFor(model => model.Patient.CADSNumber)
@@ -20,37 +44,20 @@
                         @Html.DisplayFor(model => model.Patient.OPDNumber)
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Patient Name :</label>
-                    <div class="col-sm-9">
-                        @Html.DisplayFor(model => model.Patient.Name)
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Age :</label>
-                    <div class="col-sm-9">
-                        @Html.DisplayFor(model => model.Patient.Age)
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">GENDER :</label>
-                    <div class="col-sm-9">
-                        @Html.DisplayFor(model => model.Patient.Gender)
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">PHONE NUMBER :</label>
-                    <div class="col-sm-9">
-                        @Html.DisplayFor(model => model.Patient.PhoneNumber)
-                    </div>
-                </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Address :</label>
                     <div class="col-sm-9">
                         @Html.DisplayFor(model => model.Patient.Address.Street),  @Html.DisplayFor(model => model.Patient.Address.City),  @Html.DisplayFor(model => model.Patient.Address.State)  @Html.DisplayFor(model => model.Patient.Address.ZipCode)
                     </div>
                 </div>
+               
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">PHONE NUMBER :</label>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(model => model.Patient.PhoneNumber)
+                    </div>
+                </div>
+                
 
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">DOA:</label>
@@ -75,6 +82,20 @@
                     <div class="col-sm-9">
 
                         @Html.DisplayFor(model => model.Discharge.Diagnosis)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Side:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Patient.Side)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">CoMorbity:</label>
+                    <div class="col-sm-9">
+
+                        @Html.DisplayFor(model => model.Patient.CoMorbity)
                     </div>
                 </div>
 
@@ -103,8 +124,7 @@
                 </div>
 
                 <div class="form-group row">
-
-                    <label class="col-sm-3 col-form-label">Advice On discharge:</label>
+                    <label class="col-sm-3 col-form-label">Discharge Advice:</label>
                     <div class="col-sm-9">
 
                         @Html.DisplayFor(model => model.Discharge.AdviceOndischarge)

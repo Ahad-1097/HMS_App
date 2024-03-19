@@ -610,7 +610,7 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-                if (data.Operation.Dr_ID!=null && doctors!=null)
+                if (data.Operation.Dr_ID != null && doctors != null)
                 {
                     data.Operation.Value5 = doctors.Where(a => a.Dr_ID == data.Operation.Dr_ID).Select(a => a.Dr_Name).FirstOrDefault();
                 }
@@ -741,7 +741,7 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Discharge(long PatientID, string ViewName)
+        public async Task<IActionResult> Discharge(long PatientID, string ViewName)
         {
             if (PatientID == 0)
             {
@@ -764,7 +764,13 @@ namespace App.Controllers
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
+                var doctors = await _docterRepo.GetDoterList();
                 data = _patient.DischargeDetail(PatientID);
+                if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
+                {
+                    string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
+                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                }
                 return PartialView("_ViewDischarge", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
@@ -917,7 +923,7 @@ namespace App.Controllers
             headerPhrase.Add(new Chunk(image, 0, 0));
 
             // Add the header text
-            headerPhrase.Add(new Chunk("     Department of Surgery, J.N Medical College AMU", hs));
+            headerPhrase.Add(new Chunk("  Department of Surgery, J.N Medical College AMU Aligarh", hs));
 
             // Set the Phrase as the content of the cell
             headerCell.AddElement(headerPhrase);
@@ -964,7 +970,7 @@ namespace App.Controllers
                 if (model != null)
                 {
                     var propertyValue = property.GetValue(model) ?? null;
-                    
+
                     // Create a table with two columns to contain the property name and value
                     PdfPTable table = new PdfPTable(2)
                     {
@@ -1013,7 +1019,7 @@ namespace App.Controllers
             // Create a cell with the content
             PdfPCell signatureCell = new PdfPCell(new Phrase("Signature:"))
             {
-                
+
                 HorizontalAlignment = Element.ALIGN_LEFT,
                 Border = 0
             };
@@ -1093,7 +1099,7 @@ namespace App.Controllers
             headerPhrase.Add(new Chunk(image, 0, 0));
 
             // Add the header text
-            headerPhrase.Add(new Chunk("     Department of Surgery, J.N Medical College AMU", hs));
+            headerPhrase.Add(new Chunk("  Department of Surgery, J.N Medical College AMU Aligarh", hs));
 
             // Set the Phrase as the content of the cell
             headerCell.AddElement(headerPhrase);
