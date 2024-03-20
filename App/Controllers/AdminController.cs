@@ -7,11 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading;
 using App.Models.Identity;
-using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 
 namespace App.Controllers
 {

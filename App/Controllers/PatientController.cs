@@ -760,7 +760,7 @@ namespace App.Controllers
                 if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
                 {
                     string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
-                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                    ViewBag.SelectedDoctor = !DrName.Contains("Dr", StringComparison.OrdinalIgnoreCase) ? "Dr. " + DrName : DrName;
                 }
                 return PartialView("Discharge", data);
             }
@@ -770,7 +770,7 @@ namespace App.Controllers
                 if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
                 {
                     string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
-                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                    ViewBag.SelectedDoctor = !DrName.Contains("Dr", StringComparison.OrdinalIgnoreCase) ? "Dr. " + DrName : DrName;
                 }
                 return PartialView("Discharge", data);
             }
@@ -780,7 +780,7 @@ namespace App.Controllers
                 if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
                 {
                     string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
-                    ViewBag.SelectedDoctor = !string.IsNullOrWhiteSpace(DrName) ? "Dr. " + DrName : DrName;
+                    ViewBag.SelectedDoctor = !DrName.Contains("Dr",StringComparison.OrdinalIgnoreCase) ? "Dr. " + DrName : DrName;
                 }
                 return PartialView("_ViewDischarge", data);
             }
@@ -898,10 +898,9 @@ namespace App.Controllers
             { "PatientID","Patient","Address_ID","Dr_ID","OtherO","OtherT","OtherTh","Id",
                 "CreatedBy","UpdateBy","CreatedOn","UpdatedOn","DateOfBirth",
                 "Address","Email","Status","IsActive","Title","SubCategoryTitle",
-                "subCategory","InvestigationModel","InvestigationImagesModel","Value1","Value2","Value3","Value4","PerOPImage","SerialNumber"
+                "subCategory","InvestigationModel","InvestigationImagesModel","Value1",
+                "Value2","Value3","Value4","PerOPImage","SerialNumber","Remark"
             };
-
-
 
             // Add data to the PDF document
             doc.Open();

@@ -346,7 +346,7 @@ namespace App.Repo
                     JuniorResident = PatientData.Patient.JuniorResident,
                     Address = PatientData.Patient.Address.Street+" " + PatientData.Patient.Address.City + " " + PatientData.Patient.Address.State + " " + PatientData.Patient.Address.ZipCode,
                     
-                    Dr_Name = "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName,
+                    Dr_Name = !PatientData.User.FirstName.Contains("Dr",StringComparison.OrdinalIgnoreCase)? "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName: PatientData.User.FirstName + " " + PatientData.User.LastName,
                     Side = PatientData.Patient.Side,
                     CoMorbity = PatientData.Patient.CoMorbity,
                     Diagnosis = PatientData.Patient.Daignosis,
