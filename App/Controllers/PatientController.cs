@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using App.Models.EntityModels;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers
 {
@@ -148,7 +149,7 @@ namespace App.Controllers
                     }
                     else
                     {
-                        _PatientId = _patient.AddPatient(_model, cancellationToken);
+                        _PatientId = await _patient.AddPatient(_model, cancellationToken);
                         msg = "Data added successfully";
                     }
 
@@ -160,7 +161,7 @@ namespace App.Controllers
                 catch (Exception e)
                 {
 
-                    throw;
+                    return Json("something went wrong ! ", e.Message);
                 }
             }
             return Json("something went wrong");
@@ -213,7 +214,7 @@ namespace App.Controllers
                 if (_model.Id > 0)
                 {
                     await _patient.UpdateInvestigationData(_model, cancellationToken);
-                    var investigationList = _context.Investigation.Where(a => a.PatientID == _model.PatientID).ToList();
+                    var investigationList = await _context.Investigation.Where(a => a.PatientID == _model.PatientID).ToListAsync(cancellationToken);
                     string jsonData = JsonConvert.SerializeObject(investigationList);
                     return Json(jsonData);
                 }
@@ -221,10 +222,10 @@ namespace App.Controllers
                 {
                     if (_PatientId > 0)
                     {
-                        _InvestigationId = _patient.AddInvestigationData(_model, _PatientId);
+                        _InvestigationId = await _patient.AddInvestigationData(_model, _PatientId, cancellationToken);
                     }
 
-                    var investigationList = _context.Investigation.Where(a => a.PatientID == _PatientId).ToList();
+                    var investigationList = await _context.Investigation.Where(a => a.PatientID == _PatientId).ToListAsync(cancellationToken);
                     string jsonData = JsonConvert.SerializeObject(investigationList);
                     return Json(jsonData);
                 }
@@ -234,14 +235,14 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddInvestigation(long PatientID, string ViewName)
+        public async Task<IActionResult> AddInvestigation(long PatientID, string ViewName, CancellationToken cancellationToken)
         {
             PatientViewModel data = new PatientViewModel();
 
             if (PatientID > 0 && ViewName == "Edit")
             {
                 _PatientId = PatientID;
-                data = _patient.InvestigationDetail(PatientID);
+                data = await _patient.InvestigationDetail(PatientID, cancellationToken);
                 if (data.InvestigationList.Any(a => a.Id == 0))
                 {
                     //data.InvestigationModel.PatientID= _PatientId;
@@ -256,13 +257,13 @@ namespace App.Controllers
             else if (PatientID > 0 && ViewName == "Detail")
             {
 
-                data = _patient.InvestigationDetail(PatientID);
+                data = await _patient.InvestigationDetail(PatientID, cancellationToken);
                 ViewBag.PId = PatientID;
                 return PartialView("_ViewInvestigation", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-                data = _patient.InvestigationDetail(PatientID);
+                data = await _patient.InvestigationDetail(PatientID, cancellationToken);
 
                 // return GeneratePdf(data.InvestigationList.ToList());
                 return GenerateListofPdf(data.InvestigationList.ToList());
@@ -321,8 +322,6 @@ namespace App.Controllers
             InvestigationImagesModel investigationImagesModel = new InvestigationImagesModel();
             ViewBag.PatientId = PatientID;
             return PartialView("_AddPicture", investigationImagesModel);
-
-
         }
 
         [HttpPost]
@@ -348,7 +347,7 @@ namespace App.Controllers
                 {
                     try
                     {
-                        _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
+                        await _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                         //return RedirectToAction("Create");
                         msg = "Data added successfully";
@@ -363,7 +362,7 @@ namespace App.Controllers
                 else if (_PatientId > 0)
                 {
 
-                    _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId);
+                    await _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId, cancellationToken);
                     msg = "Data added successfully";
                     addimgsuccess = true;
 
@@ -377,7 +376,7 @@ namespace App.Controllers
 
 
         [HttpPost]
-        public IActionResult Progress(string model)
+        public async Task<IActionResult> Progress(string model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
@@ -385,14 +384,14 @@ namespace App.Controllers
                 var _model = JsonConvert.DeserializeObject<List<ProgressModel>>(model).FirstOrDefault();
                 if (_model.Id > 0)
                 {
-                    var result = _patient.UpdateProgress(_model);
+                    var result = await _patient.UpdateProgress(_model, cancellationToken);
                     msg = "Data updated successfully";
                     return Json(msg);
                 }
 
                 if (_PatientId > 0)
                 {
-                    _patient.AddProgress(_model, _PatientId);
+                    await _patient.AddProgress(_model, _PatientId, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
@@ -402,23 +401,23 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Progress(long PatientID, string ViewName)
+        public async Task<IActionResult> Progress(long PatientID, string ViewName, CancellationToken cancellationToken)
         {
             PatientViewModel data = new PatientViewModel();
 
             if (PatientID > 0 && ViewName == "Edit")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
                 return PartialView("AddProgress", data);
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
                 return PartialView("_ViewProgress", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
 
                 return GeneratePdf(data.Progress);
             }
@@ -428,7 +427,7 @@ namespace App.Controllers
 
 
         [HttpPost]
-        public IActionResult Vitals(string model)
+        public async Task<IActionResult> Vitals(string model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
@@ -436,13 +435,13 @@ namespace App.Controllers
                 var _model = JsonConvert.DeserializeObject<List<ProgressModel>>(model).FirstOrDefault();
                 if (_PatientId > 0)
                 {
-                    _patient.UpdateVital(_model, _PatientId);
+                    await _patient.UpdateVital(_model, _PatientId, cancellationToken);
                     msg = "Successfull";
                     return Json(msg);
                 }
                 else if (_model.PatientID > 0)
                 {
-                    _patient.UpdateVital(_model, _model.PatientID);
+                    await _patient.UpdateVital(_model, _model.PatientID, cancellationToken);
                     msg = "Successfull";
                     return Json(msg);
                 }
@@ -453,23 +452,23 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Vitals(long PatientID, string ViewName)
+        public async Task<IActionResult> Vitals(long PatientID, string ViewName, CancellationToken cancellationToken)
         {
             PatientViewModel data = new PatientViewModel();
 
             if (PatientID > 0 && ViewName == "Edit")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
                 return PartialView("AddVitals", data);
             }
             else if (PatientID > 0 && ViewName == "Detail")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
                 return PartialView("_ViewVitals", data);
             }
             else if (PatientID > 0 && ViewName == "Print")
             {
-                data = _patient.ProgressDetail(PatientID);
+                data = await _patient.ProgressDetail(PatientID, cancellationToken);
 
                 return GeneratePdf(data.Progress);
             }
@@ -481,7 +480,7 @@ namespace App.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Diagnosis(string model)
+        public async Task<IActionResult> Diagnosis(string model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
@@ -489,13 +488,13 @@ namespace App.Controllers
                 string msg;
                 if (_PatientId > 0)
                 {
-                    _patient.AddDiagnosis(_model[0], _PatientId);
+                    await _patient.AddDiagnosis(_model[0], _PatientId, cancellationToken);
                     msg = "Successfull";
                     return Json(msg);
                 }
                 if (_model[0].PatientID > 0)
                 {
-                    _patient.AddDiagnosis(_model[0], _model[0].PatientID);
+                    await _patient.AddDiagnosis(_model[0], _model[0].PatientID, cancellationToken);
                     msg = "Data updated successfully";
                     return Json(msg);
                 }
@@ -524,7 +523,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CaseSheet(string model)
+        public async Task<IActionResult> CaseSheet(string model, CancellationToken cancellationToken)
         {
             try
             {
@@ -542,7 +541,7 @@ namespace App.Controllers
                     if (_PatientId > 0)
                     {
                         //_model.AddImage = await Uploadimg(AddImageFile);
-                        _patient.AddCaseSheet(_model, _PatientId);
+                        await _patient.AddCaseSheet(_model, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }
@@ -553,7 +552,7 @@ namespace App.Controllers
             catch (Exception e)
             {
 
-                throw;
+                return Json("something went wrong" + e.Message);
             }
 
             return Json("something went wrong");
@@ -621,7 +620,7 @@ namespace App.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> OperationSheet([FromForm] OperationModel Oprationmodel)
+        public async Task<IActionResult> OperationSheet([FromForm] OperationModel Oprationmodel, CancellationToken cancellationToken)
         {
             try
             {
@@ -660,12 +659,12 @@ namespace App.Controllers
                     }
                     else if (_PatientId > 0)
                     {
-                        _patient.AddOperationSheet(model, _PatientId);
+                        await _patient.AddOperationSheet(model, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                     }
                     else if (model.PatientID > 0 && model.Id == 0)
                     {
-                        _patient.AddOperationSheet(model, model.PatientID);
+                        await _patient.AddOperationSheet(model, model.PatientID, cancellationToken);
                         msg = "Data added successfully";
                     }
                     else
@@ -685,7 +684,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OperationSheetold(string model)
+        public async Task<IActionResult> OperationSheetold(string model, CancellationToken cancellationToken)
         {
             if (model != null)
             {
@@ -699,13 +698,13 @@ namespace App.Controllers
                 }
                 else if (_PatientId > 0)
                 {
-                    _patient.AddOperationSheet(_model[0], _PatientId);
+                    await _patient.AddOperationSheet(_model[0], _PatientId, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
                 else if (_model[0].PatientID > 0 && _model[0].Id == 0)
                 {
-                    _patient.AddOperationSheet(_model[0], _model[0].PatientID);
+                    await _patient.AddOperationSheet(_model[0], _model[0].PatientID, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
@@ -716,7 +715,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public IActionResult DischargePost(string model)
+        public async Task<IActionResult> DischargePost(string model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
@@ -725,13 +724,13 @@ namespace App.Controllers
                 var _model = JsonConvert.DeserializeObject<List<DischargeModel>>(model).FirstOrDefault();
                 if (_model.Id > 0)
                 {
-                    _patient.UpdateDischarge(_model);
+                    await _patient.UpdateDischarge(_model, cancellationToken);
                     msg = "Data updated successfully";
                     return Json(msg);
                 }
                 if (_model.PatientID > 0)
                 {
-                    _patient.AddDischarge(_model, _model.PatientID);
+                    await _patient.AddDischarge(_model, _model.PatientID, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
@@ -744,7 +743,7 @@ namespace App.Controllers
         public async Task<IActionResult> Discharge(long PatientID, string ViewName)
         {
             var doctors = await _docterRepo.GetAllDoterList();
-           
+
             if (PatientID == 0)
             {
                 if (_PatientId != 0)
@@ -780,7 +779,7 @@ namespace App.Controllers
                 if (!string.IsNullOrWhiteSpace(data.Patient.DrId))
                 {
                     string DrName = doctors.FirstOrDefault(a => a.Dr_ID == data.Patient.DrId).Dr_Name;
-                    ViewBag.SelectedDoctor = !DrName.Contains("Dr",StringComparison.OrdinalIgnoreCase) ? "Dr. " + DrName : DrName;
+                    ViewBag.SelectedDoctor = !DrName.Contains("Dr", StringComparison.OrdinalIgnoreCase) ? "Dr. " + DrName : DrName;
                 }
                 return PartialView("_ViewDischarge", data);
             }
@@ -871,14 +870,14 @@ namespace App.Controllers
 
         }
 
-        public IActionResult DeleteInvestigation(int InvestigationId = 0, long PatientID = 0)
+        public async Task<IActionResult> DeleteInvestigation(CancellationToken cancellationToken, int InvestigationId = 0, long PatientID = 0)
         {
             if (InvestigationId > 0)
             {
-                var result = _patient.RemoveInvestigation(InvestigationId);
+                var result = await _patient.RemoveInvestigation(InvestigationId, cancellationToken);
                 if (result)
                 {
-                    var investigationList = _context.Investigation.Where(a => a.PatientID == PatientID).ToList();
+                    var investigationList = await _context.Investigation.Where(a => a.PatientID == PatientID).ToListAsync(cancellationToken);
                     string jsonData = JsonConvert.SerializeObject(investigationList);
                     return Json(jsonData);
                 }
@@ -1254,7 +1253,7 @@ namespace App.Controllers
 
 
         [HttpPost]
-        public IActionResult Outcome(string model)
+        public async Task<IActionResult> Outcome(string model, CancellationToken cancellationToken)
         {
             try
             {
@@ -1268,21 +1267,21 @@ namespace App.Controllers
                     if (_model.Id > 0)
                     {
 
-                        _patient.UpdateOutCome(_model);
+                        await _patient.UpdateOutCome(_model, cancellationToken);
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
                     else if (_model.PatientID > 0 && _model.Id == 0)
                     {
 
-                        _patient.AddOutCome(_model, _model.PatientID);
+                        await _patient.AddOutCome(_model, _model.PatientID, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }
                     else if (_PatientId > 0)
                     {
 
-                        _patient.AddOutCome(_model, _PatientId);
+                        await _patient.AddOutCome(_model, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }
@@ -1297,7 +1296,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateOutcome(string model)
+        public async Task<IActionResult> UpdateOutcome(string model, CancellationToken cancellationToken)
         {
             try
             {
@@ -1311,14 +1310,14 @@ namespace App.Controllers
                     if (_model.Id > 0)
                     {
 
-                        _patient.UpdateOutCome(_model);
+                        await _patient.UpdateOutCome(_model, cancellationToken);
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
                     else if (_PatientId > 0 && _model.Id == 0)
                     {
 
-                        _patient.AddOutCome(_model, _PatientId);
+                        await _patient.AddOutCome(_model, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }

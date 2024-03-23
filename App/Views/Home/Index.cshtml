@@ -116,8 +116,15 @@
                             <div class="d-sm-flex pb-sm-4 pb-3 border-bottom mb-sm-4 mb-3 align-items-center">
                                 <div class="d-flex align-items-center mr-auto pr-2">
                                     <div>
-                                        <h4 class="mb-sm-2 mb-1"> Dr. @item.UserName</h4>
-                                        <span class="num mr-sm-4 mr-3">@item.UserPhone</span>
+                                        @if (!string.IsNullOrWhiteSpace(item.UserName) && !item.UserName.Contains("Dr", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <h4 class="mb-sm-2 mb-1"> Dr. @item.UserName</h4>
+                                        }
+                                        else
+                                        {
+                                            <h4 class="mb-sm-2 mb-1"> @item.UserName</h4>
+                                        }
+                                        @* <span class="num mr-sm-4 mr-3">@item.UserPhone</span> *@
                                     </div>
                                 </div>
 

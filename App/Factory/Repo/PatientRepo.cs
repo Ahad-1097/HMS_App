@@ -186,7 +186,7 @@ namespace App.Repo
                     State = a.Patient.Address.State,
                     ZipCode = a.Patient.Address.ZipCode,
                     Dr_ID = a.Patient.DrId,
-                    Dr_Name = !a.User.FirstName.Contains("Dr")? "Dr." + a.User.FirstName + " " + a.User.LastName : a.User.FirstName + " " + a.User.LastName,
+                    Dr_Name = !a.User.FirstName.Contains("Dr") ? "Dr." + a.User.FirstName + " " + a.User.LastName : a.User.FirstName + " " + a.User.LastName,
                     Daignosis = a.Patient.Daignosis,
                     Side = a.Patient.Side,
                     CoMorbity = a.Patient.CoMorbity,
@@ -195,25 +195,25 @@ namespace App.Repo
             return pvm;
         }
 
-        public PatientViewModel InvestigationDetail(long PatientID)
+        public async Task<PatientViewModel> InvestigationDetail(long PatientID, CancellationToken cancellationToken)
         {
 
             PatientViewModel pvm = new PatientViewModel();
             //pvm.InvestigationList = _context.Investigation.Include(a => a.Patient).Where(a => a.PatientID == PatientID).ToList();
-            pvm.InvestigationList = _context.Investigation.Where(a => a.PatientID == PatientID).ToList();
-            if (pvm.InvestigationList == null || pvm.InvestigationList.Count==0)
+            pvm.InvestigationList = await _context.Investigation.Where(a => a.PatientID == PatientID).ToListAsync();
+            if (pvm.InvestigationList == null || pvm.InvestigationList.Count == 0)
             {
                 var inv = new Investigation()
                 {
-                    PatientID=PatientID
+                    PatientID = PatientID
                 };
-                pvm.InvestigationModel = new InvestigationModel() { PatientID=PatientID};
+                pvm.InvestigationModel = new InvestigationModel() { PatientID = PatientID };
                 pvm.InvestigationList.Add(inv);
             }
             return pvm;
         }
 
-        public PatientViewModel PictureDetail(long PatientID, long imgId ,string ViewName)
+        public PatientViewModel PictureDetail(long PatientID, long imgId, string ViewName)
         {
             try
             {
@@ -247,11 +247,11 @@ namespace App.Repo
 
         }
 
-        public PatientViewModel ProgressDetail(long PatientID)
+        public async Task<PatientViewModel> ProgressDetail(long PatientID, CancellationToken cancellationToken)
         {
 
             PatientViewModel pvm = new PatientViewModel();
-            pvm.Progress = _context.Progress.Where(a => a.PatientID == PatientID).FirstOrDefault();
+            pvm.Progress = await _context.Progress.Where(a => a.PatientID == PatientID).FirstOrDefaultAsync(cancellationToken);
 
             if (pvm.Progress == null)
             {
@@ -337,16 +337,16 @@ namespace App.Repo
                     Gender = PatientData.Patient.Gender,
                     Age = PatientData.Patient.Age,
                     DOA = PatientData.Patient.DOA.ToString("dd/MM/yyyy"),
-                    DOD=Dischargedata==null?"": Dischargedata.DOD.ToString(),
+                    DOD = Dischargedata == null ? "" : Dischargedata.DOD.ToString(),
                     PhoneNumber = PatientData.Patient.PhoneNumber,
                     //AlternateNumber = PatientData.Patient.AlternateNumber,
                     CADSNumber = PatientData.Patient.CADSNumber,
                     OPDNumber = PatientData.Patient.OPDNumber,
                     SeniorResident = PatientData.Patient.SeniorResident,
                     JuniorResident = PatientData.Patient.JuniorResident,
-                    Address = PatientData.Patient.Address.Street+" " + PatientData.Patient.Address.City + " " + PatientData.Patient.Address.State + " " + PatientData.Patient.Address.ZipCode,
-                    
-                    Dr_Name = !PatientData.User.FirstName.Contains("Dr",StringComparison.OrdinalIgnoreCase)? "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName: PatientData.User.FirstName + " " + PatientData.User.LastName,
+                    Address = PatientData.Patient.Address.Street + " " + PatientData.Patient.Address.City + " " + PatientData.Patient.Address.State + " " + PatientData.Patient.Address.ZipCode,
+
+                    Dr_Name = !PatientData.User.FirstName.Contains("Dr", StringComparison.OrdinalIgnoreCase) ? "Dr." + PatientData.User.FirstName + " " + PatientData.User.LastName : PatientData.User.FirstName + " " + PatientData.User.LastName,
                     Side = PatientData.Patient.Side,
                     CoMorbity = PatientData.Patient.CoMorbity,
                     Diagnosis = PatientData.Patient.Daignosis,
@@ -361,14 +361,14 @@ namespace App.Repo
             return null;
         }
 
-        public long AddPatient(PatientModel _model, CancellationToken cancellationToken)
+        public async Task<long> AddPatient(PatientModel _model, CancellationToken cancellationToken)
         {
-            var _addressId = AddAddress(_model);
-            var _patientId = AddPatient(_model, _addressId);
+            var _addressId = await AddAddress(_model, cancellationToken);
+            var _patientId = await AddPatient(_model, _addressId, cancellationToken);
             return _patientId;
         }
 
-        public long AddDiagnosis(PatientModel _model, long patientID)
+        public async Task<long> AddDiagnosis(PatientModel _model, long patientID, CancellationToken cancellationToken)
         {
 
             var data = _context.Patient.FirstOrDefault(a => a.PatientID == patientID);
@@ -377,23 +377,23 @@ namespace App.Repo
                 data.Daignosis = _model.Daignosis;
                 data.Side = _model.Side;
                 data.CoMorbity = _model.CoMorbity;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
             }
 
             return data.PatientID;
         }
 
-        public bool AddInvestigation(InvestigationModel _model, CancellationToken cancellationToken, long _patientId)
+        public async Task<bool> AddInvestigation(InvestigationModel _model, CancellationToken cancellationToken, long _patientId)
         {
             // var tempData = MyDataTable.tempTable;
-            var patientId = AddInvestigationData(_model, _patientId);
+            var patientId = await AddInvestigationData(_model, _patientId, cancellationToken);
             if (patientId > 0) { return true; }
             return false;
         }
 
-        public bool AddInvestigationImages(InvestigationImagesModel _model, long investigationId, long _patientId)
+        public async Task<bool> AddInvestigationImages(InvestigationImagesModel _model, long investigationId, long _patientId, CancellationToken cancellationToken)
         {
-            var result = AddInvestigationImage(_model, investigationId, _patientId);
+            var result = await AddInvestigationImage(_model, investigationId, _patientId, cancellationToken);
             return true;
         }
 
@@ -767,7 +767,7 @@ namespace App.Repo
             // return ModelList[0].Id;
         }
 
-        private long AddAddress(PatientModel _address)
+        private async Task<long> AddAddress(PatientModel _address, CancellationToken cancellationToken)
         {
             if (_address != null)
             {
@@ -778,8 +778,8 @@ namespace App.Repo
                     State = _address.State,
                     ZipCode = _address.ZipCode,
                 };
-                _context.Address.Add(address);
-                _context.SaveChanges();
+                await _context.Address.AddAsync(address, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return address.ID;
             }
             return 0;
@@ -808,7 +808,7 @@ namespace App.Repo
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private long AddPatient(PatientModel _patient, long _addressId)
+        private async Task<long> AddPatient(PatientModel _patient, long _addressId, CancellationToken cancellationToken)
         {
             if (_patient != null)
             {
@@ -842,14 +842,14 @@ namespace App.Repo
                     IsActive = true,
                     Status = "Admitted"
                 };
-                _context.Patient.Add(patient);
-                _context.SaveChanges();
+                await _context.Patient.AddAsync(patient, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return patient.PatientID;
             }
             return 0;
         }
 
-        public long AddInvestigationData(InvestigationModel investigationData, long PatientID)
+        public async Task<long> AddInvestigationData(InvestigationModel investigationData, long PatientID, CancellationToken cancellationToken)
         {
             if (investigationData != null && PatientID > 0)
             {
@@ -878,8 +878,8 @@ namespace App.Repo
                     AlkPhosphate = investigationData.AlkPhosphate,
                     SGDT = investigationData.SGDT,
                     SGPT = investigationData.SGPT,
-                    OtherT=investigationData.OtherT, // Serum Amylase 
-                    OtherTh =investigationData.OtherTh, // Serum lipase
+                    OtherT = investigationData.OtherT, // Serum Amylase 
+                    OtherTh = investigationData.OtherTh, // Serum lipase
 
                     //TFT
                     T3 = investigationData.T3,
@@ -932,7 +932,7 @@ namespace App.Repo
                     MCU = investigationData.MCU,
                     RGU = investigationData.RGU,
                     OtherO = investigationData.OtherO,
-                    
+
 
                     CreatedOn = DateTime.UtcNow,
                     UpdatedOn = DateTime.UtcNow,
@@ -941,14 +941,14 @@ namespace App.Repo
                     IsActive = true
                 };
 
-                _context.Investigation.AddAsync(Model);
-                _context.SaveChanges();
+                await _context.Investigation.AddAsync(Model, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return Model.Id;
             }
             return 0;
         }
 
-        private bool AddInvestigationImage(InvestigationImagesModel imgData, long InvestigationID, long PatientID)
+        private async Task<bool> AddInvestigationImage(InvestigationImagesModel imgData, long InvestigationID, long PatientID, CancellationToken cancellationToken)
         {
             if (imgData != null)
             {
@@ -1078,8 +1078,8 @@ namespace App.Repo
                         InvImgTbl.UrineRM_img = fileNames["UrineRM_img"][i];
                     }
 
-                    _context.InvestigationImages.Add(InvImgTbl);
-                    _context.SaveChanges();
+                    await _context.InvestigationImages.AddAsync(InvImgTbl, cancellationToken);
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
 
                 // return InvImgTbl.Id;
@@ -1334,14 +1334,14 @@ namespace App.Repo
             return dataTable.GetTempTable(model);
         }
 
-        public bool RemoveInvestigation(int InvestigationID)
+        public async Task<bool> RemoveInvestigation(int InvestigationID, CancellationToken cancellationToken)
         {
             var data = _context.Investigation.FirstOrDefault(a => a.Id == InvestigationID);
             //// If the row exists, remove it
             if (data != null)
             {
                 _context.Investigation.Remove(data);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
             return false;
@@ -1375,7 +1375,7 @@ namespace App.Repo
             throw new NotImplementedException();
         }
 
-        public long AddCaseSheet(CaseSheetModel _model, long patientid)
+        public async Task<long> AddCaseSheet(CaseSheetModel _model, long patientid, CancellationToken cancellationToken)
         {
             if (patientid > 0)
             {
@@ -1418,8 +1418,8 @@ namespace App.Repo
                     Value2 = _model.Value2,
                     Value3 = _model.Value3,
                 };
-                _context.CaseSheet.Add(caseSheet);
-                _context.SaveChanges();
+                await _context.CaseSheet.AddAsync(caseSheet, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return caseSheet.Id;
             }
             return 0;
@@ -1593,7 +1593,7 @@ namespace App.Repo
             return false;
         }
 
-        public long AddOperationSheet(OperationModel _model, long patientid)
+        public async Task<long> AddOperationSheet(OperationModel _model, long patientid, CancellationToken cancellationToken)
         {
             if (patientid > 0)
             {
@@ -1622,8 +1622,8 @@ namespace App.Repo
                     Value4 = _model.PerOPImage5,
 
                 };
-                _context.Operation.Add(_operation);
-                _context.SaveChanges();
+                await _context.Operation.AddAsync(_operation, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return _operation.PatientID;
             }
             return 0;
@@ -1725,7 +1725,7 @@ namespace App.Repo
             return false;
         }
 
-        public long AddProgress(ProgressModel _model, long patientid)
+        public async Task<long> AddProgress(ProgressModel _model, long patientid, CancellationToken cancellationToken)
         {
             if (patientid > 0)
             {
@@ -1752,14 +1752,14 @@ namespace App.Repo
                     Advice = _model.Advice,
                     Remark = _model.Remark,
                 };
-                _context.Progress.Add(_progress);
-                _context.SaveChanges();
+                await _context.Progress.AddAsync(_progress, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
                 return _progress.PatientID;
             }
             return 0;
         }
 
-        public void UpdateVital(ProgressModel _model, long PatientId)
+        public async Task UpdateVital(ProgressModel _model, long PatientId, CancellationToken cancellationToken)
         {
 
             var data = _context.Progress.Where(a => a.PatientID == PatientId).FirstOrDefault();
@@ -1767,16 +1767,16 @@ namespace App.Repo
             {
                 _model.Id = data.Id;
                 _model.PatientID = PatientId;
-                UpdateProgress(_model);
+                await UpdateProgress(_model, cancellationToken);
             }
             else
             {
                 _model.PatientID = PatientId;
-                AddProgress(_model, PatientId);
+                await AddProgress(_model, PatientId, cancellationToken);
             }
         }
 
-        public bool UpdateProgress(ProgressModel _model)
+        public async Task<bool> UpdateProgress(ProgressModel _model, CancellationToken cancellationToken)
         {
             if (_model.Id > 0)
             {
@@ -1884,13 +1884,13 @@ namespace App.Repo
                 }
 
                 _context.Progress.Update(data);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
             return false;
         }
 
-        public long AddDischarge(DischargeModel _model, long patientid)
+        public async Task<long> AddDischarge(DischargeModel _model, long patientid, CancellationToken cancellationToken)
         {
             if (_model.PatientID > 0)
             {
@@ -1907,23 +1907,22 @@ namespace App.Repo
                     SeniorResident = _model.SeniorResident,
                     JuniorResident = _model.JuniorResident,
                 };
-                _context.Discharge.Add(_discharge);
-                _context.SaveChanges();
+                await _context.Discharge.AddAsync(_discharge, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
 
                 var data = _context.Patient.FirstOrDefault(a => a.PatientID == _model.PatientID);
                 if (data != null)
                 {
                     data.Status = "Discharge";
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
-
                 return _discharge.PatientID;
             }
             return 0;
         }
 
-        public bool UpdateDischarge(DischargeModel _model)
+        public async Task<bool> UpdateDischarge(DischargeModel _model, CancellationToken cancellationToken)
         {
             if (_model.Id > 0)
             {
@@ -1977,13 +1976,13 @@ namespace App.Repo
 
 
                 _context.Discharge.Update(data);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 var Patientdata = _context.Patient.FirstOrDefault(a => a.PatientID == data.PatientID);
                 if (Patientdata != null)
                 {
                     Patientdata.Status = "Discharge";
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
                 return true;
             }
@@ -2037,7 +2036,7 @@ namespace App.Repo
             return pvm;
         }
 
-        public long AddOutCome(OutcomeModel _model, long patientid)
+        public async Task<long> AddOutCome(OutcomeModel _model, long patientid, CancellationToken cancellationToken)
         {
             try
             {
@@ -2047,7 +2046,7 @@ namespace App.Repo
                     if (outcomeExits != null)
                     {
                         _model.PatientID = patientid;
-                        UpdateOutCome(_model);
+                        await UpdateOutCome(_model, cancellationToken);
                         return patientid;
                     }
                     else
@@ -2060,8 +2059,8 @@ namespace App.Repo
 
                         };
 
-                        _context.Outcome.Add(outcome);
-                        _context.SaveChanges();
+                        await _context.Outcome.AddAsync(outcome, cancellationToken);
+                        await _context.SaveChangesAsync(cancellationToken);
                         return outcome.PatientID;
                     }
                 }
@@ -2078,16 +2077,7 @@ namespace App.Repo
 
         }
 
-        //public PatientViewModel EditOutCome(long? PatientID)
-        //{
-
-        //    PatientViewModel pvm = new PatientViewModel();
-
-        //    pvm.Outcome = _context.Outcome.Where(a => a.PatientID == PatientID).FirstOrDefault();
-        //    return pvm;
-        //}
-
-        public bool UpdateOutCome(OutcomeModel _model)
+        public async Task<bool> UpdateOutCome(OutcomeModel _model, CancellationToken cancellationToken)
         {
             if (_model.Id > 0)
             {
@@ -2095,7 +2085,7 @@ namespace App.Repo
                 data.Date = _model.Date;
                 data.outcomeType = _model.Outcome;
                 _context.Outcome.Update(data);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
             return false;

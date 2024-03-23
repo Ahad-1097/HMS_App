@@ -48,9 +48,9 @@ namespace App
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             //Register Repo
-            services.AddScoped<IAccountRepo, AccountRepo>();
-            services.AddScoped<IPatientRepo, PatientRepo>();
-            services.AddScoped<IDocterRepo, DocterRepo>();
+            services.AddTransient<IAccountRepo, AccountRepo>();
+            services.AddTransient<IPatientRepo, PatientRepo>();
+            services.AddTransient<IDocterRepo, DocterRepo>();
 #if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
