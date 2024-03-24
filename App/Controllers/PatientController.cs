@@ -22,6 +22,7 @@ using App.Models.EntityModels;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace App.Controllers
 {
@@ -31,10 +32,9 @@ namespace App.Controllers
         private readonly ApplicationContext _context;
         private readonly IPatientRepo _patient;
         private readonly IDocterRepo _docterRepo;
-        public static long _PatientId = 0;
-        public static long _InvestigationId = 0;
+        public long _InvestigationId = 0;
         static int _catId = 0;
-        static bool addimgsuccess = false;
+        bool addimgsuccess = false;
 
         List<InvestigationModel> TabledataList = new List<InvestigationModel>();
 
@@ -98,12 +98,13 @@ namespace App.Controllers
         };
 
             ViewBag.OutcomeType = new SelectList(OutcomeType, "ID", "Name");
-            if (addimgsuccess)
+            if (TempData.ContainsKey("Addimgsuccess") && (bool)TempData["Addimgsuccess"])
             {
                 ViewBag.addImagesSuccess = "Data added successfully";
+                ViewBag.addImagesSuccessPatientId = TempData["PId"];
+                TempData.Remove("Addimgsuccess");
             }
-            addimgsuccess = false;
-
+            TempData["Addimgsuccess"] = false;
             return View();
         }
 
@@ -127,7 +128,6 @@ namespace App.Controllers
             ViewBag.OutcomeType = new SelectList(OutcomeType, "ID", "Name");
 
             var patient = await _patient.PatientDetail(id, cancellationToken);
-            _PatientId = Convert.ToInt32(id);
             if (patient == null) { return NotFound(); }
             return View(patient);
         }
@@ -138,30 +138,28 @@ namespace App.Controllers
         {
             if (ModelState.IsValid)
             {
-                string msg;
+                long Pid = 0;
                 try
                 {
+                    var doctors = await _docterRepo.GetDoterList();
+                    ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
                     var _model = JsonConvert.DeserializeObject<List<PatientModel>>(model).FirstOrDefault();
                     if (_model.PatientID > 0)
                     {
                         await _patient.UpdatePatient(_model, cancellationToken);
-                        msg = "Data updated successfully";
+                        //msg = "Data updated successfully";
                     }
                     else
                     {
-                        _PatientId = await _patient.AddPatient(_model, cancellationToken);
-                        msg = "Data added successfully";
+                        Pid = await _patient.AddPatient(_model, cancellationToken);
+                                   // msg = "Data added successfully";
                     }
-
-                    var doctors = await _docterRepo.GetDoterList();
-                    ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
-
-                    return Json(msg);
+                    return Json(Pid);
                 }
                 catch (Exception e)
                 {
 
-                    return Json("something went wrong ! ", e.Message);
+                    return Json("something went wrong ! " + e.Message);
                 }
             }
             return Json("something went wrong");
@@ -172,13 +170,6 @@ namespace App.Controllers
         {
             var doctors = await _docterRepo.GetDoterList();
             ViewBag.DoctorList = new SelectList(doctors, "Dr_ID", "Dr_Name");
-
-            //var JRlist = await _docterRepo.getDropDownlist("jr");
-            //ViewBag.JRlist = new SelectList(JRlist, "Name", "Name");
-
-            //var SRlist = await _docterRepo.getDropDownlist("sr");
-            //ViewBag.SRlist = new SelectList(SRlist, "Name", "Name");
-
 
             PatientViewModel data = new PatientViewModel();
             if (PatientID > 0 && ViewName == "Edit")
@@ -218,18 +209,13 @@ namespace App.Controllers
                     string jsonData = JsonConvert.SerializeObject(investigationList);
                     return Json(jsonData);
                 }
-                else
+                else if (_model.PatientID > 0)
                 {
-                    if (_PatientId > 0)
-                    {
-                        _InvestigationId = await _patient.AddInvestigationData(_model, _PatientId, cancellationToken);
-                    }
-
-                    var investigationList = await _context.Investigation.Where(a => a.PatientID == _PatientId).ToListAsync(cancellationToken);
+                    _InvestigationId = await _patient.AddInvestigationData(_model, _model.PatientID, cancellationToken);
+                    var investigationList = await _context.Investigation.Where(a => a.PatientID == _model.PatientID).ToListAsync(cancellationToken);
                     string jsonData = JsonConvert.SerializeObject(investigationList);
                     return Json(jsonData);
                 }
-
             }
             return Json(null);
         }
@@ -241,11 +227,9 @@ namespace App.Controllers
 
             if (PatientID > 0 && ViewName == "Edit")
             {
-                _PatientId = PatientID;
                 data = await _patient.InvestigationDetail(PatientID, cancellationToken);
                 if (data.InvestigationList.Any(a => a.Id == 0))
                 {
-                    //data.InvestigationModel.PatientID= _PatientId;
                     return PartialView("_AddInvestigation", data);
                 }
                 else
@@ -347,26 +331,16 @@ namespace App.Controllers
                 {
                     try
                     {
-                        await _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId, cancellationToken);
+                        await _patient.AddInvestigationImages(imageFiles, _InvestigationId, imageFiles.PatientId, cancellationToken);
                         msg = "Data added successfully";
-                        //return RedirectToAction("Create");
-                        msg = "Data added successfully";
-                        return Json(msg);
-
+                        TempData["Addimgsuccess"] = true;
+                        TempData["PId"] = imageFiles.PatientId;
+                        return RedirectToAction(nameof(Create));
                     }
                     catch (Exception ex)
                     {
                         return Json($"Error adding data: {ex.Message}");
                     }
-                }
-                else if (_PatientId > 0)
-                {
-
-                    await _patient.AddInvestigationImages(imageFiles, _InvestigationId, _PatientId, cancellationToken);
-                    msg = "Data added successfully";
-                    addimgsuccess = true;
-
-                    return RedirectToAction("Create", true);
                 }
                 return Json("Invalid parameters or conditions");
             }
@@ -389,9 +363,9 @@ namespace App.Controllers
                     return Json(msg);
                 }
 
-                if (_PatientId > 0)
+                if (_model.PatientID > 0)
                 {
-                    await _patient.AddProgress(_model, _PatientId, cancellationToken);
+                    await _patient.AddProgress(_model, _model.PatientID, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
@@ -425,77 +399,18 @@ namespace App.Controllers
 
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Vitals(string model, CancellationToken cancellationToken)
-        {
-            if (ModelState.IsValid)
-            {
-                string msg;
-                var _model = JsonConvert.DeserializeObject<List<ProgressModel>>(model).FirstOrDefault();
-                if (_PatientId > 0)
-                {
-                    await _patient.UpdateVital(_model, _PatientId, cancellationToken);
-                    msg = "Successfull";
-                    return Json(msg);
-                }
-                else if (_model.PatientID > 0)
-                {
-                    await _patient.UpdateVital(_model, _model.PatientID, cancellationToken);
-                    msg = "Successfull";
-                    return Json(msg);
-                }
-
-                return Json("something went wrong");
-            }
-            return Json("something went wrong");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Vitals(long PatientID, string ViewName, CancellationToken cancellationToken)
-        {
-            PatientViewModel data = new PatientViewModel();
-
-            if (PatientID > 0 && ViewName == "Edit")
-            {
-                data = await _patient.ProgressDetail(PatientID, cancellationToken);
-                return PartialView("AddVitals", data);
-            }
-            else if (PatientID > 0 && ViewName == "Detail")
-            {
-                data = await _patient.ProgressDetail(PatientID, cancellationToken);
-                return PartialView("_ViewVitals", data);
-            }
-            else if (PatientID > 0 && ViewName == "Print")
-            {
-                data = await _patient.ProgressDetail(PatientID, cancellationToken);
-
-                return GeneratePdf(data.Progress);
-            }
-            data.Progress.PatientID = _PatientId;
-            return PartialView("AddVitals", data);
-
-        }
-
-
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Diagnosis(string model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
-                var _model = JsonConvert.DeserializeObject<List<PatientModel>>(model);
+                var _model = JsonConvert.DeserializeObject<List<PatientModel>>(model).FirstOrDefault();
                 string msg;
-                if (_PatientId > 0)
+                if (_model.PatientID > 0)
                 {
-                    await _patient.AddDiagnosis(_model[0], _PatientId, cancellationToken);
+                    await _patient.AddDiagnosis(_model, _model.PatientID, cancellationToken);
                     msg = "Successfull";
-                    return Json(msg);
-                }
-                if (_model[0].PatientID > 0)
-                {
-                    await _patient.AddDiagnosis(_model[0], _model[0].PatientID, cancellationToken);
-                    msg = "Data updated successfully";
                     return Json(msg);
                 }
                 return Json("something went wrong");
@@ -538,10 +453,10 @@ namespace App.Controllers
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
-                    if (_PatientId > 0)
+                    if (_model.PatientID > 0 && _model.Id == 0)
                     {
                         //_model.AddImage = await Uploadimg(AddImageFile);
-                        await _patient.AddCaseSheet(_model, _PatientId, cancellationToken);
+                        await _patient.AddCaseSheet(_model, _model.PatientID, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }
@@ -657,11 +572,6 @@ namespace App.Controllers
                         await _patient.UpdateOperationSheet(model);
                         msg = "Data updated successfully";
                     }
-                    else if (_PatientId > 0)
-                    {
-                        await _patient.AddOperationSheet(model, _PatientId, cancellationToken);
-                        msg = "Data added successfully";
-                    }
                     else if (model.PatientID > 0 && model.Id == 0)
                     {
                         await _patient.AddOperationSheet(model, model.PatientID, cancellationToken);
@@ -679,7 +589,7 @@ namespace App.Controllers
             catch (Exception ex)
             {
                 // Handle exceptions
-                return Json("Error occurred while processing the request");
+                return Json($"Error occurred while processing the request : {ex.Message}");
             }
         }
 
@@ -689,22 +599,16 @@ namespace App.Controllers
             if (model != null)
             {
                 string msg;
-                var _model = JsonConvert.DeserializeObject<List<OperationModel>>(model);
-                if (_model[0].Id > 0)
+                var _model = JsonConvert.DeserializeObject<List<OperationModel>>(model).FirstOrDefault();
+                if (_model.Id > 0)
                 {
-                    await _patient.UpdateOperationSheet(_model[0]);
+                    await _patient.UpdateOperationSheet(_model);
                     msg = "Data updated successfully";
                     return Json(msg);
                 }
-                else if (_PatientId > 0)
+                else if (_model.PatientID > 0 && _model.Id == 0)
                 {
-                    await _patient.AddOperationSheet(_model[0], _PatientId, cancellationToken);
-                    msg = "Data added successfully";
-                    return Json(msg);
-                }
-                else if (_model[0].PatientID > 0 && _model[0].Id == 0)
-                {
-                    await _patient.AddOperationSheet(_model[0], _model[0].PatientID, cancellationToken);
+                    await _patient.AddOperationSheet(_model, _model.PatientID, cancellationToken);
                     msg = "Data added successfully";
                     return Json(msg);
                 }
@@ -728,7 +632,7 @@ namespace App.Controllers
                     msg = "Data updated successfully";
                     return Json(msg);
                 }
-                if (_model.PatientID > 0)
+                else if (_model.PatientID > 0 && _model.Id == 0)
                 {
                     await _patient.AddDischarge(_model, _model.PatientID, cancellationToken);
                     msg = "Data added successfully";
@@ -743,14 +647,6 @@ namespace App.Controllers
         public async Task<IActionResult> Discharge(long PatientID, string ViewName)
         {
             var doctors = await _docterRepo.GetAllDoterList();
-
-            if (PatientID == 0)
-            {
-                if (_PatientId != 0)
-                {
-                    PatientID = _PatientId;
-                };
-            };
 
             PatientViewModel data = new PatientViewModel();
             if (PatientID > 0 && ViewName == "Edit")
@@ -1226,9 +1122,6 @@ namespace App.Controllers
         {
             PatientViewModel data = new PatientViewModel();
 
-            //ViewBag.PatientID = PatientID;
-
-
             if (PatientID > 0 && ViewName == "Edit")
             {
                 data = _patient.OutComeDetail(PatientID);
@@ -1245,9 +1138,7 @@ namespace App.Controllers
 
                 return GeneratePdf(data.Outcome);
             }
-            data.Outcome.PatientID = _PatientId;
             return PartialView("_Outcome", data);
-
         }
 
 
@@ -1266,22 +1157,13 @@ namespace App.Controllers
 
                     if (_model.Id > 0)
                     {
-
                         await _patient.UpdateOutCome(_model, cancellationToken);
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
                     else if (_model.PatientID > 0 && _model.Id == 0)
                     {
-
                         await _patient.AddOutCome(_model, _model.PatientID, cancellationToken);
-                        msg = "Data added successfully";
-                        return Json(msg);
-                    }
-                    else if (_PatientId > 0)
-                    {
-
-                        await _patient.AddOutCome(_model, _PatientId, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }
@@ -1314,10 +1196,10 @@ namespace App.Controllers
                         msg = "Data updated successfully";
                         return Json(msg);
                     }
-                    else if (_PatientId > 0 && _model.Id == 0)
+                    else if (_model.PatientID > 0 && _model.Id == 0)
                     {
 
-                        await _patient.AddOutCome(_model, _PatientId, cancellationToken);
+                        await _patient.AddOutCome(_model, _model.PatientID, cancellationToken);
                         msg = "Data added successfully";
                         return Json(msg);
                     }

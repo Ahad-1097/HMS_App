@@ -4,6 +4,7 @@ $("#AddInvestigationBtn").click(function (event) {
     var models = [];
     var model = {};
 
+    model.PatientID = $("#PatientModel_PatientID").val();
     model.Day = $("#InvestigationModel_Day").val();
     //CBC
     model.HB = $("#InvestigationModel_HB").val();

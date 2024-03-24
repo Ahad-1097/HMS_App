@@ -7,6 +7,7 @@
     <div>
         <input type="hidden" id="viewbegMethod" value="@ViewBag.Method" />
         <input type="hidden" id="viewbegPatientId" value="@ViewBag.PatientId" />
+        <input type="hidden" asp-for="PatientId" class="form-control" />
         <div class="row">
             <div class="col-6 col-sm-3 mb-2">
                 <h4>Blood sugar img</h4>
@@ -286,7 +287,7 @@
     <div class="form-group">
         <div class="alert alert-primary" role="alert" id="ImageSuccessMessage" style="display: none;"></div>
         <div class="alert alert-warning" role="alert" id="ImageErrorMessage" style="display: none;"></div>
-        <input type="submit" value="Save" id="Imagebtn" class="btn btn-primary" />
+        <input type="submit" value="Save" id="AddImagebtn" class="btn btn-primary" />
 
     </div>
 </form>

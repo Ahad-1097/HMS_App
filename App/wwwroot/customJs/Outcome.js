@@ -1,9 +1,8 @@
 // Outcome.js
 function getOutcomeFormModel() {
-    debugger
     var model = {
-        PatientID: ($("#Outcome_PatientID").val() !== "") ? $("#Outcome_PatientID").val() : 0,
-        Id: ($("#Outcome_Id").val() !== "") ? $("#Outcome_Id").val() : 0,
+        PatientID: ($("#Outcome_PatientID").val() || $("#PatientModel_PatientID").val() || 0),
+        Id: ($("#Outcome_Id").val() || 0),
         Date: $("#Outcome_Date").val(),
         Outcome: $("#Outcome_outcomeType").val()
     };

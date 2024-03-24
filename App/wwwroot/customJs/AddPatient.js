@@ -67,8 +67,10 @@ function getPatientFormModels() {
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
 
-            success: function (msg) {
-                $("#PatientsuccessMessage").text(msg).show();
+            success: function (id) {
+                $("#PatientModel_PatientID").val(id);
+                $("#PatientId").val(id);
+                $("#PatientsuccessMessage").text("successful").show();
                 $("#PatienterrorMessage").hide();
                 $("#PatientBtn").val("Successfull").prop("disabled", true);
             },

@@ -3,8 +3,10 @@
 
     var model = {};
     model.CBC = $("#Progress_CBC").val();
-    model.PatientID = $("#Progress_PatientID").val();
+    model.PatientID = $("#Progress_PatientID").val(); // this is for edit
     if (model.PatientID == "") {
+        model.PatientID = $("#PatientModel_PatientID").val(); //this id for create after patient is created
+    }else if (model.PatientID == "") {
         model.PatientID = 0;
     }
 

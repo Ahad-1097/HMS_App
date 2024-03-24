@@ -1,7 +1,7 @@
 ﻿function getOperationFromModel() {
     var formData = new FormData();
     debugger
-    formData.append('PatientID', $("#Operation_PatientID").val() || 0);
+    formData.append('PatientID', $("#Operation_PatientID").val() || $("#PatientModel_PatientID").val() || 0);
     formData.append('Id', $("#Operation_Id").val() || 0);
     formData.append('Dr_ID', $("#Operation_Dr_ID").val());
     formData.append('Date', $("#Operation_Date").val());

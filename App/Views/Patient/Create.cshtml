@@ -23,8 +23,9 @@
             <div class="col-xl-12 col-xxl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Patient Details</h4>
+                        <h4 class="card-title">Patient Details </h4>
                         <h4 id="commingfromAddimg" hidden>@ViewBag.addImagesSuccess</h4>
+                        <h4 id="commingfromAddimgPatientId" hidden>@ViewBag.addImagesSuccessPatientId</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-pills">
@@ -32,7 +33,6 @@
                             <li><a href="#AddInvestigation" data-toggle="tab" onclick="AddInvestigation()">Add Investigation</a></li>
                             <li><a href="#AddPicture" data-toggle="tab" onclick="AddPicture()">Add Picture</a></li>
                             <li><a href="#Progress" data-toggle="tab" onclick="Progress()">Progress</a></li>
-                            @* <li><a href="#Vitals" data-toggle="tab" onclick="Vitals()">Vitals</a></li> *@
                             <li><a href="#Diagnosis" data-toggle="tab" onclick="Diagnosis()">Diagnosis</a></li>
                             <li><a href="#CaseSheet" data-toggle="tab" onclick=" CaseSheet()">CaseSheet</a></li>
                             <li><a href="#Operation" data-toggle="tab" onclick="Operation()">Operation</a></li>
@@ -64,13 +64,6 @@
                                     Html.RenderPartial("AddProgress");
                                 }
                             </div>
-                           @*  <div id="Vitals" class="tab-pane">
-                                @{
-
-                                    Html.RenderPartial("AddVitals");
-                                }
-                            </div> *@
-
                             <div id="Diagnosis" class="tab-pane">
                                 @{
 
@@ -103,9 +96,6 @@
                             </div>
 
                         </div>
-
-                        @*<button id="prevBtn" class="btn btn-secondary">Previous</button>
-                        <button id="nextBtn" class="btn btn-primary">Next</button>*@
                     </div>
 
                 </div>
@@ -175,12 +165,17 @@
     <script src="~/customJs/Discharge.js"></script>
     <script src="~/customJs/ImageLoad.js"></script>
     <script src="~/customjs/Outcome.js"></script>
-    <script src="~/customjs/Vitals.js"></script>
     <script src="~/customJs/AddMultipleImage.js"></script>
     <script>
         $(document).ready(function () {
             $("#PatientBtn").prop("disabled", true);
             if ($("#commingfromAddimg").text() == "Data added successfully") {
+                var Pid = $("#commingfromAddimgPatientId").text();
+                $("#PatientModel_PatientID").val(Pid);
+                $("#PatientId").val(Pid);
+                $("#PatientsuccessMessage").text("successful").show();
+                $("#PatienterrorMessage").hide();
+                $("#PatientBtn").val("Successfull").prop("disabled", true);
                 $("#AddPatient").removeClass("active");
                 $("#AddPicture").addClass("active");
                 $("#PatientBtn").val("Successfull");
