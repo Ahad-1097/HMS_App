@@ -316,10 +316,14 @@
         }
 
         function LoadDischargePartial() {
+            var patientID = $("#PatientModel_PatientID").val();
+            if (patientID == "") {
+                patientID = 0;
+            }
             $.ajax({
                 url: '/Patient/Discharge', // Replace "ControllerName" with the actual name of your controller
                 type: 'GET',
-                data: { PatientID: 0, ViewName: "Create" },
+                data: { PatientID: patientID, ViewName: "Create" },
                 success: function (result) {
                     $('#Dischargepartial').html(result); // Replace the content of the container with the loaded partial view
                 },
