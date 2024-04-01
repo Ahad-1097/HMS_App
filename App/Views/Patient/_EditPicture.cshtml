@@ -17,7 +17,7 @@
                     imgct++;
                     @if (@item.Id > 0)
                     {
-                        <div class="col-2">
+                        <div class="col-6 col-md-2">
                             <label for="option">Image_@imgct</label>
                             <input type="radio" onclick="AddPicture('@item.PatientId', '@item.Id')" checked='@(item.Id == Model.InvestigationImages.Id)' placeholder="id" id="@item.Id" value="@item.Id" name="imgId" />
                         </div>
@@ -25,9 +25,10 @@
                 }
                 @if (imgct < 5)
                 {
-                    <label for="option">New Image</label>
-                    <input type="radio" onclick="AddPicture('@Model.InvestigationImages.PatientId', '-1')" checked='@(Model.InvestigationImages.Id == 0)' placeholder="id" id="newImg" value="newImg" name="imgId" />
-                    @* <input type="button" class="btn btn-primary" onclick="AddPicture('@Model.InvestigationImages.PatientId', '-1')" for="option" value="Add New Image"> *@
+                    <div class="col-6 col-md-2">
+                        <label for="option">New Image</label>
+                        <input type="radio" onclick="AddPicture('@Model.InvestigationImages.PatientId', '-1')" checked='@(Model.InvestigationImages.Id == 0)' placeholder="id" id="newImg" value="newImg" name="imgId" />
+                    </div>
                 }
             </div>
         }

@@ -2,7 +2,7 @@
 .viewimg {
     /*border: 1px solid #007a64;*/
     border-radius: 15px;
-    padding: 5px;
+    padding: 8px;
     display: inline-flex;
     justify-content: space-around;
     margin-right: 5px;
@@ -10,7 +10,8 @@
 }
 
 .imgofview {
-    padding:5px;
+    padding: 8px;
+    border-radius: 13px;
 }
 
 .nav-pills li a {
@@ -24,4 +25,10 @@
 }
 .editimg{
     width:50%;
+}
+
+@media only screen and (max-width: 567px) {
+    .imgofview {
+        padding: 17px;
+    }
 }
