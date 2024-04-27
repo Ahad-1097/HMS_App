@@ -18,8 +18,16 @@
             <div>
                 <a asp-controller="Patient" asp-action="Create" class="btn btn-primary mr-3" data-target="#addOrderModal">+New Patient</a>
                 <!-- <a href="patient-particular.html" class="btn btn-primary mr-3" data-toggle="modal" data-target="#addOrderModal">+New Patient</a> -->
-                @* <a href="#" class="btn btn-outline-primary"><i class="las la-calendar-plus scale5 mr-3"></i>Filter Date</a>*@
+                <a class="btn btn-primary" id="FilterDateBtn"><i class="las la-calendar-plus scale5 mr-3"></i>Filter DOA</a>
+
             </div>
+           
+        </div>
+        <div id="FilterDate" class="offset-4 mb-2" style="display: none;">
+            <label class="text-black font-w500">From:</label>  <input type="text" id="startDate" placeholder="Select start date">
+            <label class="text-black font-w500">To: </label>   <input type="text" id="endDate" placeholder="Select end date">
+            <button id="filterBtn" class="btn btn-primary">Filter</button>
+            <button id="clearFilterBtn" class="btn btn-danger">Clear Filters</button>
         </div>
         <!-- Add Order -->
         <div class="modal fade" id="addOrderModal">
@@ -58,6 +66,8 @@
             </div>
         </div>
         <div class="row">
+           
+            
             <div class="col-xl-12">
                 <div class="table-responsive card-table">
                     <table id="example5" class="display dataTablesCard white-border table-responsive-m">
@@ -118,7 +128,13 @@
 ***********************************-->
 @section scripts {
     <!-- Datatable -->
+    
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/datatables/js/datatables.init.js"></script>
+    @* <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> *@
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> *@
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/customjs/filter.js"></script>
 
 }
