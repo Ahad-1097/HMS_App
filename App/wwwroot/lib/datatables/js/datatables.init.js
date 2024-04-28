@@ -94,8 +94,11 @@ let dataSet = [
    // var table = $('#example3, #example4, #example5').DataTable();
 
     var table = $('#example3, #example4, #example5').DataTable({
+        "columnDefs": [
+            { "type": "date", "targets": [3] } // Treat column 4 (index 3) as date type for sorting
+        ],
         "ordering": true, // Disable initial sorting order
-        "order": [[0, "desc"]] // Set initial sorting order for columns
+        "order": [[3, "desc"]] // Set initial sorting order for columns
     });
 
 	$('#example tbody').on('click', 'tr', function () {

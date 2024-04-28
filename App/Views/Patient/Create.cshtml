@@ -248,9 +248,9 @@
         function AddInvestigation() {
             var btn = $("#PatientBtn").val();
             if (btn != "Successfull") {
-                $("#AddInvestigation").val("Patient shoub be added").prop("disabled", true);
+                $("#AddInvestigationBtn").val("Patient shoub be added").prop("disabled", true);
             } else {
-                $("#AddInvestigation").val("Add Investigation").prop("disabled", false);
+                $("#AddInvestigationBtn").val("Add Investigation").prop("disabled", false);
             }
 
         }
@@ -258,9 +258,9 @@
             var btn = $("#PatientBtn").val();
             var btn2 = $("#AddInvestigation").val();
             if (btn != "Successfull" && btn2 != "Add more") {
-                $("#Imagebtn").val("Patient and AddInvestigation form should be completed").prop("disabled", true);
+                $("#AddImagebtn").val("Patient form should be completed").prop("disabled", true);
             } else {
-                $("#Imagebtn").val("Save").prop("disabled", false);
+                $("#AddImagebtn").val("Save").prop("disabled", false);
             }
 
         }
@@ -309,13 +309,19 @@
         function Outcome() {
             var btn = $("#PatientBtn").val();
             if (btn != "Successfull") {
-                $("#OperationBtn").val("Patient form should be completed").prop("disabled", true);
+                $("#OutcomeBtn").val("Patient form should be completed").prop("disabled", true);
             } else {
-                $("#OperationBtn").val("Save").prop("disabled", false);
+                $("#OutcomeBtn").val("Save").prop("disabled", false);
             }
         }
 
         function LoadDischargePartial() {
+            var btn = $("#PatientBtn").val();
+            if (btn != "Successfull") {
+                $("#DischargeBtn").val("Previous form should be completed").prop("disabled", true);
+            } else {
+                $("#DischargeBtn").val("Save").prop("disabled", false);
+            }
             var patientID = $("#PatientModel_PatientID").val();
             if (patientID == "") {
                 patientID = 0;
@@ -331,12 +337,7 @@
                     console.log(xhr.responseText); // Log any error that occurred during the AJAX request
                 }
             });
-            var btn = $("#PatientBtn").val();
-            if (btn != "Successfull") {
-                $("#DischargeBtn").val("Previous form should be completed").prop("disabled", true);
-            } else {
-                $("#DischargeBtn").val("Save").prop("disabled", false);
-            }
+            
         }
         
 

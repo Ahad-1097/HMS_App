@@ -58,7 +58,7 @@ namespace App.Controllers
                 Role = "Admin";
             }
             var result = await _patient.GetPatientList(cancellationToken, Role);
-            result = result.OrderByDescending(patient => patient.PatientID).ToList();
+          // result = result.OrderByDescending(patient => patient.Name).ToList();
             return View(result);
 
             // var result = await _patient.GetPatientList(cancellationToken, Role);

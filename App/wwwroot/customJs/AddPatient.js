@@ -46,7 +46,7 @@ function getPatientFormModels() {
         if ((value == '' || value == undefined || value == 0) && !isAnyPropertyNull) {
             isAnyPropertyNull = false;
         } else {
-            
+
             isAnyPropertyNull = true;
             return isAnyPropertyNull;
 
@@ -90,12 +90,19 @@ function getPatientFormModels() {
 
 function makeRequired() {
     var phoneNumber = $("#PatientModel_PhoneNumber").val();
+    var DOA = $("#PatientModel_DOA").val();
     if (phoneNumber == "") {
         $("#PatientBtn").prop("disabled", true);
-        $("#PhoneNumber").removeClass("hidden");
-    } else {
+        // $("#PhoneNumber").removeClass("hidden");
+    }
+    else if (DOA == "") {
+        $("#PatientBtn").prop("disabled", true);
+        // $("#DOAError").removeClass("hidden");
+    }
+    else {
         $("#PatientBtn").prop("disabled", false);
-        $("#PhoneNumber").addClass("hidden");
+        //  $("#PhoneNumber").addClass("hidden");
+        // $("#DOAError").addClass("hidden");
     }
 
 }

@@ -17,7 +17,7 @@ namespace App.DtoModel
         public string Gender { get; set; }
         public string Age { get; set; }
         [DataType(DataType.Date)]
-        public DateTime? DOA { get; set; }
+        public string DOA { get; set; }
         public long Address_ID { get; set; }
         [ForeignKey(nameof(Address_ID))]
         public Address Address { get; set; }

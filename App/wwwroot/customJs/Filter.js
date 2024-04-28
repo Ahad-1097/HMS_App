@@ -31,7 +31,7 @@
         // Custom filter function
         $.fn.dataTable.ext.search.push(
             function (settings, data, dataIndex) {
-                var date = data[3] != '' ? compareDates(data[3]) : ''; // Assuming DOA is in the fourth column
+                var date = data[3] != '' ? GetFormatedDate(data[3]): ''; // Assuming DOA is in the fourth column
                 var startDateValid = startDate === '' || date >= startDate;
                 var endDateValid = endDate === '' || date <= endDate;
                 return startDateValid && endDateValid;
