@@ -27,6 +27,7 @@ namespace App.Repo
         IWebHostEnvironment _hostEnvironment;
         MyDataTable dataTable = new MyDataTable();
         static List<InvestigationImagesModel> imageFileList = new List<InvestigationImagesModel>();
+        List<string> fileExtensions = new List<string> {"gif", "pdf", "docx", "doc" };
 
         public PatientRepo(ApplicationContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -965,7 +966,6 @@ namespace App.Repo
                         {
                             maxImagesToInsert = Math.Min(fileList.Count, 5);
                         }
-
                     }
                 }
 
@@ -1288,14 +1288,25 @@ namespace App.Repo
                         fileName = Guid.NewGuid() + "_" + fileName;
                         var filePath = Path.Combine(directoryPath, fileName);
                         fileNames.Add(image.Name, fileName);
+                        string extension = Path.GetExtension(fileName).Replace(".","");
 
-                        using FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate);
-                        img.CopyTo(stream);
-                        stream.Close();
-                        CompressImage(filePath);
-                        if (File.Exists(filePath))
+                        if (fileExtensions.Contains(extension))
                         {
-                            File.Delete(filePath);
+                            var outputDir = filePath.Replace("TempImages_Data", "Images_Data");
+                            using FileStream stream1 = new FileStream(outputDir, FileMode.OpenOrCreate);
+                            img.CopyTo(stream1);
+                            stream1.Close();
+                        }
+                        else
+                        {
+                            using FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate);
+                            img.CopyTo(stream);
+                            stream.Close();
+                            CompressImage(filePath);
+                            if (File.Exists(filePath))
+                            {
+                                File.Delete(filePath);
+                            }
                         }
                     }
                 }
@@ -1359,14 +1370,25 @@ namespace App.Repo
                         }
                         // Add the file name to the list
                         fileNames[image.Name].Add(fileName);
-                        using FileStream stream = new FileStream(tempFilePath, FileMode.OpenOrCreate);
+                        string extension = Path.GetExtension(fileName).Replace(".", "");
 
-                        img.CopyTo(stream);
-                        stream.Close();
-                        CompressImage(tempFilePath);
-                        if (File.Exists(tempFilePath))
+                        if (fileExtensions.Contains(extension))
                         {
-                            File.Delete(tempFilePath);
+                            var outputDir = tempFilePath.Replace("TempImages_Data", "Images_Data");
+                            using FileStream stream1 = new FileStream(outputDir, FileMode.OpenOrCreate);
+                            img.CopyTo(stream1);
+                            stream1.Close();
+                        }
+                        else
+                        {
+                            using FileStream stream = new FileStream(tempFilePath, FileMode.OpenOrCreate);
+                            img.CopyTo(stream);
+                            stream.Close();
+                            CompressImage(tempFilePath);
+                            if (File.Exists(tempFilePath))
+                            {
+                                File.Delete(tempFilePath);
+                            }
                         }
                     }
                 }
