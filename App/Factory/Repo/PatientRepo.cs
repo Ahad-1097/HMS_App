@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace App.Repo
 {
@@ -821,7 +823,7 @@ namespace App.Repo
                     Name = _patient.Name,
                     Age = _patient.Age,
                     Gender = _patient.Gender,
-                    DOA = !string.IsNullOrWhiteSpace(_patient.DOA) ? Convert.ToDateTime( _patient.DOA) : DateTime.UtcNow,
+                    DOA = !string.IsNullOrWhiteSpace(_patient.DOA) ? Convert.ToDateTime(_patient.DOA) : DateTime.UtcNow,
                     Address_ID = _addressId,
                     PhoneNumber = _patient.PhoneNumber,
                     AlternateNumber = _patient.AlternateNumber,
@@ -959,9 +961,15 @@ namespace App.Repo
                     if (fileNames.ContainsKey(property.Name))
                     {
                         var fileList = fileNames[property.Name];
-                        maxImagesToInsert = Math.Min(fileList.Count, 5);
+                        if (fileList.Count > maxImagesToInsert)
+                        {
+                            maxImagesToInsert = Math.Min(fileList.Count, 5);
+                        }
+
                     }
                 }
+
+                List<InvestigationImages> InvImgTblList = new List<InvestigationImages>();
 
                 for (int i = 0; i < maxImagesToInsert; i++)
                 {
@@ -1078,9 +1086,11 @@ namespace App.Repo
                         InvImgTbl.UrineRM_img = fileNames["UrineRM_img"][i];
                     }
 
-                    await _context.InvestigationImages.AddAsync(InvImgTbl, cancellationToken);
-                    await _context.SaveChangesAsync(cancellationToken);
+                    InvImgTblList.Add(InvImgTbl);
+
                 }
+                await _context.InvestigationImages.AddRangeAsync(InvImgTblList, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
                 // return InvImgTbl.Id;
                 return true;
@@ -1097,113 +1107,140 @@ namespace App.Repo
                 var fileNames = SaveImagesforUpdate(_model);
                 if (fileNames.ContainsKey("BloodSugar_img"))
                 {
+                    DeleteExistingImage(_imgExists.BloodSugar_img);
                     _imgExists.BloodSugar_img = fileNames["BloodSugar_img"];
                 }
                 if (fileNames.ContainsKey("TFT_img"))
                 {
+                    DeleteExistingImage(_imgExists.TFT_img);
                     _imgExists.TFT_img = fileNames["TFT_img"];
                 }
                 if (fileNames.ContainsKey("USG_img"))
                 {
+                    DeleteExistingImage(_imgExists.USG_img);
                     _imgExists.USG_img = fileNames["USG_img"];
                 }
                 if (fileNames.ContainsKey("SONOMMOGRAPHY_img"))
                 {
+                    DeleteExistingImage(_imgExists.SONOMMOGRAPHY_img);
                     _imgExists.SONOMMOGRAPHY_img = fileNames["SONOMMOGRAPHY_img"];
                 }
                 if (fileNames.ContainsKey("CECT_img"))
                 {
+                    DeleteExistingImage(_imgExists.CECT_img);
                     _imgExists.CECT_img = fileNames["CECT_img"];
                 }
 
                 if (fileNames.ContainsKey("MRI_img"))
                 {
+                    DeleteExistingImage(_imgExists.MRI_img);
                     _imgExists.MRI_img = fileNames["MRI_img"];
                 }
                 if (fileNames.ContainsKey("FNAC_img"))
                 {
+                    DeleteExistingImage(_imgExists.FNAC_img);
                     _imgExists.FNAC_img = fileNames["FNAC_img"];
                 }
                 if (fileNames.ContainsKey("TrucutBiopsy_img"))
                 {
+                    DeleteExistingImage(_imgExists.TrucutBiopsy_img);
                     _imgExists.TrucutBiopsy_img = fileNames["TrucutBiopsy_img"];
                 }
                 if (fileNames.ContainsKey("ReceptorStatus_img"))
                 {
+                    DeleteExistingImage(_imgExists.ReceptorStatus_img);
                     _imgExists.ReceptorStatus_img = fileNames["ReceptorStatus_img"];
                 }
                 if (fileNames.ContainsKey("MRCP_img"))
                 {
+                    DeleteExistingImage(_imgExists.MRCP_img);
                     _imgExists.MRCP_img = fileNames["MRCP_img"];
                 }
                 if (fileNames.ContainsKey("ERCP_img"))
                 {
+                    DeleteExistingImage(_imgExists.ERCP_img);
                     _imgExists.ERCP_img = fileNames["ERCP_img"];
                 }
                 if (fileNames.ContainsKey("EndoscopyUpperGI_img"))
                 {
+                    DeleteExistingImage(_imgExists.EndoscopyUpperGI_img);
                     _imgExists.EndoscopyUpperGI_img = fileNames["EndoscopyUpperGI_img"];
                 }
                 if (fileNames.ContainsKey("EndoscopyLowerGI_img"))
                 {
+                    DeleteExistingImage(_imgExists.EndoscopyLowerGI_img);
                     _imgExists.EndoscopyLowerGI_img = fileNames["EndoscopyLowerGI_img"];
                 }
                 if (fileNames.ContainsKey("PETCT_img"))
                 {
+                    DeleteExistingImage(_imgExists.PETCT_img);
                     _imgExists.PETCT_img = fileNames["PETCT_img"];
                 }
                 if (fileNames.ContainsKey("TumorMarkers_img"))
                 {
+                    DeleteExistingImage(_imgExists.TumorMarkers_img);
                     _imgExists.TumorMarkers_img = fileNames["TumorMarkers_img"];
                 }
                 if (fileNames.ContainsKey("IVP_img"))
                 {
+                    DeleteExistingImage(_imgExists.IVP_img);
                     _imgExists.IVP_img = fileNames["IVP_img"];
                 }
                 if (fileNames.ContainsKey("MCU_img"))
                 {
+                    DeleteExistingImage(_imgExists.MCU_img);
                     _imgExists.MCU_img = fileNames["MCU_img"];
                 }
                 if (fileNames.ContainsKey("RGU_img"))
                 {
+                    DeleteExistingImage(_imgExists.RGU_img);
                     _imgExists.RGU_img = fileNames["RGU_img"]; /*Cystoscopy*/
                 }
 
                 if (fileNames.ContainsKey("ABG_img"))
                 {
+                    DeleteExistingImage(_imgExists.ABG_img);
                     _imgExists.ABG_img = fileNames["ABG_img"];
                 }
                 if (fileNames.ContainsKey("OtherO"))
                 {
+                    DeleteExistingImage(_imgExists.OtherO);
                     _imgExists.OtherO = fileNames["OtherO"];
                 }
                 if (fileNames.ContainsKey("CBC_img"))
                 {
+                    DeleteExistingImage(_imgExists.CBC_img);
                     _imgExists.CBC_img = fileNames["CBC_img"];
                 }
                 if (fileNames.ContainsKey("RFT_img"))
                 {
+                    DeleteExistingImage(_imgExists.RFT_img);
                     _imgExists.RFT_img = fileNames["RFT_img"];
                 }
                 if (fileNames.ContainsKey("PTINR_img"))
                 {
+                    DeleteExistingImage(_imgExists.PTINR_img);
                     _imgExists.PTINR_img = fileNames["PTINR_img"];
                 }
                 if (fileNames.ContainsKey("LFT_img"))
                 {
+                    DeleteExistingImage(_imgExists.LFT_img);
                     _imgExists.LFT_img = fileNames["LFT_img"];
                 }
                 if (fileNames.ContainsKey("PETCT_img"))
                 {
+                    DeleteExistingImage(_imgExists.PETCT_img);
                     _imgExists.PETCT_img = fileNames["PETCT_img"];
                 }
 
                 if (fileNames.ContainsKey("LIPIDPROFILE_img"))
                 {
+                    DeleteExistingImage(_imgExists.LIPIDPROFILE_img);
                     _imgExists.LIPIDPROFILE_img = fileNames["LIPIDPROFILE_img"];
                 }
                 if (fileNames.ContainsKey("UrineRM_img"))
                 {
+                    DeleteExistingImage(_imgExists.UrineRM_img);
                     _imgExists.UrineRM_img = fileNames["UrineRM_img"];
                 }
 
@@ -1229,7 +1266,7 @@ namespace App.Repo
                 }
             }
 
-            var folderName = "Images_Data"; // Change this to the desired folder name
+            var folderName = "TempImages_Data"; // Change this to the desired folder name
 
             List<string> fileNames1 = new List<string>();
             Dictionary<string, string> fileNames = new Dictionary<string, string>();
@@ -1255,6 +1292,11 @@ namespace App.Repo
                         using FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate);
                         img.CopyTo(stream);
                         stream.Close();
+                        CompressImage(filePath);
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
                     }
                 }
             }
@@ -1285,14 +1327,17 @@ namespace App.Repo
                 }
             }
 
-            var folderName = "Images_Data"; // Change this to the desired folder name
+
+            var tempFolderName = "TempImages_Data"; // Save temp imge before Compress Image after Compress Image it will delete
 
             List<string> fileNames1 = new List<string>();
             Dictionary<string, List<string>> fileNames = new Dictionary<string, List<string>>();
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderName);
-            if (!Directory.Exists(directoryPath))
+            // var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderName);
+            var tempDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", tempFolderName);
+
+            if (!Directory.Exists(tempDirectoryPath))
             {
-                Directory.CreateDirectory(directoryPath);
+                Directory.CreateDirectory(tempDirectoryPath);
             }
             try
             {
@@ -1306,7 +1351,7 @@ namespace App.Repo
                         IFormFile img = image;
                         var fileName = Path.GetFileName(image.FileName);
                         fileName = Guid.NewGuid() + "_" + fileName;
-                        var filePath = Path.Combine(directoryPath, fileName);
+                        var tempFilePath = Path.Combine(tempDirectoryPath, fileName);
                         //fileNames.Add(image.Name+"_"+ ct, fileName);
                         if (!fileNames.ContainsKey(image.Name))
                         {
@@ -1314,9 +1359,15 @@ namespace App.Repo
                         }
                         // Add the file name to the list
                         fileNames[image.Name].Add(fileName);
-                        using FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate);
+                        using FileStream stream = new FileStream(tempFilePath, FileMode.OpenOrCreate);
+
                         img.CopyTo(stream);
                         stream.Close();
+                        CompressImage(tempFilePath);
+                        if (File.Exists(tempFilePath))
+                        {
+                            File.Delete(tempFilePath);
+                        }
                     }
                 }
             }
@@ -1327,6 +1378,54 @@ namespace App.Repo
             }
 
             return fileNames;
+        }
+
+        public static void CompressImage(string imagePath)
+        {
+            // "Images_Data"; // Change this to the desired folder name
+
+            // Load the image from file
+            using var image = Image.Load(imagePath);
+
+
+            // Compress the image
+            using (var outputStream = new MemoryStream())
+            {
+                var encoder = new JpegEncoder
+                {
+                    // Reduce the quality to compress the image
+                    Quality = 20 // Adjust the quality as needed
+                };
+
+                image.Save(outputStream, encoder);
+
+                // Rewind the memory stream
+                outputStream.Seek(0, SeekOrigin.Begin);
+
+                // Save the compressed image back to the same path
+                var outputDir = imagePath.Replace("TempImages_Data", "Images_Data");
+                
+                using (var fileStream = File.OpenWrite(outputDir))
+                {
+                    outputStream.CopyTo(fileStream);
+                }
+            }
+        }
+
+        private static void DeleteExistingImage(string fileName)
+        {
+            var folderName = "Images_Data";
+
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderName);
+                var exisFilePath = Path.Combine(directoryPath, fileName);
+
+                if (File.Exists(exisFilePath))
+                {
+                    File.Delete(exisFilePath);
+                }
+            }
         }
 
         public DataTable addTempData(List<InvestigationModel> model)

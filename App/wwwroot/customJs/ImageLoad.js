@@ -19,7 +19,6 @@ function AddPicture(id, imgId) {
     }
 }
 $("#Imagebtn").click(function () {
-    debugger
     var imgModel = {};
     imgModel.PatientID = $("#InvestigationImages_PatientId").val();
 
@@ -115,7 +114,7 @@ $("#Imagebtn").click(function () {
         contentType: false,
         success: function (msg) {
 
-            $("#ImageSuccessMessage").text(msg).show();
+            $("#ImageSuccessMessage").text("Successful").show();
             ///$("#Imagebtn").prop("disabled", true);
         },
         error: function (xhr, status, error) {
