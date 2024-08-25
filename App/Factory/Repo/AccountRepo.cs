@@ -112,7 +112,7 @@ namespace App.Repo
                     user.Roles = roleValue;
                 }
 
-                var userViewModels = usersWithRoles.Select(user => new UserWithRoleViewModel
+                var userViewModels = usersWithRoles.Where(a=>a.Roles!="Admin").Select(user => new UserWithRoleViewModel
                 {
                     UserId = user.UserId,
                     UserName = user.UserName,
